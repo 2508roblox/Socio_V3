@@ -1,0 +1,202 @@
+import React, { useState } from 'react'
+import { UilSmile } from '@iconscout/react-unicons'
+import avatar from "../assets/imgs/avatar.avif";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import { UilVideo } from '@iconscout/react-unicons'
+import { UilImages } from '@iconscout/react-unicons'
+import { UilSmileBeam } from '@iconscout/react-unicons'
+import { UilCalendarAlt } from '@iconscout/react-unicons'
+
+// emoji lib
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
+import {Popover, PopoverTrigger, PopoverContent} from "@nextui-org/react";
+// file pond
+// card
+import {Card, CardBody, CardFooter, Image} from "@nextui-org/react";
+
+// Register the plugins
+//animation
+import { motion } from "framer-motion"
+
+const CreatePostModal = () => {
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
+    const [postContent , setPostContent] = useState('')
+    const [files, setFiles] = useState([])
+    const handleChangeContent = (e ) => {
+        setPostContent(e.target.value)
+    }
+    const handleEmoji = (e) => {
+        setPostContent(prev => prev + e.native)
+    }
+   
+    const handleFile = event => {
+        if (!event.target.files[0]) {
+            return
+        }
+        setFiles(prev => [...prev,  URL.createObjectURL(event.target.files[0])]);
+        console.log(files)
+        // const formData = new FormData();
+        // formData.append("fileupload", event.target.files[0]);
+
+        // fetch(REACT_APP_REST + "/product/upload", {
+        //     method: 'POST',
+
+        //     body: formData,
+        //     dataType: "jsonp"
+        // })
+    };
+  return (
+    <>
+  
+      <div
+        className="px-3 m-3 w-full rounded-xl py-2 bg-white shadow-md"
+        onClick={onOpen}
+      >
+        <h1 className="font-bold mb-2">Post Something</h1>
+        <hr />
+        <div className="  p-3  flex gap-4  items-start">
+        <Image
+              isZoomed
+              className=" rounded-full border-[2px] border-white shadow-md"
+              alt="NextUI hero Image"
+              width={40}
+
+              src={avatar}
+            />
+          
+          <div className=" w-full flex flex-col gap-2 items-center ">
+            <div className="px-4  rounded-xl border-none shadow-inner w-full flex justify-between items-center bg-primary-light p-2">
+              <input
+                className="bg-transparent outline-none"
+                type="text"
+                placeholder="what's new with you?"
+              />
+              <UilSmile></UilSmile>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* modal */}
+      <Modal
+        size="5xl"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        backdrop={"blur"}
+      >
+        <ModalContent className="">
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1 text-center">
+                Create Post
+              </ModalHeader>
+              <hr />
+              <ModalBody className="flex flex-col">
+                <div className=" flex gap-4 items-start ">
+                  <img
+                    className=" rounded-full border-[2px] border-white shadow-md"
+                    src={avatar}
+                    width={50}
+                    alt=""
+                  />
+                  <div className="">
+                    <h1 className="font-semibold">Roxie Mills</h1>
+                    <p className="text-medium text-text-gray">@admin</p>
+                  </div>
+                </div>
+                {/* input */}
+                <textarea
+                  name="content"
+                  placeholder="Roxie Mills, what are you thinking? "
+                  className="outline-none   p-2 rounded-2xl"
+                  id=""
+                  value={postContent}
+                  onChange={(e) => handleChangeContent(e)}
+                  cols="30"
+                  rows="3"
+                ></textarea>
+                <div className="flex justify-end">
+                 
+                  <Popover
+                  className='p-0'
+                    key={"bottom-start"}
+                    placement={"bottom-start"}
+                    color="primary"
+                  >
+                    <PopoverTrigger>
+                      <Button
+                        color=""
+                        variant="flat"
+                        className="capitalize"
+                      >
+                     <UilSmile></UilSmile>
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className='bg-transparent p-0'>
+                      <Picker data={data} onEmojiSelect={(e) => handleEmoji(e)} />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                <div className="media border flex justify-between items-center rounded-xl">
+                  <h1 className="ml-3">Add to your post</h1>
+                  <div className="flex gap-2  rounded-lg p-2 justify-end">
+                    <div className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light">
+                      <UilVideo color="#3B82F6    " /> Video
+                    </div>
+                    <label htmlFor='hehe'  className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light">
+                      <UilImages color="green" /> Image
+                    </label>
+                    <input onChange={(e) =>handleFile(event)} type="file" hidden name='hehe' id='hehe'/>
+                    <div className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light">
+                      <UilSmileBeam color="orange" /> Emoji
+                    </div>
+                    <div className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light">
+                      <UilCalendarAlt color="red" /> Schedule
+                    </div>
+                  </div>
+                </div>
+              {/* image preview */}
+             <div className="grid grid-cols-4 gap-3">
+             {files && files.map((file, index) => {
+               
+             
+               return <motion.div
+               initial={{ opacity: 0, scale: 0.8 }}
+               animate={{ opacity: 1, scale: 1 }}
+               transition={{
+                 duration: 0.3,
+                 ease: [0, 0.71, 0.2, 1.01],
+                 scale: {
+                   type: "spring",
+                   damping: 5,
+                   stiffness: 100,
+                   restDelta: 0.001
+                 }
+               }}
+             >
+             <Image
+             isBlurred
+
+             src={file}
+             alt="NextUI Album Cover"
+             classNames="m-5"
+           />
+           </motion.div>
+              })}
+             </div>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="primary" onPress={onClose}>
+                  Create
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}
+
+export default CreatePostModal
