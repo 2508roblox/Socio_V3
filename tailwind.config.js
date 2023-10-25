@@ -14,7 +14,7 @@ export default {
       },
       colors:{
         'primary-light':'#F2F5FA',
-        'primary-dark':'#F2F5FA',
+        'primary-dark':'#1A1A1A',
         'secondary-light':'#FFFFFF',
         'secondary-dark':'#282828',
         'btn-yellow': '#FFFD01',
@@ -29,6 +29,6 @@ export default {
   
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [nextui( )],
 }
 

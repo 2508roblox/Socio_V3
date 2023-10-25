@@ -7,6 +7,7 @@ import { UilAngleDown } from '@iconscout/react-unicons'
 import { UilBell } from '@iconscout/react-unicons'
 import lightLogo from '../assets/imgs/light-full-logo.png'
 import avatar from '../assets/imgs/avatar.avif'
+import UserDropdown from './UserDropdown'
 const Header = () => {
   return (
     <header className='grid grid-cols-5 h-[7vh] relative items-center'>
@@ -31,11 +32,7 @@ const Header = () => {
             </ul>
         </nav>
        <div className="px-2 flex items-center gap-4 justify-end">
-       <div className=" flex items-center gap-2">
-            <img src={avatar} className='rounded-full' width={40}  alt="" />
-            <span className='text-medium'>Giang Tran</span>
-            <UilAngleDown/> 
-        </div>
+       <UserDropdown  ></UserDropdown>
         <UilBell></UilBell>
        </div>
     </header>

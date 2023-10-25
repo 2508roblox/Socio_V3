@@ -15,6 +15,7 @@
     .input{
         @apply text-center text-red-400
     } 
+
 }
 @layer base {
     h1 {
@@ -27,6 +28,10 @@
         @apply text-xl;
     }
     div {
-        @apply text-xl;
+        @apply text-xl ;
     }
+    hr {
+        @apply dark:border-primary-dark
+    }
+
 }

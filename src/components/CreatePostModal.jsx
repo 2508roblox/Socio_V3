@@ -50,7 +50,7 @@ const CreatePostModal = () => {
     <>
   
       <div
-        className="px-3 m-3 w-full rounded-xl py-2 bg-white shadow-md"
+        className="px-3 m-3 w-full rounded-xl py-2 bg-white dark:bg-secondary-dark shadow-md"
         onClick={onOpen}
       >
         <h1 className="font-bold mb-2">Post Something</h1>
@@ -66,9 +66,9 @@ const CreatePostModal = () => {
             />
           
           <div className=" w-full flex flex-col gap-2 items-center ">
-            <div className="px-4  rounded-xl border-none shadow-inner w-full flex justify-between items-center bg-primary-light p-2">
+            <div className="px-4  rounded-xl border-none shadow-inner w-full flex justify-between items-center dark:bg-primary-dark bg-primary-light p-2">
               <input
-                className="bg-transparent outline-none"
+                className="bg-transparent outline-none "
                 type="text"
                 placeholder="what's new with you?"
               />
@@ -80,15 +80,16 @@ const CreatePostModal = () => {
 
       {/* modal */}
       <Modal
+      className='dark:bg-secondary-dark'
         size="5xl"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         backdrop={"blur"}
       >
-        <ModalContent className="">
+        <ModalContent className=" dark:bg-secondary-dark">
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1 text-center">
+              <ModalHeader className="flex flex-col gap-1 text-center dark:bg-secondary-dark">
                 Create Post
               </ModalHeader>
               <hr />

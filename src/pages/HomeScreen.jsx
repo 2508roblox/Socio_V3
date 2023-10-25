@@ -4,31 +4,33 @@ import avatar from "../assets/imgs/avatar.avif";
 import story from "../assets/imgs/story.jpg";
 import { UilSearch } from "@iconscout/react-unicons";
 import { UilBookMedical } from "@iconscout/react-unicons";
-import { UilSmile } from '@iconscout/react-unicons'
-import { UilVideo } from '@iconscout/react-unicons'
-import { UilImages } from '@iconscout/react-unicons'
-import { UilSmileBeam } from '@iconscout/react-unicons'
-import { UilCalendarAlt } from '@iconscout/react-unicons'
-import { UilEllipsisH } from '@iconscout/react-unicons'
-import { UilHeart } from '@iconscout/react-unicons'
-import { UilCommentDots } from '@iconscout/react-unicons'
-import { UilShare } from '@iconscout/react-unicons'
-import { UilBookmark } from '@iconscout/react-unicons'
-import {Avatar} from "@nextui-org/react";
-import { UilCheck } from '@iconscout/react-unicons'
-import { UilTimes } from '@iconscout/react-unicons'
-import {Card, CardFooter, Image, Button} from "@nextui-org/react";
+import { UilSmile } from "@iconscout/react-unicons";
+import { UilVideo } from "@iconscout/react-unicons";
+import { UilImages } from "@iconscout/react-unicons";
+import { UilSmileBeam } from "@iconscout/react-unicons";
+import { UilCalendarAlt } from "@iconscout/react-unicons";
+import { UilEllipsisH } from "@iconscout/react-unicons";
+import { UilHeart } from "@iconscout/react-unicons";
+import { UilCommentDots } from "@iconscout/react-unicons";
+import { UilShare } from "@iconscout/react-unicons";
+import { UilBookmark } from "@iconscout/react-unicons";
+import { Avatar } from "@nextui-org/react";
+import { UilCheck } from "@iconscout/react-unicons";
+import { UilTimes } from "@iconscout/react-unicons";
+import { UilPlus } from "@iconscout/react-unicons";
+import { Card, CardFooter, Image, Button } from "@nextui-org/react";
 import CreatePostModal from "../components/CreatePostModal";
 //animation
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 const HomeScreen = () => {
+
   return (
-    <div className="bg-primary-light w-full min-h-screen px-6 pt-3">
-      <Header></Header>
+    <div className="bg-primary-light  transition-all duration-1000 dark:bg-primary-dark w-full min-h-screen px-6 pt-3">
+      <Header  ></Header>
       <main className="grid grid-cols-5 mt-3">
         <div className="flex flex-col gap-4">
           {/* card */}
-          <div className="bg-secondary-light shadow-lg rounded-xl ">
+          <div className="bg-secondary-light dark:bg-secondary-dark shadow-lg rounded-xl ">
             <Image
               isBlurred
               about=""
@@ -71,6 +73,7 @@ const HomeScreen = () => {
 
             <div className="p-6 mt-2">
               <Button
+              
                 className="w-full  bg-btn-blue rounded-md text-xl  text-white p-4 "
                 size="lg"
               >
@@ -81,22 +84,22 @@ const HomeScreen = () => {
           {/* skills */}
           <h1 className="font-bold">Skills</h1>
           <div className="flex gap-3 flex-wrap ">
-            <p className="rounded-lg items-center text-center shadow-md text-text-light-gray bg-white px-4 py-1 ">
+            <p className="rounded-lg items-center text-center shadow-md text-text-light-gray bg-white dark:bg-secondary-dark px-4 py-1 ">
               React
             </p>
-            <p className="rounded-lg items-center text-center shadow-md text-text-light-gray bg-white px-4 py-1 ">
+            <p className="rounded-lg items-center text-center shadow-md text-text-light-gray bg-white dark:bg-secondary-dark px-4 py-1 ">
               Node
             </p>
-            <p className="rounded-lg items-center text-center shadow-md text-text-light-gray bg-white px-4 py-1 ">
+            <p className="rounded-lg items-center text-center shadow-md text-text-light-gray bg-white dark:bg-secondary-dark px-4 py-1 ">
               Php
             </p>
-            <p className="rounded-lg items-center text-center shadow-md text-text-light-gray bg-white px-4 py-1 ">
+            <p className="rounded-lg items-center text-center shadow-md text-text-light-gray bg-white dark:bg-secondary-dark px-4 py-1 ">
               Laravel
             </p>
-            <p className="rounded-lg items-center text-center shadow-md text-text-light-gray bg-white px-4 py-1 ">
+            <p className="rounded-lg items-center text-center shadow-md text-text-light-gray bg-white dark:bg-secondary-dark px-4 py-1 ">
               Mysql
             </p>
-            <p className="rounded-lg items-center text-center shadow-md text-text-light-gray bg-white px-4 py-1 ">
+            <p className="rounded-lg items-center text-center shadow-md text-text-light-gray bg-white dark:bg-secondary-dark px-4 py-1 ">
               UI/UX
             </p>
           </div>
@@ -152,25 +155,208 @@ const HomeScreen = () => {
           className="scrollbar-hide  col-span-3 flex flex-col h-[90vh] overflow-y-scroll overflow-x-visible"
         >
           {/* story */}
-          <div className=" h-[240px]    w-full px-3 flex gap-2 whitespace-nowrap  overflow-x-scroll  overflow-y-hidden scrollbar-hide mx-2 ">
+          <div className=" h-[240px]    w-full px-3 flex gap-2   overflow-x-scroll  overflow-y-hidden scrollbar-hide mx-4 ">
             {/*  */}
-
-            <div className=" story-card h-[100%]  w-[120px]   relative shadow-md rounded-2xl  flex">
-              <motion.button
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.3 },
-                }}
-                whileTap={{ scale: 0.9 }}
+            <div className=" story-card h-[100%]  w-[140px]   flex-shrink-0  relative shadow-md rounded-2xl  flex flex-col border-[2px] border-gray-400 border-dashed items-center justify-center gap-4">
+              <Button
+                className="h-full p-3  flex flex-col w-[100%] p-0 bg-transparent"
+                color="primary"
+              >
+                <div className=" p-4 bg-blue-100 rounded-full">
+                  <UilPlus className="text-btn-blue  rounded-full"></UilPlus>
+                </div>
+                <div className="   text-center ">
+                  <h1 className="text-sm font-semibold   text-text-gray">
+                    Create <br /> new story
+                  </h1>
+                </div>
+              </Button>
+            </div>
+            {/*  */}
+            <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+              <Button
+                className="h-full w-[100%] p-0 bg-transparent"
+                color="primary"
               >
                 <Image
-                   isBlurred
-                   shadow={"sm"}
-                className=""
+                  isBlurred
+                  shadow={"sm"}
+                  className="h-[100%]"
                   alt="NextUI hero Image"
                   src={story}
                 />
-              </motion.button>
+              </Button>
+              <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                <Avatar size="sm" isBordered src={avatar} />
+                <p className="text-white text-xs font-medium">Alex</p>
+              </div>
+            </div>
+            {/*  */}
+            <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+              <Button
+                className="h-full w-[100%] p-0 bg-transparent"
+                color="primary"
+              >
+                <Image
+                  isBlurred
+                  shadow={"sm"}
+                  className="h-[100%]"
+                  alt="NextUI hero Image"
+                  src={story}
+                />
+              </Button>
+              <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                <Avatar size="sm" isBordered src={avatar} />
+                <p className="text-white text-xs font-medium">Alex</p>
+              </div>
+            </div>
+            {/*  */}
+            <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+              <Button
+                className="h-full w-[100%] p-0 bg-transparent"
+                color="primary"
+              >
+                <Image
+                  isBlurred
+                  shadow={"sm"}
+                  className="h-[100%]"
+                  alt="NextUI hero Image"
+                  src={story}
+                />
+              </Button>
+              <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                <Avatar size="sm" isBordered src={avatar} />
+                <p className="text-white text-xs font-medium">Alex</p>
+              </div>
+            </div>
+            {/*  */}
+            <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+              <Button
+                className="h-full w-[100%] p-0 bg-transparent"
+                color="primary"
+              >
+                <Image
+                  isBlurred
+                  shadow={"sm"}
+                  className="h-[100%]"
+                  alt="NextUI hero Image"
+                  src={story}
+                />
+              </Button>
+              <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                <Avatar size="sm" isBordered src={avatar} />
+                <p className="text-white text-xs font-medium">Alex</p>
+              </div>
+            </div>
+            {/*  */}
+            <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+              <Button
+                className="h-full w-[100%] p-0 bg-transparent"
+                color="primary"
+              >
+                <Image
+                  isBlurred
+                  shadow={"sm"}
+                  className="h-[100%]"
+                  alt="NextUI hero Image"
+                  src={story}
+                />
+              </Button>
+              <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                <Avatar size="sm" isBordered src={avatar} />
+                <p className="text-white text-xs font-medium">Alex</p>
+              </div>
+            </div>
+            {/*  */}
+            <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+              <Button
+                className="h-full w-[100%] p-0 bg-transparent"
+                color="primary"
+              >
+                <Image
+                  isBlurred
+                  shadow={"sm"}
+                  className="h-[100%]"
+                  alt="NextUI hero Image"
+                  src={story}
+                />
+              </Button>
+              <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                <Avatar size="sm" isBordered src={avatar} />
+                <p className="text-white text-xs font-medium">Alex</p>
+              </div>
+            </div>
+            {/*  */}
+            <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+              <Button
+                className="h-full w-[100%] p-0 bg-transparent"
+                color="primary"
+              >
+                <Image
+                  isBlurred
+                  shadow={"sm"}
+                  className="h-[100%]"
+                  alt="NextUI hero Image"
+                  src={story}
+                />
+              </Button>
+              <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                <Avatar size="sm" isBordered src={avatar} />
+                <p className="text-white text-xs font-medium">Alex</p>
+              </div>
+            </div>
+            {/*  */}
+            <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+              <Button
+                className="h-full w-[100%] p-0 bg-transparent"
+                color="primary"
+              >
+                <Image
+                  isBlurred
+                  shadow={"sm"}
+                  className="h-[100%]"
+                  alt="NextUI hero Image"
+                  src={story}
+                />
+              </Button>
+              <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                <Avatar size="sm" isBordered src={avatar} />
+                <p className="text-white text-xs font-medium">Alex</p>
+              </div>
+            </div>
+            {/*  */}
+            <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+              <Button
+                className="h-full w-[100%] p-0 bg-transparent"
+                color="primary"
+              >
+                <Image
+                  isBlurred
+                  shadow={"sm"}
+                  className="h-[100%]"
+                  alt="NextUI hero Image"
+                  src={story}
+                />
+              </Button>
+              <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                <Avatar size="sm" isBordered src={avatar} />
+                <p className="text-white text-xs font-medium">Alex</p>
+              </div>
+            </div>
+            {/*  */}
+            <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+              <Button
+                className="h-full w-[100%] p-0 bg-transparent"
+                color="primary"
+              >
+                <Image
+                  isBlurred
+                  shadow={"sm"}
+                  className="h-[100%]"
+                  alt="NextUI hero Image"
+                  src={story}
+                />
+              </Button>
               <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
                 <Avatar size="sm" isBordered src={avatar} />
                 <p className="text-white text-xs font-medium">Alex</p>
@@ -181,7 +367,7 @@ const HomeScreen = () => {
           <CreatePostModal></CreatePostModal>
           {/* posts */}
           <div className="posts ">
-            <div className=" m-3 flex flex-col gap-4   bg-white shadow-lg rounded-3xl">
+            <div className=" m-3 flex flex-col gap-4   bg-white dark:bg-secondary-dark shadow-lg rounded-3xl">
               <div className=" pt-6 px-6  items-start flex flex-row justify-between ">
                 <div className=" flex gap-4 items-start">
                   <Image
@@ -207,25 +393,44 @@ const HomeScreen = () => {
               <p className=" px-6 ">
                 Travelling to the future. It's already December 2018 here!
               </p>
-              <div className=" px-6 py-2 img-container gap-4    grid grid-cols-2 ">
-                <img
-                  className="row-span-2 h-full  rounded-2xl"
+              <div className=" px-6 py-2 img-container gap-4  h-[100%]   grid grid-cols-2 ">
+             <div className="row-span-2    col-span-1 ">
+             <Image
+
+     
+    shadow="sm"
+                  className="    h-[800px] object-cover  rounded-2xl"
+                  alt="NextUI hero Image"
+               
                   src="https://w0.peakpx.com/wallpaper/241/723/HD-wallpaper-road-clouds-landscape-nature-sky.jpg"
-                  alt=""
                 />
-                <img
-                  className="  h-[300px] w-full object-cover rounded-2xl"
+             </div>
+             <Image
+             isBlurred
+             shadow="sm"
+             removeWrapper={true}
+                  className="   h-full w-[100%]  object-cover  rounded-2xl"
+                  alt="NextUI hero Image"
+               
                   src="https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg"
-                  alt=""
                 />
-                <img
-                  className="  h-[300px] w-full object-cover rounded-2xl"
+             <Image
+             isBlurred
+             shadow="sm"
+             removeWrapper={true}
+
+                  className="    h-full w-[100%]  object-cover  rounded-2xl"
+                  alt="NextUI hero Image"
+               
                   src="https://img.freepik.com/free-photo/forest-landscape_71767-127.jpg"
-                  alt=""
+                  
                 />
+                  
+                
+               
               </div>
               {/* handle */}
-              <hr />
+              <hr className=" " />
 
               <div className=" px-6 flex justify-between mx-6">
                 <div className="flex items-center gap-2 text-lg font-medium opacity-60 ">
@@ -262,7 +467,7 @@ const HomeScreen = () => {
         {/* etc */}
         <div className="flex flex-col gap-4   overflow-y-scroll h-[90vh]  scrollbar-hide pr-4">
           {/* ads */}
-          <div className="mx-3 bg-white p-6 rounded-2xl shadow-lg relative w-full flex flex-col gap-2 ">
+          <div className="mx-3 bg-white dark:bg-secondary-dark p-6 rounded-2xl shadow-lg relative w-full flex flex-col gap-2 ">
             <Image
               isZoomed
               className="w-full h-[214px] object-cover scroll-m-0  "
@@ -294,7 +499,7 @@ const HomeScreen = () => {
             </Button>
           </div>
           {/* friend requests */}
-          <div className="mx-3 bg-white p-6 rounded-2xl shadow-lg relative w-full flex flex-col gap-2 ">
+          <div className="mx-3 bg-white dark:bg-secondary-dark p-6 rounded-2xl shadow-lg relative w-full flex flex-col gap-2 ">
             <div className="flex gap-2 justify-between items-center ">
               <h1 className="font-bold">Friend Requests</h1>
               <span className="text-medium font-medium text-btn-blue">
@@ -331,7 +536,7 @@ const HomeScreen = () => {
             </div>
           </div>
           {/* suggest page */}
-          <div className="mx-3 bg-white p-6 rounded-2xl shadow-lg relative w-full flex flex-col gap-2 ">
+          <div className="mx-3 bg-white dark:bg-secondary-dark p-6 rounded-2xl shadow-lg relative w-full flex flex-col gap-2 ">
             <div className="flex gap-2 justify-between items-center ">
               <h1 className="font-bold">Suggested Page</h1>
               <span className="text-medium font-medium text-btn-blue">
