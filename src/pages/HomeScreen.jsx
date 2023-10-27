@@ -74,7 +74,7 @@ const HomeScreen = () => {
             <div className="p-6 mt-2">
               <Button
               
-                className="w-full  bg-btn-blue rounded-md text-xl  text-white p-4 "
+                className="w-full  bg-btn-blue rounded-md text-xl dark:text-black  text-white p-4 "
                 size="lg"
               >
                 My Profile
@@ -159,11 +159,11 @@ const HomeScreen = () => {
             {/*  */}
             <div className=" story-card h-[100%]  w-[140px]   flex-shrink-0  relative shadow-md rounded-2xl  flex flex-col border-[2px] border-gray-400 border-dashed items-center justify-center gap-4">
               <Button
-                className="h-full p-3  flex flex-col w-[100%] p-0 bg-transparent"
+                className="h-full p-3  dark:bg-transparent flex flex-col w-[100%]  bg-transparent"
                 color="primary"
               >
-                <div className=" p-4 bg-blue-100 rounded-full">
-                  <UilPlus className="text-btn-blue  rounded-full"></UilPlus>
+                <div className=" p-4 bg-blue-100 dark:bg-btn-gray rounded-full">
+                  <UilPlus className="text-btn-blue  dark:text-btn-yellow rounded-full"></UilPlus>
                 </div>
                 <div className="   text-center ">
                   <h1 className="text-sm font-semibold   text-text-gray">
@@ -527,11 +527,11 @@ const HomeScreen = () => {
                 <p className=" pr-2 text-medium font-semibold">Accept</p>
               </Button>
               <Button
-                className="w-full    bg-text-light-gray rounded-md text-xl  text-white p-4 "
+                className="w-full  dark:bg-btn-gray dark:text-white  bg-text-light-gray rounded-md text-xl  text-white p-4 "
                 size="lg"
               >
                 <UilTimes />{" "}
-                <p className=" pr-2 text-medium font-semibold">Ignore</p>
+                <p className=" pr-2 text-medium font-semibold ">Ignore</p>
               </Button>
             </div>
           </div>

@@ -83,7 +83,7 @@ const CreatePostModal = () => {
 
       {/* modal */}
       <Modal
-      className='dark:bg-secondary-dark'
+      className={ `${theme} dark:bg-secondary-dark `}
         size="5xl"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -92,11 +92,11 @@ const CreatePostModal = () => {
         <ModalContent className=" dark:bg-secondary-dark">
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1 text-center dark:bg-secondary-dark">
+              <ModalHeader className="flex flex-col gap-1 dark:bg-secondary-dark text-center dark:text-white ">
                 Create Post
               </ModalHeader>
               <hr />
-              <ModalBody className="flex flex-col">
+              <ModalBody className="flex flex-col dark:bg-secondary-dark">
                 <div className=" flex gap-4 items-start ">
                   <img
                     className=" rounded-full border-[2px] border-white shadow-md"
@@ -105,7 +105,7 @@ const CreatePostModal = () => {
                     alt=""
                   />
                   <div className="">
-                    <h1 className="font-semibold">Roxie Mills</h1>
+                    <h1 className="font-semibold dark:text-white">Roxie Mills</h1>
                     <p className="text-medium text-text-gray">@admin</p>
                   </div>
                 </div>
@@ -123,7 +123,7 @@ const CreatePostModal = () => {
                 <div className="flex justify-end">
                  
                   <Popover
-                  className='p-0'
+                  className='p-0  '
                     key={"bottom-start"}
                     placement={"bottom-start"}
                     color="primary"
@@ -143,19 +143,19 @@ const CreatePostModal = () => {
                   </Popover>
                 </div>
                 <div className="media border flex justify-between items-center rounded-xl">
-                  <h1 className="ml-3">Add to your post</h1>
+                  <h1 className="ml-3 dark:text-white">Add to your post</h1>
                   <div className="flex gap-2  rounded-lg p-2 justify-end">
-                    <div className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light">
+                    <div className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-secondary-dark text-white">
                       <UilVideo color="#3B82F6    " /> Video
                     </div>
-                    <label htmlFor='hehe'  className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light">
+                    <label htmlFor='hehe'  className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-secondary-dark text-white">
                       <UilImages color="green" /> Image
                     </label>
                     <input onChange={(e) =>handleFile(event)} type="file" hidden name='hehe' id='hehe'/>
-                    <div className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light">
+                    <div className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-secondary-dark  text-white">
                       <UilSmileBeam color="orange" /> Emoji
                     </div>
-                    <div className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light">
+                    <div className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-secondary-dark text-white">
                       <UilCalendarAlt color="red" /> Schedule
                     </div>
                   </div>
@@ -190,7 +190,7 @@ const CreatePostModal = () => {
               })}
              </div>
               </ModalBody>
-              <ModalFooter>
+              <ModalFooter className='dark:bg-secondary-dark'>
                 <Button color="primary" onPress={onClose}>
                   Create
                 </Button>

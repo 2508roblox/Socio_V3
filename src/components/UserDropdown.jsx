@@ -16,7 +16,7 @@ const UserDropdown = () => {
     className={`${theme}   `}
     >
       <DropdownTrigger>
-        <Button color={"gray"} variant={"shadow"} className="capitalize p-0 ">
+        <Button color={"gray"} variant={"shadow"} className="dark:bg-transparent dark:text-white capitalize p-0 ">
           <div className=" flex items-center gap-2 p-2">
             <img src={avatar} className="rounded-full" width={40} alt="" />
             <span className="text-medium">Giang Tran</span>

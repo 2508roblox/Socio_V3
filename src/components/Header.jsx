@@ -8,6 +8,7 @@ import { UilBell } from '@iconscout/react-unicons'
 import lightLogo from '../assets/imgs/light-full-logo.png'
 import avatar from '../assets/imgs/avatar.avif'
 import UserDropdown from './UserDropdown'
+import {Tabs, Tab} from "@nextui-org/react"; 
 const Header = () => {
   return (
     <header className='grid grid-cols-5 h-[7vh] relative items-center'>
@@ -16,20 +17,44 @@ const Header = () => {
                 <input className='w-4/5 px-2 py-2 rounded-lg shadow-md' type="text" placeholder='#Explore...' />
         </div>
         <nav className='col-span-3 px-2'>
-            <ul className='flex justify-center gap-10'>
-                <li className=''>
-                    <UilEstate size={30} className="opacity-70"/>
-                </li>
-                <li>
-                    <UilCompass size={30} className="opacity-70"/>
-                </li>
-                <li>
-                    <UilHipchat size={30} className="opacity-70"/>
-                </li>
-                <li>
-                    <UilUsersAlt size={30} className="opacity-70"/>
-                </li>
-            </ul>
+             
+            <Tabs aria-label="Options" color="primary" className='flex justify-center gap-10' variant="bordered">
+        <Tab className='bg-red'
+          key="photos"
+          title={
+            <div className="flex items-center space-x-2 ">
+                                <UilEstate size={30} className="opacity-70"/>  
+            </div>
+          }
+        />
+        <Tab className='bg-red'
+          key="music"
+          title={
+            <div className="flex items-center space-x-2 ">
+                                 <UilCompass size={30} className="opacity-70"/>
+              
+            </div>
+          }
+        />
+        <Tab className='bg-red'
+          key="videos"
+          title={
+            <div className="flex items-center space-x-2 ">
+                                <UilHipchat size={30} className="opacity-70"/>
+          
+            </div>
+          }
+        />
+        <Tab className='bg-red'
+          key="more"
+          title={
+            <div className="flex items-center space-x-2 ">
+                                <UilUsersAlt size={30} className="opacity-70"/>
+             
+            </div>
+          }
+        />
+      </Tabs>
         </nav>
        <div className="px-2 flex items-center gap-4 justify-end">
        <UserDropdown  ></UserDropdown>

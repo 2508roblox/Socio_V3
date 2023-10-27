@@ -19,6 +19,7 @@ export default {
         'secondary-dark':'#282828',
         'btn-yellow': '#FFFD01',
         'btn-blue': '#3B82F6',
+        'btn-gray': '#333333',
         'text-light-gray': '#bbbbbb',
         'text-gray': '#9a9a9a',
         'text-yellow': '#FFFD01',
