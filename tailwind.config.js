@@ -32,12 +32,32 @@ export default {
   },
   darkMode: "class",
   plugins: [ nextui({
+    colors: {
+      blue: {
+        50: "#3B82F6",
+        100: "#cce3fd",
+        200: "#99c7fb",
+        300: "#66aaf9",
+        400: "#338ef7",
+        500: "#006FEE",
+        600: "#005bc4",
+        700: "#004493",
+        800: "#002e62",
+        900: "#001731",
+      },
+      yellow: {
+        50: "#FFFD01",
+        
+      }
      
+    },
     themes: {
       light: {
         colors: {
           primary: {
             DEFAULT: "#3B82F6",
+          
+
           },
         }
       },
@@ -45,8 +65,10 @@ export default {
         colors: {
           primary: {
             DEFAULT: "#FFFD01",
+            foreground: '#000000'
           },
         }
+        
       },
     },
   }),],

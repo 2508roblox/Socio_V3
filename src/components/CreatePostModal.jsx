@@ -100,7 +100,7 @@ const CreatePostModal = () => {
               <ModalBody className="flex flex-col dark:bg-secondary-dark">
                 <div className=" flex gap-4 items-start ">
                   <img
-                    className=" rounded-full border-[2px] border-white shadow-md"
+                    className=" rounded-full border-[2px] border-white dark:border-black shadow-md"
                     src={avatar}
                     width={50}
                     alt=""

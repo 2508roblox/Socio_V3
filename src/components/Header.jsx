@@ -21,11 +21,11 @@ const Header = () => {
         </div>
         <nav className='col-span-3 px-2'>
              
-            <Tabs onSelectionChange={(e) => {console.log(e)}}  aria-label="Options"   color={`primary`} className='flex justify-center gap-10 bg-transparent ' variant="light">
+            <Tabs onSelectionChange={(e) => {console.log(e)}}  aria-label="Options"   color={`primary`} className={`${theme} flex justify-center gap-10 bg-transparent `} variant="light">
         <Tab   className='dark:bg-transparent border-none '
           key="photos"
           title={
-            <div className="flex items-center space-x-2 dark:text-white rounded-full">
+            <div className="flex items-center space-x-2  rounded-full">
                                 <UilEstate size={23}   className="opacity-70"/>  
             </div>
           }
@@ -33,7 +33,7 @@ const Header = () => {
         <Tab onPress={(e) => console.log(e)} className='dark:bg-transparent'
           key="music"
           title={
-            <div className="flex items-center space-x-2 dark:text-white ">
+            <div className="flex items-center space-x-2  ">
                                  <UilCompass size={23}   className="opacity-70"/>
               
             </div>
@@ -42,7 +42,7 @@ const Header = () => {
         <Tab className='dark:bg-transparent'
           key="videos"
           title={
-            <div className="flex items-center space-x-2 dark:text-white  ">
+            <div className="flex items-center space-x-2   ">
                                 <UilHipchat size={23}   className="opacity-70"/>
           
             </div>
@@ -51,7 +51,7 @@ const Header = () => {
         <Tab className='dark:bg-transparent'
           key="more"
           title={
-            <div className="flex items-center space-x-2 dark:text-white ">
+            <div className="flex items-center space-x-2  ">
                                 <UilUsersAlt size={23}  className="opacity-70"/>
              
             </div>
