@@ -114,7 +114,7 @@ const CreatePostModal = () => {
                 <textarea
                   name="content"
                   placeholder="Roxie Mills, what are you thinking? "
-                  className="outline-none   p-2 rounded-2xl"
+                  className="outline-none dark:text-white   p-2 rounded-2xl"
                   id=""
                   value={postContent}
                   onChange={(e) => handleChangeContent(e)}

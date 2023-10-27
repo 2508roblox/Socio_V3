@@ -20,6 +20,7 @@ import { UilTimes } from "@iconscout/react-unicons";
 import { UilPlus } from "@iconscout/react-unicons";
 import { Card, CardFooter, Image, Button } from "@nextui-org/react";
 import CreatePostModal from "../components/CreatePostModal";
+import ConfettiExplosion from 'react-confetti-explosion';
 //animation
 import { motion } from "framer-motion";
 import {Input} from "@nextui-org/react";
@@ -437,8 +438,9 @@ const HomeScreen = () => {
 
 
 
-                   {isLiked ? (
+                   {!isLiked ? (
                 
+             <>
                 <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="26"
@@ -451,7 +453,9 @@ const HomeScreen = () => {
                   fill-rule="evenodd"
                   d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
                 />
+
               </svg>
+             </>
 
                    ) : (
                     <motion.div
@@ -482,6 +486,8 @@ const HomeScreen = () => {
                          d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
                        />
                      </svg>
+              <ConfettiExplosion zIndex="100" width="600" height="30vh" particleSize="3px"  />
+
                    </motion.div>
 
                    )}
