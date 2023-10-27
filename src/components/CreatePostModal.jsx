@@ -83,6 +83,7 @@ const CreatePostModal = () => {
 
       {/* modal */}
       <Modal
+      hideCloseButton='true'
       className={ `${theme} dark:bg-secondary-dark `}
         size="5xl"
         isOpen={isOpen}
@@ -132,9 +133,9 @@ const CreatePostModal = () => {
                       <Button
                         color=""
                         variant="flat"
-                        className="capitalize"
+                        className="capitalize dark:bg-transparent  "
                       >
-                     <UilSmile></UilSmile>
+                     <UilSmile className="dark:text-white"></UilSmile>
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className='bg-transparent p-0'>
@@ -142,7 +143,7 @@ const CreatePostModal = () => {
                     </PopoverContent>
                   </Popover>
                 </div>
-                <div className="media border flex justify-between items-center rounded-xl">
+                <div className="media border dark:border-black flex justify-between items-center rounded-xl">
                   <h1 className="ml-3 dark:text-white">Add to your post</h1>
                   <div className="flex gap-2  rounded-lg p-2 justify-end">
                     <div className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-secondary-dark text-white">

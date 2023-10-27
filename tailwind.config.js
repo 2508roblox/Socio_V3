@@ -26,10 +26,29 @@ export default {
         'text-blue': '#3B82F6',
       },
       
+      
     },
   
   },
   darkMode: "class",
-  plugins: [nextui( )],
+  plugins: [ nextui({
+     
+    themes: {
+      light: {
+        colors: {
+          primary: {
+            DEFAULT: "#3B82F6",
+          },
+        }
+      },
+      dark: {
+        colors: {
+          primary: {
+            DEFAULT: "#FFFD01",
+          },
+        }
+      },
+    },
+  }),],
 }
 
