@@ -18,11 +18,14 @@ import {Card, CardBody, CardFooter, Image} from "@nextui-org/react";
 // Register the plugins
 //animation
 import { motion } from "framer-motion"
+import { useSelector } from 'react-redux';
 
 const CreatePostModal = () => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const [postContent , setPostContent] = useState('')
     const [files, setFiles] = useState([])
+    const {theme} = useSelector((state) => state.theme)
+    
     const handleChangeContent = (e ) => {
         setPostContent(e.target.value)
     }
@@ -58,7 +61,7 @@ const CreatePostModal = () => {
         <div className="  p-3  flex gap-4  items-start">
         <Image
               isZoomed
-              className=" rounded-full border-[2px] border-white shadow-md"
+              className={`${theme}  rounded-full border-[2px] border-white shadow-md`}
               alt="NextUI hero Image"
               width={40}
 

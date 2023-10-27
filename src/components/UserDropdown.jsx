@@ -10,9 +10,10 @@ import { toggleMode } from '../services/slices/themeSlice';
 const UserDropdown = () => {
   const dispatch = useDispatch()
     const [isInvisible, setIsInvisible] = useState(false);
+    const {theme} = useSelector((state) => state.theme)
   return (
     <Dropdown 
-    className='dark dark:bg-secondary-dark'
+    className={`${theme}   `}
     >
       <DropdownTrigger>
         <Button color={"gray"} variant={"shadow"} className="capitalize p-0 ">
@@ -23,7 +24,7 @@ const UserDropdown = () => {
           </div>
         </Button>
       </DropdownTrigger>
-      <DropdownMenu
+      <DropdownMenu className='dark:text-white'
     
         aria-label="Dropdown Variants"
         color={"primary"}
