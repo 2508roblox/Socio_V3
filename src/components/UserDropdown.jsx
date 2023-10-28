@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleMode } from '../services/slices/themeSlice';
 const UserDropdown = () => {
   const dispatch = useDispatch()
-    const [isInvisible, setIsInvisible] = useState(false);
+    
     const {theme} = useSelector((state) => state.theme)
   return (
     <Dropdown 
@@ -37,9 +37,9 @@ const UserDropdown = () => {
         >
           Theme
           <Switch
-        
+
             thumbIcon={({ isSelected, className }) =>
-              isSelected ? (
+            theme == 'light'   ? (
                 <UilSun className={className} />
               ) : (
                 <UilMoon className={className} />
@@ -55,8 +55,8 @@ const UserDropdown = () => {
             }}
             size="sm"
             className="flex float-right text-sm"
-            isSelected={!isInvisible}
-            onValueChange={(value) => setIsInvisible(!value)}
+            isSelected={theme == 'light'}
+            onValueChange={(value) => theme }
           ></Switch>
         </DropdownItem>
         <DropdownItem key="edit">Setting</DropdownItem>
