@@ -24,6 +24,7 @@ import ConfettiExplosion from 'react-confetti-explosion';
 //animation
 import { motion } from "framer-motion";
 import {Input} from "@nextui-org/react";
+import { Link } from "react-router-dom";
 const HomeScreen = () => {
   const [isLiked ,setIsLiked] = useState(false)
   const handleLikePost =(e) => {
@@ -78,12 +79,17 @@ const HomeScreen = () => {
              </div>
 
              <div className="p-6 mt-2">
+               <Link to={'/profile'}>
                <Button
+               onPress={(e) => {
+                e.preventDefault()
+               }}
                  className="w-full  bg-btn-blue rounded-md text-xl dark:text-black  text-white p-4 "
                  size="lg"
                >
-                 My Profile
+                My Profile
                </Button>
+                </Link>
              </div>
            </div>
            {/* skills */}

@@ -11,6 +11,7 @@ import { NextUIProvider } from '@nextui-org/react';
 import {useTheme} from "next-themes";
 import { useSelector } from 'react-redux'
 import { motion, AnimatePresence } from "framer-motion"
+import ProfileScreen from './pages/ProfileScreen'
 function App() {
   const [count, setCount] = useState(0);
   const {theme} = useSelector((state) => state.theme)
@@ -29,6 +30,7 @@ function App() {
           >
             <Routes>
               <Route path="/" element={<HomeScreen />} />
+              <Route path="/profile" element={<ProfileScreen />} />
               <Route path="*" />
             </Routes>
           </main>
