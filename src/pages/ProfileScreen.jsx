@@ -328,13 +328,13 @@ const ProfileScreen = () => {
                   className="   bg-btn-blue rounded-md text-xl  text-white px-5 "
                   size="lg"
                 >
-                  Add Friend
+                 Update
                 </Button>
                 <Button
-                  className="   bg-btn-gray dark:bg-btn-gray dark:text-white rounded-md text-xl  text-white px-3 !py-1 "
+                  className="   bg-btn-gray dark:bg-btn-gray dark:text-white rounded-md text-xl  text-white   !py-1 "
                   size="lg"
                 >
-                  Chat
+                  ...
                 </Button>
               </div>
             </div>
