@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import { UilSmile } from "@iconscout/react-unicons";
-import {Tabs, Tab, Button} from "@nextui-org/react";
+import {Tabs, Tab, Button, Switch, Image} from "@nextui-org/react";
 import { UilUser } from '@iconscout/react-unicons'
 import { UilImageEdit } from '@iconscout/react-unicons'
 import { UilNotebooks } from '@iconscout/react-unicons'
@@ -21,13 +21,38 @@ import { UilCameraPlus } from '@iconscout/react-unicons'
 import { UilEdit } from '@iconscout/react-unicons'
 import { UilImageUpload } from '@iconscout/react-unicons'
 
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleMode } from '../services/slices/themeSlice';
+import { UilDirection } from '@iconscout/react-unicons'
+
 const ProfileScreen = () => {
+  const dispatch = useDispatch()
+  const {theme} = useSelector((state) => state.theme)
   return (
     <div className="bg-primary-light  transition-all duration-1000 dark:bg-primary-dark w-full min-h-screen px-6 pt-3">
       <Header></Header>
       <main className="grid grid-cols-5 mt-3">
         {/* sidebar */}
         <div className="col-span-1 bg-secondary-light  shadow-lg p-3 dark:bg-secondary-dark rounded-xl w-full ">
+          <div className=" flex justify-between items-center mb-4">
+            <div className="flex gap-2 items-center">
+              <Image
+                isZoomed
+                className=" rounded-full border-[2px] border-white shadow-md"
+                alt="NextUI hero Image"
+                width={50}
+                src={avatar}
+              />
+
+              <div className="">
+                <h1 className="font-semibold">Roxie Mills</h1>
+                <p className="text-medium text-text-gray">December 28, 2018</p>
+              </div>
+            </div>
+            <UilDirection></UilDirection>
+          </div>
+            <hr  className="mb-3"/>
+
           <NavLink
             style={{ verticalAlign: "middle" }}
             to="/profile"
@@ -133,21 +158,33 @@ const ProfileScreen = () => {
             <UilBookmarkFull className={"text-xl pointer-events-none  "} />
             Saved
           </NavLink>
-          <hr />
+          <hr className="" />
           {/* other options */}
-          <NavLink
-            to="/profile/saved"
-            className={({ isActive, isPending }) =>
-              isPending
-                ? "pending"
-                : isActive
-                ? "dark:bg-btn-yellow dark:text-black bg-btn-blue text-white w-full flex gap-2 rounded-lg p-3 text-medium "
-                : " w-full flex gap-2 rounded-lg p-3  text-medium  text-black dark:text-white"
-            }
+          <div
+            className="px-3 flex items-center justify-between mt-4 "
+            
           >
-            <UilLamp className={"text-xl pointer-events-none  "} />
+           <div className=" flex items-center gap-2 text-medium">
+           <UilLamp className={"text-xl pointer-events-none  "} />
             Theme
-          </NavLink>
+           </div>
+            <Switch
+              thumbIcon={({ isSelected, className }) =>
+                theme == "dark" && isSelected
+              }
+              onChange={(e) => {
+                if (e.target.checked) {
+                  dispatch(toggleMode("dark"));
+                } else {
+                  dispatch(toggleMode("light"));
+                }
+              }}
+              size="sm"
+              className="flex float-right text-sm"
+              isSelected={theme == "dark"}
+              onValueChange={(value) => theme}
+            ></Switch>
+          </div>
           <NavLink
             to="/profile/saved"
             className={({ isActive, isPending }) =>
@@ -159,7 +196,7 @@ const ProfileScreen = () => {
             }
           >
             <UilWrench className={"text-xl pointer-events-none  "} />
-            Update
+            Account Setting
           </NavLink>
           <NavLink
             to="/profile/saved"
@@ -172,8 +209,19 @@ const ProfileScreen = () => {
             }
           >
             <UilSlidersVAlt className={"text-xl pointer-events-none  "} />
-            Setting
+            Settings
           </NavLink>
+          <hr />
+          <div className="plan px-5 flex justify-between items-center my-3">
+            <div className="">
+              <h1 className="text-medium">Free Plan</h1>
+              <h1 className="text-medium">12,000 views</h1>
+            </div>
+            <Button color="primary" className="opacity-60 text-primary-900 rounded-md p-0 text-sm" variant="light">
+        Update
+      </Button>
+          </div>
+          <hr />
           <NavLink
             to="/profile/saved"
             className={({ isActive, isPending }) =>
@@ -250,8 +298,39 @@ const ProfileScreen = () => {
               </p>
             </div>
           </div>
-
-          <div className="row-span-2 bg-secondary-light  shadow-xl dark:bg-secondary-dark rounded-xl w-full"></div>
+          {/* infomation */}
+          <div className="row-span-2   grid grid-cols-2 gap-3">
+            <div className="grid-cols-1 flex justify-between flex-col bg-secondary-light dark:bg-secondary-dark rounded-xl shadow-xl p-6">
+              <div className="">
+                <h1 className="text-2xl font-semibold">Infomation</h1>
+                <div className="mt-3 flex flex-col gap-1 overflow-y-scroll h-4/5  scrollbar-hide">
+                  <p className="opacity-60 font-light">Work at : Viet Nam</p>
+                  <p className="opacity-60 font-light">Work at : Viet Nam</p>
+                  <p className="opacity-60 font-light">Work at : Viet Nam</p>
+                  <p className="opacity-60 font-light">Work at : Viet Nam</p>
+                  <p className="opacity-60 font-light">Work at : Viet Nam</p>
+                  <p className="opacity-60 font-light">Work at : Viet Nam</p>
+                </div>
+              </div>
+              <div className="flex flex-row gap-2 mt-4">
+                <Button
+                  className="   bg-btn-blue rounded-md text-xl  text-white px-5 "
+                  size="lg"
+                >
+                  Add Friend
+                </Button>
+                <Button
+                  className="   bg-btn-gray dark:bg-btn-gray dark:text-white rounded-md text-xl  text-white px-3 !py-1 "
+                  size="lg"
+                >
+                  Chat
+                </Button>
+              </div>
+            </div>
+            <div className="grid-cols-1 bg-secondary-light dark:bg-secondary-dark rounded-xl shadow-xl p-6">
+              <h1 className="text-2xl font-semibold">Achievements</h1>
+            </div>
+          </div>
         </div>
       </main>
     </div>

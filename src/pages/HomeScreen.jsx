@@ -33,6 +33,7 @@ const HomeScreen = () => {
   }
    return (
      <div className="bg-primary-light  transition-all duration-1000 dark:bg-primary-dark w-full min-h-screen px-6 pt-3">
+      
        <Header></Header>
        <main className="grid grid-cols-5 mt-3">
          <div className="flex flex-col gap-4">
