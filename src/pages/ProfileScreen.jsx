@@ -29,9 +29,7 @@ const ProfileScreen = () => {
   const dispatch = useDispatch()
   const {theme} = useSelector((state) => state.theme)
   return (
-    <div className="bg-primary-light  transition-all duration-1000 dark:bg-primary-dark w-full min-h-screen px-6 pt-3">
-      <Header></Header>
-      {<Outlet />}
+    
       <main className="grid grid-cols-5 mt-3">
         {/* sidebar */}
         <div className="col-span-1 bg-secondary-light  shadow-lg p-3 dark:bg-secondary-dark rounded-xl w-full ">
@@ -350,7 +348,7 @@ const ProfileScreen = () => {
           </div>
         </div>
       </main>
-    </div>
+   
   );
 }
 

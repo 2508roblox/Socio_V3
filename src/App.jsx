@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import ProfileScreen from './pages/ProfileScreen'
 import ChatScreen from './pages/ChatScreen'
 import ProfilePosts from './pages/ProfilePosts'
+import ProfileLayout from './components/layout/ProfileLayout'
 function App() {
   const [count, setCount] = useState(0);
   const {theme} = useSelector((state) => state.theme)
@@ -32,7 +33,11 @@ function App() {
           >
             <Routes>
               <Route path="/" element={<HomeScreen />} />
-              <Route path="/profile" element={<ProfileScreen />}>
+              <Route path="/profile" element={<ProfileLayout ></ProfileLayout>}>
+                <Route
+                 index
+                  element={<ProfileScreen></ProfileScreen>}
+                ></Route>
                 <Route
                   path="post"
                   element={<ProfilePosts></ProfilePosts>}
