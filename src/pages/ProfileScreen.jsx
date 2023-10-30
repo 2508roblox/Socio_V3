@@ -217,7 +217,7 @@ const ProfileScreen = () => {
               <h1 className="text-medium">Free Plan</h1>
               <h1 className="text-medium">12,000 views</h1>
             </div>
-            <Button color="primary" className="opacity-60 text-primary-900 rounded-md p-0 text-sm" variant="light">
+            <Button color="primary" className="opacity-60 text-primary-900 rounded-md !p-0 text-sm" variant="light">
         Update
       </Button>
           </div>
@@ -303,13 +303,24 @@ const ProfileScreen = () => {
             <div className="grid-cols-1 flex justify-between flex-col bg-secondary-light dark:bg-secondary-dark rounded-xl shadow-xl p-6">
               <div className="">
                 <h1 className="text-2xl font-semibold">Infomation</h1>
-                <div className="mt-3 flex flex-col gap-1 overflow-y-scroll h-4/5  scrollbar-hide">
-                  <p className="opacity-60 font-light">Work at : Viet Nam</p>
-                  <p className="opacity-60 font-light">Work at : Viet Nam</p>
-                  <p className="opacity-60 font-light">Work at : Viet Nam</p>
-                  <p className="opacity-60 font-light">Work at : Viet Nam</p>
-                  <p className="opacity-60 font-light">Work at : Viet Nam</p>
-                  <p className="opacity-60 font-light">Work at : Viet Nam</p>
+                <div className="mt-3  flex flex-col gap-1 overflow-y-scroll h-[17vh]  scrollbar-hide">
+                  <div className="opacity-60 font-light bg-primary-light dark:bg-primary-dark px-3 py-1 rounded-md">
+                    <h1 className="text-sm">Work at</h1>
+            <p className="font-bold">Viet Nam</p>
+                     </div>
+                  <div className="opacity-60 font-light bg-primary-light dark:bg-primary-dark px-3 py-1 rounded-md">
+                    <h1 className="text-sm">Work at</h1>
+            <p className="font-bold">Viet Nam</p>
+                     </div>
+                  <div className="opacity-60 font-light bg-primary-light dark:bg-primary-dark px-3 py-1 rounded-md">
+                    <h1 className="text-sm">Work at</h1>
+            <p className="font-bold">Viet Nam</p>
+                     </div>
+                  <div className="opacity-60 font-light bg-primary-light dark:bg-primary-dark px-3 py-1 rounded-md">
+                    <h1 className="text-sm">Work at</h1>
+            <p className="font-bold">Viet Nam</p>
+                     </div>
+                 
                 </div>
               </div>
               <div className="flex flex-row gap-2 mt-4">
@@ -329,6 +340,11 @@ const ProfileScreen = () => {
             </div>
             <div className="grid-cols-1 bg-secondary-light dark:bg-secondary-dark rounded-xl shadow-xl p-6">
               <h1 className="text-2xl font-semibold">Achievements</h1>
+              <div className="flex gap-2 items-center ">
+                <img className="w-[160px]" src="https://raw.githubusercontent.com/drknzz/GitHub-Achievements/main/Media/Badges/GitHub-Sponsor/PNG/GitHubSponsorBadge.png" alt="" />
+                <img className="w-[160px]" src="https://raw.githubusercontent.com/drknzz/GitHub-Achievements/main/Media/Badges/Galaxy-Brain/PNG/GalaxyBrain.png" alt="" />
+                <img className="w-[160px]" src="https://raw.githubusercontent.com/drknzz/GitHub-Achievements/main/Media/Badges/Star-Struck/PNG/Skin-Tones/StarStruck_SkinTone1.png" alt="" />
+              </div>
             </div>
           </div>
         </div>
