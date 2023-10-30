@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 import { motion, AnimatePresence } from "framer-motion"
 import ProfileScreen from './pages/ProfileScreen'
 import ChatScreen from './pages/ChatScreen'
+import ProfilePosts from './pages/ProfilePosts'
 function App() {
   const [count, setCount] = useState(0);
   const {theme} = useSelector((state) => state.theme)
@@ -31,7 +32,12 @@ function App() {
           >
             <Routes>
               <Route path="/" element={<HomeScreen />} />
-              <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/profile" element={<ProfileScreen />}>
+                <Route
+                  path="post"
+                  element={<ProfilePosts></ProfilePosts>}
+                ></Route>
+              </Route>
               <Route path="/chat" element={<ChatScreen />} />
               <Route path="*" />
             </Routes>

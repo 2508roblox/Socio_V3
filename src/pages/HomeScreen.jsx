@@ -187,7 +187,7 @@ const HomeScreen = () => {
              {/*  */}
              <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
                <Button
-                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 className="h-full w-[100%] p-0 bg-transparent  border-btn-blue dark:border-btn-yellow border-opacity-30"
                  color="primary"
                >
                 
@@ -207,7 +207,7 @@ const HomeScreen = () => {
              {/*  */}
              <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
                <Button
-                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 className="h-full w-[100%] p-0 bg-transparent  border-btn-blue dark:border-btn-yellow border-opacity-30"
                  color="primary"
                >
                  <Image
@@ -226,7 +226,7 @@ const HomeScreen = () => {
              {/*  */}
              <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
                <Button
-                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 className="h-full w-[100%] p-0 bg-transparent  border-btn-blue dark:border-btn-yellow border-opacity-30"
                  color="primary"
                >
                  <Image
@@ -245,7 +245,7 @@ const HomeScreen = () => {
              {/*  */}
              <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
                <Button
-                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 className="h-full w-[100%] p-0 bg-transparent  border-btn-blue dark:border-btn-yellow border-opacity-30"
                  color="primary"
                >
                  <Image
@@ -264,7 +264,7 @@ const HomeScreen = () => {
              {/*  */}
              <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
                <Button
-                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 className="h-full w-[100%] p-0 bg-transparent  border-btn-blue dark:border-btn-yellow border-opacity-30"
                  color="primary"
                >
                  <Image
@@ -283,7 +283,7 @@ const HomeScreen = () => {
              {/*  */}
              <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
                <Button
-                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 className="h-full w-[100%] p-0 bg-transparent  border-btn-blue dark:border-btn-yellow border-opacity-30"
                  color="primary"
                >
                  <Image
@@ -302,7 +302,7 @@ const HomeScreen = () => {
              {/*  */}
              <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
                <Button
-                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 className="h-full w-[100%] p-0 bg-transparent  border-btn-blue dark:border-btn-yellow border-opacity-30"
                  color="primary"
                >
                  <Image
@@ -321,7 +321,7 @@ const HomeScreen = () => {
              {/*  */}
              <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
                <Button
-                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 className="h-full w-[100%] p-0 bg-transparent  border-btn-blue dark:border-btn-yellow border-opacity-30"
                  color="primary"
                >
                  <Image
@@ -340,7 +340,7 @@ const HomeScreen = () => {
              {/*  */}
              <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
                <Button
-                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 className="h-full w-[100%] p-0 bg-transparent  border-btn-blue dark:border-btn-yellow border-opacity-30"
                  color="primary"
                >
                  <Image
@@ -359,7 +359,7 @@ const HomeScreen = () => {
              {/*  */}
              <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
                <Button
-                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 className="h-full w-[100%] p-0 bg-transparent  border-btn-blue dark:border-btn-yellow border-opacity-30"
                  color="primary"
                >
                  <Image

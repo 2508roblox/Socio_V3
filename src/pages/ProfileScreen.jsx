@@ -15,7 +15,7 @@ import { UilWrench } from '@iconscout/react-unicons'
 import { UilSlidersVAlt } from '@iconscout/react-unicons'
 import { UilSignout } from '@iconscout/react-unicons'
 import {Listbox, ListboxItem, cn} from "@nextui-org/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import avatar from "../assets/imgs/avatar.avif";
 import { UilCameraPlus } from '@iconscout/react-unicons'
 import { UilEdit } from '@iconscout/react-unicons'
@@ -31,6 +31,7 @@ const ProfileScreen = () => {
   return (
     <div className="bg-primary-light  transition-all duration-1000 dark:bg-primary-dark w-full min-h-screen px-6 pt-3">
       <Header></Header>
+      {<Outlet />}
       <main className="grid grid-cols-5 mt-3">
         {/* sidebar */}
         <div className="col-span-1 bg-secondary-light  shadow-lg p-3 dark:bg-secondary-dark rounded-xl w-full ">
