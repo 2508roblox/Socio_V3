@@ -187,7 +187,122 @@ const HomeScreen = () => {
              {/*  */}
              <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
                <Button
-                 className="h-full w-[100%] p-0 bg-transparent"
+                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 color="primary"
+               >
+                
+                 <Image
+                   isBlurred
+                   shadow={"sm"}
+                   className="h-[100%]  "
+                   alt="NextUI hero Image"
+                   src={"https://i.pinimg.com/564x/3b/6d/8d/3b6d8d54c22d249fa621b6577232eb44.jpg"}
+                 />
+               </Button>
+               <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                 <Avatar size="sm" isBordered src={avatar} />
+                 <p className="text-white text-xs font-medium">Alex</p>
+               </div>
+             </div>
+             {/*  */}
+             <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+               <Button
+                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 color="primary"
+               >
+                 <Image
+                   isBlurred
+                   shadow={"sm"}
+                   className="h-[100%]"
+                   alt="NextUI hero Image"
+                   src={"https://i.pinimg.com/564x/04/d5/11/04d51118383753255627b41a42e53d9f.jpg"}
+                 />
+               </Button>
+               <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                 <Avatar size="sm" isBordered src={avatar} />
+                 <p className="text-white text-xs font-medium">Alex</p>
+               </div>
+             </div>
+             {/*  */}
+             <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+               <Button
+                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 color="primary"
+               >
+                 <Image
+                   isBlurred
+                   shadow={"sm"}
+                   className="h-[100%]"
+                   alt="NextUI hero Image"
+                   src={"https://i.pinimg.com/564x/b0/1e/b4/b01eb43ee9d613f28a53d318895d0f08.jpg"}
+                 />
+               </Button>
+               <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                 <Avatar size="sm" isBordered src={avatar} />
+                 <p className="text-white text-xs font-medium">Alex</p>
+               </div>
+             </div>
+             {/*  */}
+             <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+               <Button
+                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 color="primary"
+               >
+                 <Image
+                   isBlurred
+                   shadow={"sm"}
+                   className="h-[100%]"
+                   alt="NextUI hero Image"
+                   src={"https://i.pinimg.com/564x/19/da/0c/19da0c10187897d89fee73f31aadcba9.jpg"}
+                 />
+               </Button>
+               <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                 <Avatar size="sm" isBordered src={avatar} />
+                 <p className="text-white text-xs font-medium">Alex</p>
+               </div>
+             </div>
+             {/*  */}
+             <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+               <Button
+                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 color="primary"
+               >
+                 <Image
+                   isBlurred
+                   shadow={"sm"}
+                   className="h-[100%]"
+                   alt="NextUI hero Image"
+                   src={"https://i.pinimg.com/736x/26/6b/0b/266b0bd91fcaf59902c133cab961d1ed.jpg"}
+                 />
+               </Button>
+               <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                 <Avatar size="sm" isBordered src={avatar} />
+                 <p className="text-white text-xs font-medium">Alex</p>
+               </div>
+             </div>
+             {/*  */}
+             <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+               <Button
+                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
+                 color="primary"
+               >
+                 <Image
+                   isBlurred
+                   shadow={"sm"}
+                   className="h-[100%]"
+                   alt="NextUI hero Image"
+                   src={"https://i.pinimg.com/564x/1b/0f/65/1b0f6547831f87ae997552f4c04c993e.jpg"}
+                 />
+               </Button>
+               <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
+                 <Avatar size="sm" isBordered src={avatar} />
+                 <p className="text-white text-xs font-medium">Alex</p>
+               </div>
+             </div>
+             {/*  */}
+             <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
+               <Button
+                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
                  color="primary"
                >
                  <Image
@@ -206,7 +321,7 @@ const HomeScreen = () => {
              {/*  */}
              <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
                <Button
-                 className="h-full w-[100%] p-0 bg-transparent"
+                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
                  color="primary"
                >
                  <Image
@@ -225,7 +340,7 @@ const HomeScreen = () => {
              {/*  */}
              <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
                <Button
-                 className="h-full w-[100%] p-0 bg-transparent"
+                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
                  color="primary"
                >
                  <Image
@@ -244,121 +359,7 @@ const HomeScreen = () => {
              {/*  */}
              <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
                <Button
-                 className="h-full w-[100%] p-0 bg-transparent"
-                 color="primary"
-               >
-                 <Image
-                   isBlurred
-                   shadow={"sm"}
-                   className="h-[100%]"
-                   alt="NextUI hero Image"
-                   src={story}
-                 />
-               </Button>
-               <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
-                 <Avatar size="sm" isBordered src={avatar} />
-                 <p className="text-white text-xs font-medium">Alex</p>
-               </div>
-             </div>
-             {/*  */}
-             <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
-               <Button
-                 className="h-full w-[100%] p-0 bg-transparent"
-                 color="primary"
-               >
-                 <Image
-                   isBlurred
-                   shadow={"sm"}
-                   className="h-[100%]"
-                   alt="NextUI hero Image"
-                   src={story}
-                 />
-               </Button>
-               <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
-                 <Avatar size="sm" isBordered src={avatar} />
-                 <p className="text-white text-xs font-medium">Alex</p>
-               </div>
-             </div>
-             {/*  */}
-             <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
-               <Button
-                 className="h-full w-[100%] p-0 bg-transparent"
-                 color="primary"
-               >
-                 <Image
-                   isBlurred
-                   shadow={"sm"}
-                   className="h-[100%]"
-                   alt="NextUI hero Image"
-                   src={story}
-                 />
-               </Button>
-               <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
-                 <Avatar size="sm" isBordered src={avatar} />
-                 <p className="text-white text-xs font-medium">Alex</p>
-               </div>
-             </div>
-             {/*  */}
-             <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
-               <Button
-                 className="h-full w-[100%] p-0 bg-transparent"
-                 color="primary"
-               >
-                 <Image
-                   isBlurred
-                   shadow={"sm"}
-                   className="h-[100%]"
-                   alt="NextUI hero Image"
-                   src={story}
-                 />
-               </Button>
-               <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
-                 <Avatar size="sm" isBordered src={avatar} />
-                 <p className="text-white text-xs font-medium">Alex</p>
-               </div>
-             </div>
-             {/*  */}
-             <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
-               <Button
-                 className="h-full w-[100%] p-0 bg-transparent"
-                 color="primary"
-               >
-                 <Image
-                   isBlurred
-                   shadow={"sm"}
-                   className="h-[100%]"
-                   alt="NextUI hero Image"
-                   src={story}
-                 />
-               </Button>
-               <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
-                 <Avatar size="sm" isBordered src={avatar} />
-                 <p className="text-white text-xs font-medium">Alex</p>
-               </div>
-             </div>
-             {/*  */}
-             <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
-               <Button
-                 className="h-full w-[100%] p-0 bg-transparent"
-                 color="primary"
-               >
-                 <Image
-                   isBlurred
-                   shadow={"sm"}
-                   className="h-[100%]"
-                   alt="NextUI hero Image"
-                   src={story}
-                 />
-               </Button>
-               <div className="absolute bottom-3 gap-2 flex flex-col  items-center justify-center w-full">
-                 <Avatar size="sm" isBordered src={avatar} />
-                 <p className="text-white text-xs font-medium">Alex</p>
-               </div>
-             </div>
-             {/*  */}
-             <div className=" story-card h-[100%] w-[140px]  flex-shrink-0  relative shadow-md rounded-2xl  flex">
-               <Button
-                 className="h-full w-[100%] p-0 bg-transparent"
+                 className="h-full w-[100%] p-0 bg-transparent border-1 border-btn-blue dark:border-btn-yellow border-opacity-30"
                  color="primary"
                >
                  <Image

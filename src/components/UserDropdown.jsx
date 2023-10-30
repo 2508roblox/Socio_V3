@@ -37,12 +37,12 @@ const UserDropdown = () => {
         >
           Theme
           <Switch
-
+        
             thumbIcon={({ isSelected, className }) =>
             theme == 'light'   ? (
                 <UilSun className={className} />
               ) : (
-                <UilMoon className={className} />
+                <UilMoon className="dark:text-black   " />
               )
             }
             onChange={(e) => {
