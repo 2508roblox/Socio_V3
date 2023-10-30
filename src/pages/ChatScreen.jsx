@@ -23,6 +23,9 @@ import CreatePostModal from "../components/CreatePostModal";
 import ConfettiExplosion from 'react-confetti-explosion';
 import { UilEdit } from '@iconscout/react-unicons'
 import { UilMessage } from '@iconscout/react-unicons'
+import { UilPhoneAlt } from '@iconscout/react-unicons'
+ 
+import { UilEnvelopeShare } from '@iconscout/react-unicons'
  UilEdit
 UilBookMedical
 //animation
@@ -35,7 +38,7 @@ const ChatScreen = () => {
       <Header></Header>
       <main className="grid grid-cols-5 mt-3 bg-secondary-light dark:bg-secondary-dark shadow-lg rounded-xl">
         {/* groups */}
-        <div className="groups p-6 col-span-1 flex flex-col gap-3 border-r-1 border-primary-light dark:border-primary-dark ">
+        <div className="groups p-6  flex flex-col gap-3 border-r-1 border-primary-light dark:border-primary-dark ">
           <div className="flex gap-2 items-center">
             <Image
               isZoomed
@@ -444,20 +447,23 @@ const ChatScreen = () => {
             <UilMessage></UilMessage>
           </div>
         </div>
-        <div className="col-span-1">
+        <div className="">
           <div className="flex flex-col justify-center p-6 gap-2 items-center border-b-1 border-primary-light dark:border-primary-dark mx-3 ">
             <Image
               isZoomed
-              className=" rounded-full max-w-full border-[2px] border-white shadow-md"
-              alt="NextUI hero Image"
+              className=" rounded-full  border-[2px] border-white shadow-md"
               width={100}
               src={avatar}
             />
-
             <div className="flex flex-col items-center justify-center">
               <h1 className="font-semibold">Roxie Mills</h1>
               <p className="text-medium text-text-gray">@username_mills</p>
             </div>
+                <div className=" flex justify-center gap-3 items-center text-lg">
+                <UilPhoneAlt size="34px"/>
+<UilVideo size="34px"/>
+<UilEnvelopeShare size="34px"/>
+                </div>
           </div>
           {/* media */}
           <div className="p-6 flex flex-col gap-4">
@@ -465,33 +471,33 @@ const ChatScreen = () => {
             <div className="grid grid-cols-3 gap-3">
             <Image
       alt="NextUI hero Image"
-    className="col-span-1 rounded-lg"
+    className=" rounded-lg"
     
       src="https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"
     />
             <Image
       alt="NextUI hero Image"
-    className="col-span-1 rounded-lg"
+    className=" rounded-lg"
       src="https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"
     />
             <Image
       alt="NextUI hero Image"
-    className="col-span-1 rounded-lg"
+    className=" rounded-lg"
       src="https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"
     />
             <Image
       alt="NextUI hero Image"
-    className="col-span-1 rounded-lg"
+    className=" rounded-lg"
       src="https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"
     />
             <Image
       alt="NextUI hero Image"
-    className="col-span-1 rounded-lg"
+    className=" rounded-lg"
       src="https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"
     />
             <Image
       alt="NextUI hero Image"
-    className="col-span-1 rounded-lg"
+    className=" rounded-lg"
       src="https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"
     />
             </div>
