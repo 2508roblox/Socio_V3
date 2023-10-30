@@ -53,7 +53,7 @@ const CreatePostModal = () => {
     <>
   
       <div
-        className="px-3 m-3 w-full rounded-xl py-2 bg-white dark:bg-secondary-dark shadow-md"
+        className="px-3 m-3 w-[100%] rounded-xl py-2 bg-white dark:bg-secondary-dark shadow-md"
         onClick={onOpen}
       >
         <h1 className="font-bold mb-2">Post Something</h1>
