@@ -11,13 +11,26 @@ import UserDropdown from './UserDropdown'
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User, Tabs, Tab, } from "@nextui-org/react";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,   useDisclosure} from "@nextui-org/react";
 import {Card, CardBody} from "@nextui-org/react";
+import { useLocation } from 'react-router-dom';
 
 import { useSelector } from 'react-redux'
 import {Badge, Button} from "@nextui-org/react";
 import { Link, useNavigate } from "react-router-dom";
 const Header = () => {
+  let {pathname: location} = useLocation();
     const {theme} = useSelector((state) => state.theme)
     const navigate = useNavigate();
+    console.log(location)
+    const activeTab = ( ) => {
+      if (location == '/') {
+        return 'home'
+      }else if (location == '/chat') {
+        return 'chat'
+
+      }else {
+        return 'explore'
+      }
+    }
   return (
     <header className="grid grid-cols-5 h-[7vh] relative items-center">
       <div className="flex gap-5 justify-between items-center px-2">
@@ -30,6 +43,7 @@ const Header = () => {
       </div>
       <nav className="col-span-3 px-2">
         <Tabs
+        defaultSelectedKey={() => activeTab()}
           aria-label="Options"
           color={`primary`}
           className={`${theme} flex justify-center gap-10 bg-transparent `}
@@ -37,7 +51,7 @@ const Header = () => {
         >
           <Tab
             className="dark:bg-transparent border-none "
-            key="/"
+            key="home"
             title={
               <Link to={"/"}>
                 <div className="flex items-center space-x-2  rounded-full">
@@ -49,7 +63,7 @@ const Header = () => {
           <Tab
             onPress={(e) => console.log(e)}
             className="dark:bg-transparent"
-            key="music"
+            key="explore"
             title={
               <Link to={"/"}>
                 <div className="flex items-center space-x-2  ">
@@ -60,7 +74,7 @@ const Header = () => {
           />
           <Tab
             className="dark:bg-transparent"
-            key="videos"
+            key="chat"
             title={
               <Link to={"/chat"}>
                 <div className="flex items-center space-x-2   ">
