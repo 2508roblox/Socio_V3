@@ -61,11 +61,11 @@ const Header = () => {
             }
           />
           <Tab
-            onPress={(e) => console.log(e)}
+            
             className="dark:bg-transparent"
             key="explore"
             title={
-              <Link to={"/"}>
+              <Link to={"/explore"}>
                 <div className="flex items-center space-x-2  ">
                   <UilCompass size={23} className="opacity-70" />
                 </div>

@@ -16,6 +16,7 @@ import ChatScreen from './pages/ChatScreen'
 import ProfilePosts from './pages/ProfilePosts'
 import ProfileLayout from './components/layout/ProfileLayout'
 import ProfileFriends from './pages/ProfileFriends'
+import ExploreScreen from './pages/ExploreScreen'
 function App() {
   const [count, setCount] = useState(0);
   const {theme} = useSelector((state) => state.theme)
@@ -46,6 +47,7 @@ function App() {
                 ></Route>
               </Route>
               <Route path="/chat" element={<ChatScreen />} />
+              <Route path="/explore" element={<ExploreScreen />} />
               <Route path="*" />
             </Routes>
           </main>
