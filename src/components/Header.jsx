@@ -27,6 +27,8 @@ const Header = () => {
       }else if (location == '/chat') {
         return 'chat'
 
+      }else  if (location == '/relationship') {
+        return 'relationship'
       }else {
         return 'explore'
       }
@@ -85,9 +87,9 @@ const Header = () => {
           />
           <Tab
             className="dark:bg-transparent"
-            key="more"
+            key="relationship"
             title={
-              <Link to={"/"}>
+              <Link to={"/relationship"}>
                 <div className="flex items-center space-x-2  ">
                   <UilUsersAlt size={23} className="opacity-70" />
                 </div>
