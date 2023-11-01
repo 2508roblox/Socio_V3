@@ -21,6 +21,7 @@ import RelationshipScreen from './pages/RelationshipScreen'
 import RequestScreen from './pages/RequestScreen'
 import RequestingScreen from './pages/RequestingScreen'
 import FriendsScreen from './pages/FriendsScreen'
+import RelationShipLayout from './components/layout/RelationshipLayout'
 function App() {
   const [count, setCount] = useState(0);
   const {theme} = useSelector((state) => state.theme)
@@ -54,7 +55,7 @@ function App() {
               <Route path="/explore" element={<ExploreScreen />} />
               <Route path="/relationship" element={<RelationShipLayout />} >
                 {/* All */}
-              <Route index element={<ProfileScreen></ProfileScreen>}></Route>
+              <Route index element={<RelationshipScreen></RelationshipScreen>}></Route>
                 <Route
                   path="request"
                   element={<RequestScreen></RequestScreen>}
