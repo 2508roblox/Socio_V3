@@ -7,6 +7,7 @@ import { UilSun } from '@iconscout/react-unicons'
 import { UilMoon } from '@iconscout/react-unicons'
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMode } from '../services/slices/themeSlice';
+import { Link } from 'react-router-dom';
 const UserDropdown = () => {
   const dispatch = useDispatch()
     
@@ -61,7 +62,9 @@ const UserDropdown = () => {
         </DropdownItem>
         <DropdownItem key="edit">Setting</DropdownItem>
         <DropdownItem key="delete" className="text-danger" color="danger">
+          <Link to={'/register'}>
           Logout
+          </Link>
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>

@@ -22,6 +22,8 @@ import RequestScreen from './pages/RequestScreen'
 import RequestingScreen from './pages/RequestingScreen'
 import FriendsScreen from './pages/FriendsScreen'
 import RelationShipLayout from './components/layout/RelationshipLayout'
+import RegisterScreen from './pages/RegisterScreen'
+import LoginScreen from './pages/LoginScreen'
 function App() {
   const [count, setCount] = useState(0);
   const {theme} = useSelector((state) => state.theme)
@@ -71,6 +73,9 @@ function App() {
               
 
               </Route>
+              <Route path="/register" element={<RegisterScreen></RegisterScreen>}/>
+              <Route path="/login" element={<LoginScreen></LoginScreen>}/>
+
               <Route path="*" />
             </Routes>
           </main>
