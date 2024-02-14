@@ -82,9 +82,9 @@ const CreatePostModal = () => {
         onOpenChange={onOpenChange}
         backdrop={"blur"}
         closeButton={
-          <Button>
-           <svg aria-hidden="true" fill="none" focusable="false" height="1em" role="presentation" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em"><path d="M18 6L6 18M6 6l12 12"></path></svg>
-          </Button>
+     
+           <svg  aria-hidden="true" fill="none" focusable="false" height="1.6em" role="presentation" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1.6em"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+          
         }
       >
         <ModalContent className=" dark:bg-secondary-dark">
