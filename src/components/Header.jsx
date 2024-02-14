@@ -9,13 +9,13 @@ import lightLogo from '../assets/imgs/light-full-logo.png'
 import darkLogo from '../assets/imgs/dark-logo.png'
 import avatar from '../assets/imgs/avatar.avif'
 import UserDropdown from './UserDropdown'
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User, Tabs, Tab, } from "@nextui-org/react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,   useDisclosure} from "@nextui-org/react";
-import {Card, CardBody} from "@nextui-org/react";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User, Tabs, Tab, } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
+import { Card, CardBody } from "@nextui-org/react";
 import { useLocation } from 'react-router-dom';
 
 import { useSelector } from 'react-redux'
-import {Badge, Button} from "@nextui-org/react";
+import { Badge, Button } from "@nextui-org/react";
 import { Link, useNavigate } from "react-router-dom";
 import TabsComponent from './TabsComponent'
 const Header = () => {
