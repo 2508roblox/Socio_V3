@@ -8,31 +8,31 @@ import { UilBell } from '@iconscout/react-unicons'
 import lightLogo from '../assets/imgs/light-full-logo.png'
 import avatar from '../assets/imgs/avatar.avif'
 import UserDropdown from './UserDropdown'
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User, Tabs, Tab, } from "@nextui-org/react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,   useDisclosure} from "@nextui-org/react";
-import {Card, CardBody} from "@nextui-org/react";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User, Tabs, Tab, } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
+import { Card, CardBody } from "@nextui-org/react";
 import { useLocation } from 'react-router-dom';
 
 import { useSelector } from 'react-redux'
-import {Badge, Button} from "@nextui-org/react";
+import { Badge, Button } from "@nextui-org/react";
 import { Link, useNavigate } from "react-router-dom";
 const Header = () => {
-  let {pathname: location} = useLocation();
-    const {theme} = useSelector((state) => state.theme)
-    const navigate = useNavigate();
-    console.log(location)
-    const activeTab = ( ) => {
-      if (location == '/') {
-        return 'home'
-      }else if (location == '/chat') {
-        return 'chat'
+  let { pathname: location } = useLocation();
+  const { theme } = useSelector((state) => state.theme)
+  const navigate = useNavigate();
+  console.log(location)
+  const activeTab = () => {
+    if (location == '/') {
+      return 'home'
+    } else if (location == '/chat') {
+      return 'chat'
 
-      }else  if (location == '/relationship') {
-        return 'relationship'
-      }else {
-        return 'explore'
-      }
+    } else if (location == '/relationship') {
+      return 'relationship'
+    } else {
+      return 'explore'
     }
+  }
   return (
     <header className="grid grid-cols-5 h-[7vh] relative items-center">
       <div className="flex gap-5 justify-between items-center px-2">
@@ -45,7 +45,7 @@ const Header = () => {
       </div>
       <nav className="col-span-3 px-2">
         <Tabs
-        defaultSelectedKey={() => activeTab()}
+          defaultSelectedKey={() => activeTab()}
           aria-label="Options"
           color={`primary`}
           className={`${theme} flex justify-center gap-10 bg-transparent `}
@@ -63,7 +63,7 @@ const Header = () => {
             }
           />
           <Tab
-            
+
             className="dark:bg-transparent"
             key="explore"
             title={
