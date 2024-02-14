@@ -54,7 +54,7 @@ const HomeScreen = () => {
                  <div className=" flex justify-center gap-3 items-end">
                    <div className="text-center flex flex-col justify-center  text-sm font-medium">
                      <span className="text-2xl">1000</span>
-                     <span className="text-text-gray text-lg">followers</span>
+                     <span className="text-text-gray text-lg">Followers</span>
                    </div>
                    <div className="   ">
                      <img
@@ -66,7 +66,7 @@ const HomeScreen = () => {
                    </div>
                    <div className="text-center flex flex-col justify-center text-sm font-medium">
                      <span className="text-2xl">1000</span>
-                     <span className="text-text-gray text-lg">followings</span>
+                     <span className="text-text-gray text-lg">Followings</span>
                    </div>
                  </div>
                  <div className="">
@@ -87,7 +87,7 @@ const HomeScreen = () => {
                onPress={(e) => {
                 e.preventDefault()
                }}
-                 className="w-full  bg-btn-blue rounded-md text-xl dark:text-black  text-white p-4 "
+                 className="w-full  bg-btn-blue rounded-md font-medium  text-xl dark:text-black  text-white p-4 "
                  size="lg"
                >
                 My Profile
@@ -165,11 +165,11 @@ const HomeScreen = () => {
          </div>
          {/* feeds */}
          <div
-           style={{ flexFlow: "row wrap" }}
-           className="scrollbar-hide  col-span-3 flex flex-col h-[90vh] overflow-y-scroll overflow-x-visible"
+           style={{ flexFlow: "row wrap", padding: "0 2rem" }}
+           className="scrollbar-hide  col-span-3 flex flex-col h-[90vh] overflow-y-scroll overflow-x-visible py-5"
          >
            {/* story */}
-           <div className=" h-[240px]    w-full px-3 flex gap-2   overflow-x-scroll  overflow-y-hidden scrollbar-hide mx-4 ">
+           <div className=" h-[240px] mb-4   w-full px-3 flex gap-2   overflow-x-scroll  overflow-y-hidden scrollbar-hide mx-4 ">
              {/*  */}
              <div className=" story-card h-[100%]  w-[140px]   flex-shrink-0  relative shadow-md rounded-2xl  flex flex-col border-[2px] border-gray-400 border-dashed items-center justify-center gap-4">
                <Button
@@ -186,14 +186,14 @@ const HomeScreen = () => {
                  </div>
                </Button>
              </div>
-             <StoryCard></StoryCard>
-             <StoryCard></StoryCard>
-             <StoryCard></StoryCard>
-             <StoryCard></StoryCard>
-             <StoryCard></StoryCard>
-             <StoryCard></StoryCard>
-             <StoryCard></StoryCard>
-             <StoryCard></StoryCard>
+             <StoryCard storyImage={'https://i.pinimg.com/564x/86/b6/53/86b653f4cc32988b33c5539b98c73ce5.jpg'}></StoryCard>
+             <StoryCard storyImage={'https://i.pinimg.com/564x/7e/26/3c/7e263c6ce3a56b562b7619e9f4c022a4.jpg'}></StoryCard>
+             <StoryCard storyImage={'https://i.pinimg.com/736x/5f/b4/54/5fb45486744f8e0e3b19fbf3d812d1a3.jpg'}></StoryCard>
+             <StoryCard storyImage={'https://i.pinimg.com/736x/35/1a/53/351a53a310f10cd6cab28d751e174beb.jpg'}></StoryCard>
+             <StoryCard storyImage={'https://i.pinimg.com/564x/66/d5/60/66d560c0fc45bba26f720da922332f4a.jpg'}></StoryCard>
+             <StoryCard storyImage={'https://i.pinimg.com/564x/d4/c2/52/d4c252afb184abbdfbcd47a3fe6dc00c.jpg'}></StoryCard>
+             <StoryCard storyImage={'https://i.pinimg.com/564x/b1/4d/dc/b14ddc3fce6074c077787b839f0b5a1d.jpg'}></StoryCard>
+             <StoryCard storyImage={'https://i.pinimg.com/736x/6e/a4/23/6ea423e7748d35c004470cf1437172a8.jpg'}></StoryCard>
             
             
            </div>
@@ -209,10 +209,11 @@ const HomeScreen = () => {
            {/* ads */}
            <div className="mx-3 bg-white dark:bg-secondary-dark p-6 rounded-2xl shadow-lg relative w-full flex flex-col gap-2 ">
              <Image
-               isZoomed
+                style={{width: '100%'}}
+              width={600}
                className="w-full h-[214px] object-cover scroll-m-0  "
                alt="NextUI hero Image"
-               src="https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg"
+               src="https://i.pinimg.com/736x/35/1a/53/351a53a310f10cd6cab28d751e174beb.jpg"
              />
              <div className="flex flex-row justify-start gap-2  items-center">
                <Image
@@ -296,12 +297,15 @@ const HomeScreen = () => {
                  <p className="text-medium text-text-gray">Restauran</p>
                </div>
              </div>
-             <Image
-               isZoomed
+           <div className="w-full">
+           <Image
+               style={{width: '100%'}}
+               width={600}
                className="w-full h-[214px] object-cover scroll-m-0  "
                alt="NextUI hero Image"
-               src="https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg"
+               src="https://i.pinimg.com/736x/35/1a/53/351a53a310f10cd6cab28d751e174beb.jpg"
              />
+           </div>
            </div>
          </div>
        </main>

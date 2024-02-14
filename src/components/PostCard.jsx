@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import avatar from "../assets/imgs/avatar.avif";
 import { UilSmile } from "@iconscout/react-unicons";
-import { UilEllipsisH } from "@iconscout/react-unicons";
 import { UilCommentDots } from "@iconscout/react-unicons";
 import { UilShare } from "@iconscout/react-unicons";
 import { UilBookmark } from "@iconscout/react-unicons";
@@ -11,6 +10,7 @@ import ConfettiExplosion from 'react-confetti-explosion';
 import { motion } from "framer-motion";
 import {Input} from "@nextui-org/react";
 import { Link } from "react-router-dom";
+import PostOption from "./PostOption";
 const PostCard = () => {
     const [isLiked ,setIsLiked] = useState(false)
     const handleLikePost =(e) => {
@@ -37,7 +37,7 @@ const PostCard = () => {
         </div>
       </div>
       <div className="">
-        <UilEllipsisH></UilEllipsisH>
+      <PostOption></PostOption>
       </div>
     </div>
     {/* post content */}
@@ -59,7 +59,7 @@ const PostCard = () => {
         removeWrapper={true}
         className="   h-full w-[100%]  object-cover  rounded-2xl"
         alt="NextUI hero Image"
-        src="https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg"
+        src="https://i.pinimg.com/736x/35/1a/53/351a53a310f10cd6cab28d751e174beb.jpg"
       />
       <Image
         isBlurred
@@ -158,7 +158,7 @@ const PostCard = () => {
         <input
           type="text"
           placeholder="what's new with you?"
-          className="dark:bg-primary-dark text-black   flex items-center mb-1 w-full outline-none  dark:text-white"
+          className="dark:bg-primary-dark bg-primary-light text-black   flex items-center mb-1 w-full outline-none  dark:text-white"
           color="default"
         />
       </div>

@@ -21,6 +21,7 @@ import { motion } from "framer-motion"
 import { useSelector } from 'react-redux';
 
 const CreatePostModal = () => {
+  
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const [postContent , setPostContent] = useState('')
     const [files, setFiles] = useState([])
@@ -39,15 +40,7 @@ const CreatePostModal = () => {
         }
         setFiles(prev => [...prev,  URL.createObjectURL(event.target.files[0])]);
         console.log(files)
-        // const formData = new FormData();
-        // formData.append("fileupload", event.target.files[0]);
-
-        // fetch(REACT_APP_REST + "/product/upload", {
-        //     method: 'POST',
-
-        //     body: formData,
-        //     dataType: "jsonp"
-        // })
+       
     };
   return (
     <>
@@ -83,12 +76,16 @@ const CreatePostModal = () => {
 
       {/* modal */}
       <Modal
-      hideCloseButton='true'
       className={ `${theme} dark:bg-secondary-dark `}
         size="5xl"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         backdrop={"blur"}
+        closeButton={
+          <Button>
+           <svg aria-hidden="true" fill="none" focusable="false" height="1em" role="presentation" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+          </Button>
+        }
       >
         <ModalContent className=" dark:bg-secondary-dark">
           {(onClose) => (
@@ -114,7 +111,7 @@ const CreatePostModal = () => {
                 <textarea
                   name="content"
                   placeholder="Roxie Mills, what are you thinking? "
-                  className="outline-none dark:text-white   p-2 rounded-2xl"
+                  className="outline-none dark:text-white dark:bg-transparent   p-2 rounded-2xl"
                   id=""
                   value={postContent}
                   onChange={(e) => handleChangeContent(e)}
@@ -143,20 +140,20 @@ const CreatePostModal = () => {
                     </PopoverContent>
                   </Popover>
                 </div>
-                <div className="media border dark:border-black flex justify-between items-center rounded-xl">
+                <div className="media border-2 dark:border-primary-dark  flex justify-between items-center rounded-xl">
                   <h1 className="ml-3 dark:text-white">Add to your post</h1>
                   <div className="flex gap-2  rounded-lg p-2 justify-end">
-                    <div className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-secondary-dark text-white">
+                    <div className=" p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-primary-dark text-dark dark:text-white">
                       <UilVideo color="#3B82F6    " /> Video
                     </div>
-                    <label htmlFor='hehe'  className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-secondary-dark text-white">
+                    <label htmlFor='hehe'  className=" p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-primary-dark text-dark dark:text-white">
                       <UilImages color="green" /> Image
                     </label>
                     <input onChange={(e) =>handleFile(event)} type="file" hidden name='hehe' id='hehe'/>
-                    <div className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-secondary-dark  text-white">
+                    <div className=" p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-primary-dark  text-dark dark:text-white">
                       <UilSmileBeam color="orange" /> Emoji
                     </div>
-                    <div className="border p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-secondary-dark text-white">
+                    <div className=" p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-primary-dark text-dark dark:text-white">
                       <UilCalendarAlt color="red" /> Schedule
                     </div>
                   </div>
