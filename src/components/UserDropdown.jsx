@@ -7,11 +7,18 @@ import { UilSun } from '@iconscout/react-unicons'
 import { UilMoon } from '@iconscout/react-unicons'
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMode } from '../services/slices/themeSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { logout } from '../services/slices/authSlice';
 const UserDropdown = () => {
-  const dispatch = useDispatch()
     
     const {theme} = useSelector((state) => state.theme)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const handleLogout = async () => {
+      dispatch(logout())
+      navigate('register')
+      
+    }
   return (
     <Dropdown 
     className={`${theme}   `}
@@ -43,7 +50,7 @@ const UserDropdown = () => {
             theme == 'light'   ? (
                 <UilSun className={className} />
               ) : (
-                <UilMoon className="dark:text-black   " />
+                <UilMoon className="dark:text-black dark:bg-transparent   " />
               )
             }
             onChange={(e) => {
@@ -61,10 +68,10 @@ const UserDropdown = () => {
           ></Switch>
         </DropdownItem>
         <DropdownItem key="edit">Setting</DropdownItem>
-        <DropdownItem key="delete" className="text-danger" color="danger">
-          <Link to={'/register'}>
+        <DropdownItem key="delete" className="text-danger" color="danger" onClick={handleLogout}>
+          <span className='text-sm' >
           Logout
-          </Link>
+          </span>
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>

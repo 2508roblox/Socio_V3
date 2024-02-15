@@ -27,7 +27,9 @@ const Header = () => {
   return (
     <header className="grid grid-cols-5 h-[7vh] relative items-center">
       <div className="flex gap-5 justify-between items-center px-2">
+        <Link to={'/'}>
         <img width={50} src={theme == 'light' ? lightLogo : darkLogo} alt="" />
+        </Link>
         <input
           className="w-4/5 px-2 py-2 rounded-lg shadow-md"
           type="text"
