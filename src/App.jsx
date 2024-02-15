@@ -15,6 +15,7 @@ import ProfileScreen from './pages/ProfileScreen'
 import ChatScreen from './pages/ChatScreen'
 import ProfilePosts from './pages/ProfilePosts'
 import ProfileLayout from './components/layout/ProfileLayout'
+import PrivateRoute from './components/PrivateRoute'
 import ProfileFriends from './pages/ProfileFriends'
 import ExploreScreen from './pages/ExploreScreen'
 import RelationshipScreen from './pages/RelationshipScreen'
@@ -27,8 +28,7 @@ import LoginScreen from './pages/LoginScreen'
 function App() {
   const [count, setCount] = useState(0);
   const {theme} = useSelector((state) => state.theme)
-
- 
+  
   return (
     <NextUIProvider>
       <AnimatePresence>
@@ -40,9 +40,10 @@ function App() {
           <main
             className={`${theme}    transition-all duration-1000 text-foreground bg-primary-light dark:bg-primary-dark`}
           >
+         
             <Routes>
-              <Route path="/" element={<HomeScreen />} />
-              <Route path="/profile" element={<ProfileLayout></ProfileLayout>}>
+              <Route path="/" element={<PrivateRoute   element={HomeScreen} />} />
+              <Route path="/profile" element={<PrivateRoute   element={ProfileLayout} />  }>
                 <Route index element={<ProfileScreen></ProfileScreen>}></Route>
                 <Route
                   path="post"
