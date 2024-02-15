@@ -38,7 +38,7 @@ function App() {
           exit={{ opacity: 0 }}
         >
           <main
-            className={`${theme}    transition-all duration-1000 text-foreground bg-primary-light dark:bg-primary-dark`}
+            className={`${theme}   no-scrollbar  transition-all duration-1000 text-foreground bg-primary-light dark:bg-primary-dark`}
           >
          
             <Routes>

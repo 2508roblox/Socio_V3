@@ -33,7 +33,7 @@ const ExploreScreen = () => {
     scrollTo({ top: 0, behavior: 'smooth' })
   }
   return (
-    <div className="bg-primary-light relative transition-all duration-1000 dark:bg-primary-dark w-full  min-h-screen px-6 pt-3 ">
+    <div className="no-scrollbar bg-primary-light relative transition-all duration-1000 dark:bg-primary-dark w-full  min-h-screen px-6 pt-3 ">
       
        <Header></Header>
        <main className="flex flex-col justify-center mt-3 items-center gap-4 scrollbar-hide">
