@@ -6,13 +6,11 @@ import { UilShare } from "@iconscout/react-unicons";
 import { UilBookmark } from "@iconscout/react-unicons";
 import { photos } from "../assets/js/photos.js";
 import Carousel, { Modal, ModalGateway } from "react-images";
-import { Card, CardFooter, Image, Button } from "@nextui-org/react";
+import { Image } from "@nextui-org/react";
 import Gallery from 'react-photo-gallery';
 import ConfettiExplosion from 'react-confetti-explosion';
 //animation
 import { motion } from "framer-motion";
-import { Input } from "@nextui-org/react";
-import { Link } from "react-router-dom";
 import PostOption from "./PostOption";
 const PostCard = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -53,8 +51,8 @@ const PostCard = () => {
             </div>
           </div>
           <div className="">
-      <PostOption></PostOption>
-      </div>
+            <PostOption></PostOption>
+          </div>
         </div>
         {/* post content */}
         <p className=" px-6 ">
@@ -75,12 +73,7 @@ const PostCard = () => {
             }}
             className="flex items-center gap-2 text-lg font-medium opacity-60 cursor-pointer"
           >
-
-
-
-
             {!isLiked ? (
-
               <>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +90,6 @@ const PostCard = () => {
 
                 </svg>
               </>
-
             ) : (
               <motion.div
 
