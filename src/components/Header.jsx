@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux'
 import { Badge, Button } from "@nextui-org/react";
 import { Link, useNavigate } from "react-router-dom";
 import TabsComponent from './TabsComponent'
+import SearchModal from './SearchModal'
 const Header = () => {
   let {pathname: location} = useLocation();
     const {theme} = useSelector((state) => state.theme)
@@ -30,11 +31,8 @@ const Header = () => {
         <Link to={'/'}>
         <img width={50} src={theme == 'light' ? lightLogo : darkLogo} alt="" />
         </Link>
-        <input
-          className="w-4/5 px-2 py-2 rounded-lg shadow-md"
-          type="text"
-          placeholder="#Explore..."
-        />
+        
+        <SearchModal></SearchModal>
       </div>
       <nav className="col-span-3 px-2">
       <TabsComponent></TabsComponent>
