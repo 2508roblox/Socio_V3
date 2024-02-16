@@ -49,10 +49,7 @@ console.log('ca', postsData)
     }
     fetchUserPosts()
   }, [])
-  const handleLikePost = (e) => {
-    e.preventDefault()
-    setIsLiked(prev => !prev)
-  }
+ 
   return (
     <div className="bg-primary-light  transition-all duration-1000 dark:bg-primary-dark w-full min-h-screen px-6 pt-3">
 

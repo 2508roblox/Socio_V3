@@ -11,6 +11,13 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 
             })
         }),
+        deletePost: builder.mutation({
+            query: (data) => ({
+                url: `${USERS_URL}/${data}/delete`,
+                method: 'DELETE',
+                
+            })
+        }),
         likePost: builder.mutation({
             query: (data) => ({
                 url: `${USERS_URL}/${data}/like`,
@@ -38,4 +45,4 @@ export const authApiSlice = apiSlice.injectEndpoints({
         
     })
 })
-export const {useCreatePostMutation,useLikePostMutation, useUnLikePostMutation, useGetAllPostsByUserIdMutation } = authApiSlice
+export const {useCreatePostMutation,useLikePostMutation,useDeletePostMutation, useUnLikePostMutation, useGetAllPostsByUserIdMutation } = authApiSlice

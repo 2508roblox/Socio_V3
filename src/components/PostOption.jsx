@@ -1,10 +1,22 @@
 import { UilEllipsisH } from "@iconscout/react-unicons";
 import React from 'react'
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, cn, DropdownSection} from "@nextui-org/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deletePostById } from "../services/slices/postSlice";
+import { useDeletePostMutation } from "../services/slices/postApiSlice";
 
-const PostOption = () => {
+const PostOption = (post_id) => {
     const {theme} = useSelector((state) => state.theme)
+    const dispatch = useDispatch()
+    const [deletePosts, { isLoading: deletePostsLoading, error: deletePostsError }] = useDeletePostMutation();
+    const postsData = useSelector((state) => state.post.postData?.posts ?? []  )
+
+    const handleDelete = async() => {
+      await deletePosts(post_id.post_id)
+      
+      dispatch(deletePostById(post_id.post_id))
+
+    }
   return (
 <div className={theme == 'dark' ?  'dark' :'light'}>
 
@@ -44,7 +56,7 @@ const PostOption = () => {
 
         <DropdownSection title="Danger zone">  
           <DropdownItem
-          
+            onClick={handleDelete}
             key="delete"
             className="text-danger"
             color="danger"

@@ -74,10 +74,10 @@ const PostCard = ({post}) => {
           <div className=" flex gap-4 items-start">
             <Image
               isZoomed
-              className=" rounded-full border-[2px] border-white shadow-md"
+              className=" rounded-full border-[2px] border-white shadow-md h-[50px]"
               alt="NextUI hero Image"
               width={50}
-              src={avatar}
+              src={userData?.avatar ?? 'https://i.stack.imgur.com/l60Hf.png' }
             />
 
             <div className="">
@@ -85,8 +85,8 @@ const PostCard = ({post}) => {
              {
               getUserLoading ?
               <>
-              <div class="h-2.5 animate-pulse bg-gray-200 rounded-full dark:bg-gray-400 w-48 mb-4"></div>
-              <div class="h-2.5 animate-pulse bg-gray-200 rounded-full dark:bg-gray-400 w-48 mb-4"></div>
+              <div class="h-3 animate-pulse bg-gray-200 rounded-md dark:bg-gray-400 w-48 mb-4"></div>
+              <div class="h-3 animate-pulse bg-gray-200 rounded-md dark:bg-gray-400 w-48 mb-4"></div>
               </>
               :
              <>
@@ -99,7 +99,10 @@ const PostCard = ({post}) => {
             </div>
           </div>
           <div className="">
-            <PostOption></PostOption>
+            {auth_id == userData?._id ? (<PostOption post_id={post._id}></PostOption>
+) : (
+  ''
+)}
           </div>
         </div>
         {/* post content */}
@@ -187,7 +190,7 @@ const PostCard = ({post}) => {
         {/* comment */}
         <hr />
         <div className="px-6 flex flex-row gap-4 justify-between items-center ">
-          <img src={avatar} width={40} className="rounded-full" alt="" />
+          <img src={userData?.avatar ?? 'https://i.stack.imgur.com/l60Hf.png'} width={40} height={40} className="rounded-full h-[40px] w-[40px]" alt="" />
           <div class="px-4  rounded-xl border-none shadow-inner w-full flex justify-start gap-2  items-center bg-primary-light dark:bg-primary-dark p-1">
             <UilSmile className="text-2xl text-default-400 pointer-events-none flex-shrink-0"></UilSmile>
             <input
