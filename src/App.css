@@ -24,3 +24,8 @@
 .react-photo-gallery--gallery img:nth-child(n+4) {
     display: none !important;
 }
+
+.crop {
+    /* Các thuộc tính khác */
+    border-radius: 0;
+}
