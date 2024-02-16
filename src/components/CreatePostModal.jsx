@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { UilSmile } from '@iconscout/react-unicons'
 import avatar from "../assets/imgs/avatar.avif";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
@@ -18,7 +18,9 @@ import {Card, CardBody, CardFooter, Image} from "@nextui-org/react";
 // Register the plugins
 //animation
 import { motion } from "framer-motion"
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {  useCreatePostMutation, useGetAllPostsByUserIdMutation } from '../services/slices/postApiSlice';
+import { setPosts } from '../services/slices/postSlice';
 
 const CreatePostModal = () => {
   
@@ -27,7 +29,22 @@ const CreatePostModal = () => {
     const [files, setFiles] = useState([])
     const [showingFiles, setShowingFiles] = useState([])
     const {theme} = useSelector((state) => state.theme)
-    
+    const auth_id = useSelector((state) => state.auth.userInfo.user._id )
+    console.log(auth_id)
+    const dispatch = useDispatch()
+    const [createPost, { isLoading: createPostLoading, error: createPostError }] = useCreatePostMutation();
+    const [getPosts, { isLoading: getPostsLoading, error: getPostsError }] = useGetAllPostsByUserIdMutation();
+
+    useEffect(() => {
+      const fetchUserPosts = async () => {
+        await getPosts(auth_id).unwrap()
+        .then((response) => {
+            dispatch(setPosts(response.result))
+            console.log(response)
+        })
+      }
+      fetchUserPosts()
+    }, [])
     const handleChangeContent = (e ) => {
         setPostContent(e.target.value)
     }
@@ -67,6 +84,22 @@ const CreatePostModal = () => {
        
        
     };
+    const handleCreatePost = async () => {
+      let postData = {
+        content: postContent,
+        images: files,
+      };
+      await createPost(postData)
+        .unwrap()
+        .then((response) => {
+          console.log(response);
+          setPostContent("");
+          setFiles([]);
+          setShowingFiles([]);
+        });
+    }
+
+     
   return (
     <>
   
@@ -214,7 +247,7 @@ const CreatePostModal = () => {
              </div>
               </ModalBody>
               <ModalFooter className='dark:bg-secondary-dark'>
-                <Button color="primary" onPress={onClose}>
+                <Button color="primary" onClick={handleCreatePost} onPress={onClose}>
                   Create
                 </Button>
               </ModalFooter>
