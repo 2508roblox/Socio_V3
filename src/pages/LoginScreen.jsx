@@ -8,7 +8,7 @@ import { UilEyeSlash } from "@iconscout/react-unicons";
 
 import { useDispatch, useSelector } from "react-redux";
 import {Input} from "@nextui-org/react";
-import { useLoginMutation } from "../services/slices/userApiSlice";
+import { useLoginMutation } from "../services/slices/authApiSlice";
 import { setCredentiald } from "../services/slices/authSlice";
 const LoginScreen = () => {
   const { theme } = useSelector((state) => state.theme);

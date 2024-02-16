@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import darkLogo from '../assets/imgs/dark-logo.png'
 import lightLogo from '../assets/imgs/light-full-logo.png'
 import { useDispatch, useSelector } from 'react-redux';
-import { useRegisterMutation } from '../services/slices/userApiSlice';
+import { useRegisterMutation } from '../services/slices/authApiSlice';
 import { setCredentiald } from '../services/slices/authSlice.js';
 
 const RegisterScreen = () => {

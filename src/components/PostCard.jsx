@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import avatar from "../assets/imgs/avatar.avif";
 import { UilSmile } from "@iconscout/react-unicons";
 import { UilCommentDots } from "@iconscout/react-unicons";
 import { UilShare } from "@iconscout/react-unicons";
 import { UilBookmark } from "@iconscout/react-unicons";
-import { photos } from "../assets/js/photos.js";
+ 
 import Carousel, { Modal, ModalGateway } from "react-images";
 import { Image } from "@nextui-org/react";
 import Gallery from 'react-photo-gallery';
@@ -12,27 +12,64 @@ import ConfettiExplosion from 'react-confetti-explosion';
 //animation
 import { motion } from "framer-motion";
 import PostOption from "./PostOption";
-const PostCard = () => {
+import { useGetByIdMutation } from "../services/slices/userApiSlice";
+import { useLikePostMutation, useUnLikePostMutation } from "../services/slices/postApiSlice";
+import { useSelector } from "react-redux";
+import formatTime from "../utils/formatTime";
+const PostCard = ({post}) => {
+  const auth_id = useSelector((state) => state.auth.userInfo.user._id )
+  const includesLikeId = post.likes.includes(auth_id)
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const [isLiked, setIsLiked] = useState(includesLikeId)
 
+  const [likeCount, setLikeCount] = useState(post.likes.length)
+  const [getUser, { isLoading: getUserLoading, error: getUserError }] = useGetByIdMutation();
+  const [likePost, { isLoading: getLikePostsLoading, error: getLikePostsError }] = useLikePostMutation();
+  const [unLikePost, { isLoading: getUnLikePostsLoading, error: getUnLikePostsError }] = useUnLikePostMutation();
+
+  const photos = post.images.map(photo => ({
+    src: photo,
+    width: 4,
+    height: 4
+  }));
+  useEffect(() => {
+    const getUserData = async ( ) => {
+      await getUser(post.user).unwrap()
+      .then((response) => {
+        setUserData(response.user)
+      })
+    } 
+    getUserData()
+     
+  }, [])
+  
   const openLightbox = useCallback((event, { photo, index }) => {
     setCurrentImage(index);
     setViewerIsOpen(true);
   }, []);
-
+ 
   const closeLightbox = () => {
     setCurrentImage(0);
     setViewerIsOpen(false);
   };
-  const [isLiked, setIsLiked] = useState(false)
   const handleLikePost = (e) => {
     e.preventDefault()
+    if (!isLiked) {
+      setLikeCount(prev => prev +1)
+        likePost(post._id).unwrap()
+      
+    }else{
+      setLikeCount(prev => prev - 1)
+      unLikePost(post._id).unwrap()
+
+    }
     setIsLiked(prev => !prev)
   }
   return (
     <>
-      <div className=" m-3 flex flex-col gap-4   bg-white dark:bg-secondary-dark shadow-lg rounded-3xl">
+      <div  className=" w-full m-3 flex flex-col gap-4   bg-white dark:bg-secondary-dark shadow-lg rounded-3xl">
         <div className=" pt-6 px-6  items-start flex flex-row justify-between ">
           <div className=" flex gap-4 items-start">
             <Image
@@ -44,10 +81,21 @@ const PostCard = () => {
             />
 
             <div className="">
-              <h1 className="font-semibold">Roxie Mills</h1>
+            
+             {
+              getUserLoading ?
+              <>
+              <div class="h-2.5 animate-pulse bg-gray-200 rounded-full dark:bg-gray-400 w-48 mb-4"></div>
+              <div class="h-2.5 animate-pulse bg-gray-200 rounded-full dark:bg-gray-400 w-48 mb-4"></div>
+              </>
+              :
+             <>
+              <h1 className="font-semibold">{userData?.firstName} {userData?.lastName}</h1>
               <p className="text-medium text-text-gray">
-                December 28, 2018
+                {formatTime(post.createdAt)  }
               </p>
+              </>
+             } 
             </div>
           </div>
           <div className="">
@@ -56,7 +104,7 @@ const PostCard = () => {
         </div>
         {/* post content */}
         <p className=" px-6 ">
-          Travelling to the future. It's already December 2018 here!
+          {post.content}
         </p>
         <div className=" px-6 py-2 img-container   h-[100%] w-[100%]   ">
           <Gallery photos={photos} onClick={openLightbox} />
@@ -124,7 +172,7 @@ const PostCard = () => {
               </motion.div>
 
             )}
-            120k Likes
+            {likeCount} Likes
           </div>
           <div className="flex items-center gap-2 text-lg font-medium opacity-60 ">
             <UilCommentDots size="35" /> 10k Commments

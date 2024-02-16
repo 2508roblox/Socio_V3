@@ -28,23 +28,22 @@ const CreatePostModal = () => {
     const [postContent , setPostContent] = useState('')
     const [files, setFiles] = useState([])
     const [showingFiles, setShowingFiles] = useState([])
+
     const {theme} = useSelector((state) => state.theme)
     const auth_id = useSelector((state) => state.auth.userInfo.user._id )
-    console.log(auth_id)
+    
+    // const posts = useSelector((state) => state.post.postData  )
     const dispatch = useDispatch()
     const [createPost, { isLoading: createPostLoading, error: createPostError }] = useCreatePostMutation();
     const [getPosts, { isLoading: getPostsLoading, error: getPostsError }] = useGetAllPostsByUserIdMutation();
 
-    useEffect(() => {
-      const fetchUserPosts = async () => {
-        await getPosts(auth_id).unwrap()
-        .then((response) => {
-            dispatch(setPosts(response.result))
-            console.log(response)
-        })
-      }
-      fetchUserPosts()
-    }, [])
+    const fetchUserPosts = async () => {
+      await getPosts(auth_id).unwrap()
+      .then( (response) => {
+            dispatch(setPosts(response))
+          console.log("check dispatch: ", postsData)
+      })
+    }
     const handleChangeContent = (e ) => {
         setPostContent(e.target.value)
     }
@@ -93,6 +92,7 @@ const CreatePostModal = () => {
         .unwrap()
         .then((response) => {
           console.log(response);
+          fetchUserPosts()
           setPostContent("");
           setFiles([]);
           setShowingFiles([]);

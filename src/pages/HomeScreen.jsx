@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import avatar from "../assets/imgs/avatar.avif";
 import story from "../assets/imgs/story.jpg";
@@ -27,8 +27,28 @@ import { Input } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import PostCard from "../components/PostCard";
 import StoryCard from "../components/StoryCard";
+import { useDispatch, useSelector } from "react-redux";
+import { setPosts } from '../services/slices/postSlice';
+import { useGetAllPostsByUserIdMutation } from "../services/slices/postApiSlice";
+
 const HomeScreen = () => {
   const [isLiked, setIsLiked] = useState(false)
+  const auth_id = useSelector((state) => state.auth.userInfo.user._id )
+    const postsData = useSelector((state) => state.post.postData?.posts ?? []  )
+console.log('ca', postsData)
+  const [getPosts, { isLoading: getPostsLoading, error: getPostsError }] = useGetAllPostsByUserIdMutation();
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const fetchUserPosts = async () => {
+      await getPosts(auth_id).unwrap()
+      .then( (response) => {
+            dispatch(setPosts(response))
+          console.log("check dispatch: ", postsData)
+      })
+    }
+    fetchUserPosts()
+  }, [])
   const handleLikePost = (e) => {
     e.preventDefault()
     setIsLiked(prev => !prev)
@@ -200,9 +220,13 @@ const HomeScreen = () => {
           {/* create post */}
           <CreatePostModal></CreatePostModal>
           {/* posts */}
-          <div className="posts ">
-            <PostCard></PostCard>
-          </div>
+          {postsData.slice().reverse().map(post => (
+  <PostCard key={post._id} post={post}></PostCard>
+))}
+                  
+           
+           
+        
         </div>
         {/* etc */}
         <div className="flex flex-col gap-4   overflow-y-scroll h-[90vh]  scrollbar-hide pr-4">
