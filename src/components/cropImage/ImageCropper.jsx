@@ -6,8 +6,9 @@ import ReactCrop, {
 } from "react-image-crop";
 import setCanvasPreview from "./setCanvasPreview";
 
-const ASPECT_RATIO = 1;
-const MIN_DIMENSION = 150;
+const ASPECT_RATIO = 148 / 218;
+const MIN_DIMENSION = 148;
+const MIN_HEIGHT = 218;
 
 const ImageCropper = ({ closeModal, updateAvatar }) => {
     const imgRef = useRef(null);
@@ -42,12 +43,13 @@ const ImageCropper = ({ closeModal, updateAvatar }) => {
     const onImageLoad = (e) => {
         const { width, height } = e.currentTarget;
         const cropWidthInPercent = (MIN_DIMENSION / width) * 100;
+        const crophIEGHTInPercent = (MIN_HEIGHT / height) * 100;
 
         const crop = makeAspectCrop(
             {
                 unit: "%",
                 width: cropWidthInPercent,
-                height: cropWidthInPercent, // Sửa đổi chiều cao thành cropWidthInPercent
+                height: crophIEGHTInPercent, // Sửa đổi chiều cao thành cropWidthInPercent
             },
             ASPECT_RATIO,
             width,
@@ -74,10 +76,11 @@ const ImageCropper = ({ closeModal, updateAvatar }) => {
                     <ReactCrop
                         crop={crop}
                         onChange={(pixelCrop, percentCrop) => setCrop(percentCrop)}
-                        circularCrop
+                        style={{ borderRadius: 0 }}
                         keepSelection
                         aspect={ASPECT_RATIO}
                         minWidth={MIN_DIMENSION}
+                        minHeight={MIN_HEIGHT}
                     >
                         <img
                             ref={imgRef}
