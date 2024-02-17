@@ -17,7 +17,8 @@ import avatar from "../assets/imgs/avatar.avif";
 
 import { toggleMode } from '../services/slices/themeSlice';
 import { UilDirection } from '@iconscout/react-unicons'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"; import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 const ProfileSidebar = () => {
   const userInfo = useSelector(state => state.auth.userInfo.user)
 
@@ -29,15 +30,21 @@ const ProfileSidebar = () => {
       <div className="col-span-1 bg-secondary-light  shadow-lg p-3 dark:bg-secondary-dark rounded-xl w-full ">
         <div className=" flex justify-between items-center mb-4">
           <div className="flex gap-2 items-center">
-            <Image
-              isZoomed
-              className="rounded-full border-[2px] border-white shadow-md"
-              alt="NextUI hero Image"
-              width={50}
-              height={50}
-              layout="responsive" // Thêm thuộc tính layout="responsive"
-              src={userInfo.avatar}
-            />
+
+            <PhotoProvider maskOpacity={0.5}>
+              <PhotoView src={userInfo.avatar}>
+                <Image
+                  isZoomed
+                  className="rounded-full cursor-pointer border-[2px] border-white shadow-md"
+                  alt="NextUI hero Image"
+                  width={50}
+                  height={50}
+                  layout="responsive" // Thêm thuộc tính layout="responsive"
+                  src={userInfo.avatar}
+                />
+
+              </PhotoView>
+            </PhotoProvider>
             <div className="">
               <h1 className="font-semibold">{userInfo.firstName} {userInfo.lastName}</h1>
               <p className="text-medium text-text-gray"> {new Date(userInfo.createdAt).toLocaleString()}</p>

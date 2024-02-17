@@ -1,36 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
 import avatar from "../assets/imgs/avatar.avif";
-import story from "../assets/imgs/story.jpg";
+
 import { UilSearch } from "@iconscout/react-unicons";
 import { UilBookMedical } from "@iconscout/react-unicons";
-import { UilSmile } from "@iconscout/react-unicons";
-import { UilVideo } from "@iconscout/react-unicons";
-import { UilImages } from "@iconscout/react-unicons";
-import { UilSmileBeam } from "@iconscout/react-unicons";
-import { UilCalendarAlt } from "@iconscout/react-unicons";
-import { UilEllipsisH } from "@iconscout/react-unicons";
-import { UilHeart } from "@iconscout/react-unicons";
-import { UilCommentDots } from "@iconscout/react-unicons";
-import { UilShare } from "@iconscout/react-unicons";
-import { UilBookmark } from "@iconscout/react-unicons";
-import { Avatar } from "@nextui-org/react";
+
 import { UilCheck } from "@iconscout/react-unicons";
 import { UilTimes } from "@iconscout/react-unicons";
 import { UilPlus } from "@iconscout/react-unicons";
 import { UilArrowCircleRight } from '@iconscout/react-unicons'
 import { Card, CardFooter, Image, Button } from "@nextui-org/react";
 import CreatePostModal from "../components/CreatePostModal";
-import ConfettiExplosion from "react-confetti-explosion";
-//animation
-import { motion } from "framer-motion";
-import { Input } from "@nextui-org/react";
+
+
 import { Link } from "react-router-dom";
 import PostCard from "../components/PostCard";
 import StoryCard from "../components/StoryCard";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../services/slices/postSlice";
 import { useGetAllPostsByUserIdMutation } from "../services/slices/postApiSlice";
+
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 
 const HomeScreen = () => {
   const [isLiked, setIsLiked] = useState(false);
@@ -121,13 +112,18 @@ const HomeScreen = () => {
         <div className="flex flex-col gap-4">
           {/* card */}
           <div className="bg-secondary-light dark:bg-secondary-dark shadow-lg rounded-xl ">
-            <Image
-              isBlurred
-              about=""
-              className="w-full rounded-2xl h-[210px] z-1"
-              alt="NextUI hero Image"
-              src={userInfo.banner}
-            />
+            <PhotoProvider maskOpacity={0.5}>
+              <PhotoView src={userInfo.banner}>
+                <Image
+                  isBlurred
+                  about=""
+                  className="w-full object-cover rounded-2xl h-[210px] z-1"
+                  alt="NextUI hero Image"
+                  src={userInfo.banner}
+                />
+
+              </PhotoView>
+            </PhotoProvider>
             <div className="relative h-[150px]">
               {/* avatar */}
               <div className="absolute top-[-20px] w-full">
@@ -137,12 +133,17 @@ const HomeScreen = () => {
                     <span className="text-text-gray text-lg">Followers</span>
                   </div>
                   <div className="   ">
-                    <img
-                      width={85}
-                      src={userInfo.avatar}
-                      className="rounded-xl border-primary-dark border-[2px]"
-                      alt=""
-                    />
+
+                    <PhotoProvider maskOpacity={0.5}>
+                      <PhotoView src={userInfo.avatar}>
+                        <img
+                          width={85}
+                          src={userInfo.avatar}
+                          className="rounded-xl border-primary-dark border-[2px]"
+                          alt=""
+                        />
+                      </PhotoView>
+                    </PhotoProvider>
                   </div>
                   <div className="text-center flex flex-col justify-center text-sm font-medium">
                     <span className="text-2xl">1000</span>

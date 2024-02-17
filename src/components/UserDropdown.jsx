@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleMode } from '../services/slices/themeSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../services/slices/authSlice';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 const UserDropdown = () => {
   const userInfo = useSelector(state => state.auth.userInfo.user)
 
@@ -27,7 +29,12 @@ const UserDropdown = () => {
       <DropdownTrigger>
         <Button color={"gray"} variant={"shadow"} className="dark:bg-transparent dark:text-white capitalize p-0 ">
           <div className=" flex items-center gap-2 p-2">
-            <img src={userInfo.avatar} className="rounded-full" width={40} alt="" />
+            <PhotoProvider maskOpacity={0.5}>
+              <PhotoView src={userInfo.avatar}>
+                <img src={userInfo.avatar} className="rounded-full" width={40} alt="" />
+
+              </PhotoView>
+            </PhotoProvider>
             <span className="text-medium font-medium">{userInfo.firstName} {userInfo.lastName}</span>
             <UilAngleDown />
           </div>

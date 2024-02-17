@@ -11,6 +11,9 @@ import ModalCrop from "../components/cropImage/ModalCrop";
 import ModalBanner from "../components/banner/ModalBanner";
 import { useUpdateAvatarMutation, useUpdateBannerMutation } from "../services/slices/userApiSlice";
 import { updateAvatarRedux, updateBannerRedux } from "../services/slices/authSlice";
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
+import ModalUpdateProfile from "../components/updateProfile/ModalUpdateProfile";
 const ProfileScreen = () => {
   const userInfo = useSelector(state => state.auth.userInfo.user)
   const userInfo_ = useSelector(state => state.auth.userInfo)
@@ -22,6 +25,7 @@ const ProfileScreen = () => {
   const { theme } = useSelector((state) => state.theme)
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { isOpen: bannerisOpen, onOpen: banneronOpen, onOpenChange: banneronOpenChange } = useDisclosure();
+  const { isOpen: profileisOpen, onOpen: profileonOpen, onOpenChange: profileonOpenChange } = useDisclosure();
   const avatarUrl = useRef(
     userInfo.avatar
   );
@@ -57,6 +61,11 @@ const ProfileScreen = () => {
         console.log(response);
       });
   }
+  const updateProfile = async (data) => {
+    console.log('data', data)
+
+  }
+
   const handleFile = async (avatar) => {
     const data = new FormData();
     data.append("file", avatar);
@@ -90,11 +99,17 @@ const ProfileScreen = () => {
         <div className="col-span-4 mx-3   h-[88vh] grid  grid-rows-5 grid-cols-1 ">
           <div className="row-span-3 bg-secondary-light  shadow-xl dark:bg-secondary-dark rounded-xl w-full mb-3">
             <div className="h-3/5 w-full relative z-1">
-              <img
-                className="rounded-xl h-full w-full object-cover "
-                src={userInfo.banner}
-                alt=""
-              />
+
+              <PhotoProvider maskOpacity={0.5}>
+                <PhotoView src={userInfo.banner}>
+                  <img
+                    className="rounded-xl h-full w-full object-cover cursor-pointer"
+                    src={userInfo.banner}
+                    alt=""
+                  />
+
+                </PhotoView>
+              </PhotoProvider>
               <div className="absolute flex gap-3 top-2 right-3">
                 <UilEdit onClick={banneronOpen} className="cursor-pointer bg-primary-light dark:bg-primary-dark  rounded-sm " />
                 <UilImageUpload onClick={banneronOpen} className="cursor-pointer bg-primary-light dark:bg-primary-dark  rounded-sm " />
@@ -103,11 +118,17 @@ const ProfileScreen = () => {
             <div className="z-2  flex items-end -mt-32 flex-row gap-2 justify-between mx-32">
               <div className="flex relative gap-4 items-end">
                 <div className="relative">
-                  <img
-                    src={avatarUrl.current || userInfo.avatar}
-                    alt=""
-                    className=" object-cover h-[230px] w-[160px] rounded-2xl border-[6px]  border-white"
-                  />
+
+                  <PhotoProvider maskOpacity={0.5}>
+                    <PhotoView src={avatarUrl.current || userInfo.avatar}>
+                      <img
+                        src={avatarUrl.current || userInfo.avatar}
+                        alt=""
+                        className=" object-cover h-[230px] w-[160px] rounded-2xl border-[6px]  cursor-pointer border-white"
+                      />
+
+                    </PhotoView>
+                  </PhotoProvider>
                   <UilCameraPlus onClick={onOpen} className="rounded-sm bg-primary-light dark:bg-primary-dark absolute bottom-3 right-3"></UilCameraPlus>
                 </div>
                 <div className="">
@@ -175,6 +196,7 @@ const ProfileScreen = () => {
                 <Button
                   className="   bg-btn-blue rounded-md text-xl  text-white px-5 "
                   size="lg"
+                  onClick={profileonOpen}
                 >
                   Update
                 </Button>
@@ -199,6 +221,7 @@ const ProfileScreen = () => {
       </main>
       <ModalCrop theme={theme} isOpen={isOpen} onOpenChange={onOpenChange} updateAvatar={updateAvatar} />
       <ModalBanner theme={theme} isOpen={bannerisOpen} onOpenChange={banneronOpenChange} updateAvatar={updateBanner} />
+      <ModalUpdateProfile theme={theme} isOpen={profileisOpen} onOpenChange={profileonOpenChange} updateAvatar={updateProfile} />
     </>
 
 
