@@ -8,20 +8,85 @@ import 'react-image-crop/dist/ReactCrop.css';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ProfileSidebar from "../components/ProfileSidebar";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import ModalCrop from "../components/cropImage/ModalCrop";
+import { useUpdateAvatarMutation } from "../services/slices/userApiSlice";
+import { updateAvatarRedux } from "../services/slices/authSlice";
 const ProfileScreen = () => {
   const userInfo = useSelector(state => state.auth.userInfo.user)
+  const userInfo_ = useSelector(state => state.auth.userInfo)
+  const authInfo = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+  const [user, setUser] = useState(userInfo_);
+
+
+  const [updateAvatar_, { isLoading: updateAvatarLoading, error: updateAvatarError }] = useUpdateAvatarMutation();
+  console.log(authInfo)
   const { theme } = useSelector((state) => state.theme)
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const avatarUrl = useRef(
-    "https://avatarfiles.alphacoders.com/161/161002.jpg"
+    userInfo.avatar
   );
-  const updateAvatar = (imgSrc) => {
+  const updateAvatar = async (imgSrc) => {
     avatarUrl.current = imgSrc;
-  };
+    dispatch(updateAvatarRedux(imgSrc));
 
+    const avatar = await handleFile(imgSrc)
+
+    // setUser(prevData => {
+    //   const newData = { ...prevData }; // Tạo một bản sao nông của đối tượng user ban đầu
+    //   newData.user = { ...newData.user, avatar: 'avatar' }; // Cập nhật giá trị của thuộc tính "avatar"
+    //   console.log('newData', newData)
+    //   return newData; // Trả về đối tượng dữ liệu đã được cập nhật để set lại state
+    // });
+    let postData = {
+      userId: userInfo._id,
+      updatedData: {
+        avatar: avatar
+      }
+
+    };
+    await updateAvatar_(postData)
+      .unwrap()
+      .then((response) => {
+        console.log(response);
+
+      });
+
+
+  }
+
+
+  const handleFile = async (avatar) => {
+
+    const data = new FormData();
+    data.append("file", avatar);
+    data.append(
+      "upload_preset",
+      'nte7vuwr'
+    );
+    data.append("cloud_name", 'derz9qdf3');
+    data.append("folder", "Cloudinary-React");
+
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/derz9qdf3/image/upload`,
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      const res = await response.json();
+      return res.url
+
+    } catch (error) {
+
+    }
+    //
+
+
+  };
   // 1. sử lí crop ảnh
 
 
