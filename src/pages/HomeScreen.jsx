@@ -1,30 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
 import avatar from "../assets/imgs/avatar.avif";
-import story from "../assets/imgs/story.jpg";
+
 import { UilSearch } from "@iconscout/react-unicons";
 import { UilBookMedical } from "@iconscout/react-unicons";
-import { UilSmile } from "@iconscout/react-unicons";
-import { UilVideo } from "@iconscout/react-unicons";
-import { UilImages } from "@iconscout/react-unicons";
-import { UilSmileBeam } from "@iconscout/react-unicons";
-import { UilCalendarAlt } from "@iconscout/react-unicons";
-import { UilEllipsisH } from "@iconscout/react-unicons";
-import { UilHeart } from "@iconscout/react-unicons";
-import { UilCommentDots } from "@iconscout/react-unicons";
-import { UilShare } from "@iconscout/react-unicons";
-import { UilBookmark } from "@iconscout/react-unicons";
-import { Avatar } from "@nextui-org/react";
+
 import { UilCheck } from "@iconscout/react-unicons";
 import { UilTimes } from "@iconscout/react-unicons";
 import { UilPlus } from "@iconscout/react-unicons";
 import { UilArrowCircleRight } from '@iconscout/react-unicons'
 import { Card, CardFooter, Image, Button } from "@nextui-org/react";
 import CreatePostModal from "../components/CreatePostModal";
-import ConfettiExplosion from "react-confetti-explosion";
-//animation
-import { motion } from "framer-motion";
-import { Input } from "@nextui-org/react";
+
+
 import { Link } from "react-router-dom";
 import PostCard from "../components/PostCard";
 import StoryCard from "../components/StoryCard";
@@ -32,9 +20,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../services/slices/postSlice";
 import { useGetAllPostsByUserIdMutation } from "../services/slices/postApiSlice";
 
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
+
 const HomeScreen = () => {
   const [isLiked, setIsLiked] = useState(false);
   const auth_id = useSelector((state) => state.auth.userInfo.user._id);
+  const userInfo = useSelector(state => state.auth.userInfo.user)
+
   const postsData = useSelector((state) => state.post.postData?.posts ?? []);
   console.log("ca", postsData);
   const [getPosts, { isLoading: getPostsLoading, error: getPostsError }] = useGetAllPostsByUserIdMutation();
@@ -92,11 +85,11 @@ const HomeScreen = () => {
     const scrollContainer = scrollContainerRef.current;
     const scrollDistance = 100; // Điều chỉnh giá trị 100 để thay đổi khoảng cách khi kéo qua
     const scrollStep = 5; // Điều chỉnh giá trị 10 để thay đổi tốc độ kéo qua
-  
+
     let scrollPosition = scrollContainer.scrollLeft;
     let scrollTarget = scrollPosition + scrollDistance;
     let scrollDirection = scrollTarget > scrollPosition ? 1 : -1;
-  
+
     const scroll = () => {
       scrollPosition += scrollStep * scrollDirection;
       if (
@@ -109,7 +102,7 @@ const HomeScreen = () => {
         scrollContainer.scrollLeft = scrollPosition;
       }
     };
-  
+
     scroll();
   };
   return (
@@ -119,13 +112,18 @@ const HomeScreen = () => {
         <div className="flex flex-col gap-4">
           {/* card */}
           <div className="bg-secondary-light dark:bg-secondary-dark shadow-lg rounded-xl ">
-            <Image
-              isBlurred
-              about=""
-              className="w-full rounded-2xl h-[210px] z-1"
-              alt="NextUI hero Image"
-              src="https://cdna.artstation.com/p/assets/images/images/024/538/828/original/pixel-jeff-clipc-s.gif?1582740521"
-            />
+            <PhotoProvider maskOpacity={0.5}>
+              <PhotoView src={userInfo.banner}>
+                <Image
+                  isBlurred
+                  about=""
+                  className="w-full object-cover rounded-2xl h-[210px] z-1"
+                  alt="NextUI hero Image"
+                  src={userInfo.banner}
+                />
+
+              </PhotoView>
+            </PhotoProvider>
             <div className="relative h-[150px]">
               {/* avatar */}
               <div className="absolute top-[-20px] w-full">
@@ -135,12 +133,17 @@ const HomeScreen = () => {
                     <span className="text-text-gray text-lg">Followers</span>
                   </div>
                   <div className="   ">
-                    <img
-                      width={85}
-                      src={avatar}
-                      className="rounded-xl border-primary-dark border-[2px]"
-                      alt=""
-                    />
+
+                    <PhotoProvider maskOpacity={0.5}>
+                      <PhotoView src={userInfo.avatar}>
+                        <img
+                          width={85}
+                          src={userInfo.avatar}
+                          className="rounded-xl border-primary-dark border-[2px]"
+                          alt=""
+                        />
+                      </PhotoView>
+                    </PhotoProvider>
                   </div>
                   <div className="text-center flex flex-col justify-center text-sm font-medium">
                     <span className="text-2xl">1000</span>
@@ -148,10 +151,10 @@ const HomeScreen = () => {
                   </div>
                 </div>
                 <div className="">
-                  <h1 className="text-center text-2xl mr-2">Charaleo</h1>
+                  <h1 className="text-center text-2xl mr-2">{userInfo.firstName} {userInfo.lastName}</h1>
 
                   <p className="text-center  mr-2 text-md text-text-gray ">
-                    @admin
+                    @{userInfo.username}
                   </p>
                 </div>
                 <div className="text-center">Hello</div>
@@ -246,24 +249,24 @@ const HomeScreen = () => {
           style={{ flexFlow: "row wrap", padding: "0 2rem", position: 'relative' }}
           className="scrollbar-hide  col-span-3 flex flex-col h-[90vh] overflow-y-scroll overflow-x-visible py-5"
         >
-       
-      <UilArrowCircleRight
-       style={{
-        position: 'absolute',
-        zIndex: '10',
-        right: '3rem',
-        top: '100px',
-        
-       }}
-       width="50px"
-       height="50px"
-       onClick={handleScrollButtonClick}
-       className=" bg-secondary-light text-btn-blue   dark:bg-secondary-dark dark:text-btn-yellow rounded-full " 
-      ></UilArrowCircleRight >
+
+          <UilArrowCircleRight
+            style={{
+              position: 'absolute',
+              zIndex: '10',
+              right: '3rem',
+              top: '100px',
+
+            }}
+            width="50px"
+            height="50px"
+            onClick={handleScrollButtonClick}
+            className=" bg-secondary-light text-btn-blue   dark:bg-secondary-dark dark:text-btn-yellow rounded-full "
+          ></UilArrowCircleRight >
           {/* story */}
-          <div   ref={scrollContainerRef} className=" h-[240px] mb-4   w-full px-3 flex gap-2   overflow-x-scroll  overflow-y-hidden scrollbar-hide mx-4 ">
+          <div ref={scrollContainerRef} className=" h-[240px] mb-4   w-full px-3 flex gap-2   overflow-x-scroll  overflow-y-hidden scrollbar-hide mx-4 ">
             {/*  */}
-         
+
             <div className=" story-card h-[100%]  w-[140px]   flex-shrink-0  relative shadow-md rounded-2xl  flex flex-col border-[2px] border-gray-400 border-dashed items-center justify-center gap-4">
               <Button
                 className="h-full p-3  dark:bg-transparent flex flex-col w-[100%]  bg-transparent"
@@ -278,7 +281,7 @@ const HomeScreen = () => {
                   </h1>
                 </div>
               </Button>
-    
+
             </div>
             <StoryCard
               storyImage={

@@ -1,15 +1,15 @@
 import { apiSlice } from "./apiSlice";
-const USERS_URL = 'http://localhost:3000/api/v1/users'
+const USERS_URL = '/api/v1/users'
 // api
 export const usersApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        
+
         getById: builder.mutation({
             query: (data) => ({
                 url: `${USERS_URL}/${data}`,
                 method: 'GET',
-                
-                
+
+
             })
         }),
         getAllUsers: builder.mutation({
@@ -20,7 +20,28 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 
             })
         }),
+     
        
+ 
+        updateAvatar: builder.mutation({
+            query: (data) => ({
+                url: `${USERS_URL}/`,
+                method: 'PUT',
+                body: data
+
+
+            })
+        }),
+        updateBanner: builder.mutation({
+            query: (data) => ({
+                url: `${USERS_URL}/`,
+                method: 'PUT',
+                body: data
+
+
+            })
+        }),
+
     })
 })
-export const {useGetByIdMutation, useGetAllUsersMutation } = usersApiSlice
+export const { useGetByIdMutation, useUpdateAvatarMutation, useUpdateBannerMutation , useGetAllUsersMutation} = usersApiSlice

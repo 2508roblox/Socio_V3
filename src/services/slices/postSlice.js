@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    postData: localStorage.getItem('postData') ? JSON.parse(localStorage.getItem('postData')) : null 
+    postData: localStorage.getItem('postData') ? JSON.parse(localStorage.getItem('postData')) : null
 }
 const postSlice = createSlice({
     name: 'post',
@@ -17,13 +17,13 @@ const postSlice = createSlice({
         deletePostById: (state, action) => {
             const postIdToDelete = action.payload;
             const updatedPosts = state.postData.posts.filter(
-              (post) => post._id !== postIdToDelete
+                (post) => post._id !== postIdToDelete
             );
             state.postData.posts = updatedPosts; // Update the `posts` property of `postData`
             localStorage.setItem("postData", JSON.stringify(state.postData));
-          },
-        
+        },
+
     }
 })
-export const { setPosts ,deletePostById} = postSlice.actions
+export const { setPosts, deletePostById } = postSlice.actions
 export default postSlice.reducer

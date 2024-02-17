@@ -23,83 +23,83 @@ import { useCreatePostMutation, useGetAllPostsByUserIdMutation } from '../servic
 import { setPosts } from '../services/slices/postSlice';
 
 const CreatePostModal = () => {
-  
-    const {isOpen, onOpen, onOpenChange} = useDisclosure();
-    const [postContent , setPostContent] = useState('')
-    const [files, setFiles] = useState([])
-    const [showingFiles, setShowingFiles] = useState([])
 
-    const {theme} = useSelector((state) => state.theme)
-    const auth_id = useSelector((state) => state.auth.userInfo.user._id )
-    
-    // const posts = useSelector((state) => state.post.postData  )
-    const dispatch = useDispatch()
-    const [createPost, { isLoading: createPostLoading, error: createPostError }] = useCreatePostMutation();
-    const [getPosts, { isLoading: getPostsLoading, error: getPostsError }] = useGetAllPostsByUserIdMutation();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [postContent, setPostContent] = useState('')
+  const [files, setFiles] = useState([])
+  const [showingFiles, setShowingFiles] = useState([])
 
-    const fetchUserPosts = async () => {
-      await getPosts(auth_id).unwrap()
-      .then( (response) => {
-            dispatch(setPosts(response))
-          console.log("check dispatch: ", postsData)
+  const { theme } = useSelector((state) => state.theme)
+  const auth_id = useSelector((state) => state.auth.userInfo.user._id)
+
+  // const posts = useSelector((state) => state.post.postData  )
+  const dispatch = useDispatch()
+  const [createPost, { isLoading: createPostLoading, error: createPostError }] = useCreatePostMutation();
+  const [getPosts, { isLoading: getPostsLoading, error: getPostsError }] = useGetAllPostsByUserIdMutation();
+
+  const fetchUserPosts = async () => {
+    await getPosts(auth_id).unwrap()
+      .then((response) => {
+        dispatch(setPosts(response))
+        console.log("check dispatch: ", postsData)
       })
+  }
+  const handleChangeContent = (e) => {
+    setPostContent(e.target.value)
+  }
+  const handleEmoji = (e) => {
+    setPostContent(prev => prev + e.native)
+  }
+
+  const handleFile = async (event) => {
+    if (!event.target.files[0]) {
+      return
     }
-    const handleChangeContent = (e ) => {
-        setPostContent(e.target.value)
-    }
-    const handleEmoji = (e) => {
-        setPostContent(prev => prev + e.native)
-    }
-   
-    const handleFile = async(event) => {
-        if (!event.target.files[0]) {
-            return
+    //
+    const data = new FormData();
+    data.append("file", event.target.files[0]);
+    data.append(
+      "upload_preset",
+      'nte7vuwr'
+    );
+    data.append("cloud_name", 'derz9qdf3');
+    data.append("folder", "Cloudinary-React");
+    setShowingFiles(prev => [...prev, URL.createObjectURL(event.target.files[0])])
+
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/derz9qdf3/image/upload`,
+        {
+          method: "POST",
+          body: data,
         }
-        //
-        const data = new FormData();
-        data.append("file", event.target.files[0]);
-        data.append(
-          "upload_preset",
-          'nte7vuwr'
-        );
-        data.append("cloud_name", 'derz9qdf3');
-        data.append("folder", "Cloudinary-React");
-        setShowingFiles(prev => [...prev, URL.createObjectURL(event.target.files[0])])
-    
-        try {
-          const response = await fetch(
-            `https://api.cloudinary.com/v1_1/derz9qdf3/image/upload`,
-            {
-              method: "POST",
-              body: data,
-            }
-          );
-          const res = await response.json();
-          setFiles(prev => [...prev, res.url]);
-          console.log(res)
-        } catch (error) {
-        }
-        //
-       
-       
+      );
+      const res = await response.json();
+      setFiles(prev => [...prev, res.url]);
+      console.log(res)
+    } catch (error) {
+    }
+    //
+
+
+  };
+  const handleCreatePost = async () => {
+    let postData = {
+      content: postContent,
+      images: files,
     };
-    const handleCreatePost = async () => {
-      let postData = {
-        content: postContent,
-        images: files,
-      };
-      await createPost(postData)
-        .unwrap()
-        .then((response) => {
-          console.log(response);
-          fetchUserPosts()
-          setPostContent("");
-          setFiles([]);
-          setShowingFiles([]);
-        });
-    }
-  
- 
+    await createPost(postData)
+      .unwrap()
+      .then((response) => {
+        console.log(response);
+        fetchUserPosts()
+        setPostContent("");
+        setFiles([]);
+        setShowingFiles([]);
+      });
+  }
+
+
 
 
   return (
