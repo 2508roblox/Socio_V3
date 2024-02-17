@@ -9,7 +9,7 @@
 
 .react-photo-gallery--gallery div {
     display              : grid !important;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     /* Số cột và kích thước của mỗi cột */
     grid-gap             : 10px;
     /* Khoảng cách giữa các ảnh */
@@ -22,7 +22,7 @@
 }
 
 .react-photo-gallery--gallery img:nth-child(n+4) {
-    display: none !important;
+    /* display: none !important; */
 }
 
 .crop {

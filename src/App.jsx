@@ -8,7 +8,7 @@ import { Button } from '@nextui-org/react'
 import { ThemeProvider as NextThemesProvider, ThemeProvider } from 'next-themes';
 import { NextUIProvider } from '@nextui-org/react';
 // theme mode
-import {useTheme} from "next-themes";
+import { useTheme } from "next-themes";
 import { useSelector } from 'react-redux'
 import { motion, AnimatePresence } from "framer-motion"
 import ProfileScreen from './pages/ProfileScreen'
@@ -25,10 +25,15 @@ import FriendsScreen from './pages/FriendsScreen'
 import RelationShipLayout from './components/layout/RelationshipLayout'
 import RegisterScreen from './pages/RegisterScreen'
 import LoginScreen from './pages/LoginScreen'
+import ProfileGallery from './pages/ProfileGallery'
 function App() {
+  const redux = useSelector((state) => state);
+  const postData = useSelector((state) => state.post.postData);
+  console.log('redux ==>', redux)
+
   const [count, setCount] = useState(0);
-  const {theme} = useSelector((state) => state.theme)
-  
+  const { theme } = useSelector((state) => state.theme)
+
   return (
     <NextUIProvider>
       <AnimatePresence>
@@ -40,10 +45,10 @@ function App() {
           <main
             className={`${theme}   no-scrollbar  transition-all duration-1000 text-foreground bg-primary-light dark:bg-primary-dark`}
           >
-         
+
             <Routes>
-              <Route path="/" element={<PrivateRoute   element={HomeScreen} />} />
-              <Route path="/profile" element={<PrivateRoute   element={ProfileLayout} />  }>
+              <Route path="/" element={<PrivateRoute element={HomeScreen} />} />
+              <Route path="/profile" element={<PrivateRoute element={ProfileLayout} />}>
                 <Route index element={<ProfileScreen></ProfileScreen>}></Route>
                 <Route
                   path="post"
@@ -53,12 +58,16 @@ function App() {
                   path="friends"
                   element={<ProfileFriends></ProfileFriends>}
                 ></Route>
+                <Route
+                  path="gallery"
+                  element={<ProfileGallery></ProfileGallery>}
+                ></Route>
               </Route>
               <Route path="/chat" element={<ChatScreen />} />
               <Route path="/explore" element={<ExploreScreen />} />
               <Route path="/relationship" element={<RelationShipLayout />} >
                 {/* All */}
-              <Route index element={<RelationshipScreen></RelationshipScreen>}></Route>
+                <Route index element={<RelationshipScreen></RelationshipScreen>}></Route>
                 <Route
                   path="request"
                   element={<RequestScreen></RequestScreen>}
@@ -71,11 +80,11 @@ function App() {
                   path="friends"
                   element={<FriendsScreen></FriendsScreen>}
                 ></Route>
-              
+
 
               </Route>
-              <Route path="/register" element={<RegisterScreen></RegisterScreen>}/>
-              <Route path="/login" element={<LoginScreen></LoginScreen>}/>
+              <Route path="/register" element={<RegisterScreen></RegisterScreen>} />
+              <Route path="/login" element={<LoginScreen></LoginScreen>} />
 
               <Route path="*" />
             </Routes>

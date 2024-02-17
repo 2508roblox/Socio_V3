@@ -1,41 +1,30 @@
-import React, { useState } from "react";
-import Header from "../components/Header";
-import { UilSmile } from "@iconscout/react-unicons";
-import {Tabs, Tab, Button, Switch, Image} from "@nextui-org/react";
-import { UilUser } from '@iconscout/react-unicons'
-import { UilImageEdit } from '@iconscout/react-unicons'
-import { UilNotebooks } from '@iconscout/react-unicons'
-import { UilUsersAlt } from '@iconscout/react-unicons'
-import { UilImages } from '@iconscout/react-unicons'
-import { UilEnvelopeEdit } from '@iconscout/react-unicons'
-import { UilBookmarkFull } from '@iconscout/react-unicons'
-import { UilApps } from '@iconscout/react-unicons'
-import { UilLamp } from '@iconscout/react-unicons'
-import { UilWrench } from '@iconscout/react-unicons'
-import { UilSlidersVAlt } from '@iconscout/react-unicons'
-import { UilSignout } from '@iconscout/react-unicons'
-import {Listbox, ListboxItem, cn} from "@nextui-org/react";
-import { NavLink, Outlet } from "react-router-dom";
+
 import avatar from "../assets/imgs/avatar.avif";
 import { UilCameraPlus } from '@iconscout/react-unicons'
 import { UilEdit } from '@iconscout/react-unicons'
 import { UilImageUpload } from '@iconscout/react-unicons'
 
-import { useDispatch, useSelector } from 'react-redux';
-import { toggleMode } from '../services/slices/themeSlice';
-import { UilDirection } from '@iconscout/react-unicons'
+
 import ProfileSidebar from "../components/ProfileSidebar";
 import CreatePostModal from "../components/CreatePostModal";
 import PostCard from "../components/PostCard";
+import { useSelector } from "react-redux";
 
 const ProfilePosts = () => {
+  const postsData = useSelector((state) => state.post.postData?.posts ?? []);
+
   return (
     <main className="grid grid-cols-5 mt-3">
       <ProfileSidebar></ProfileSidebar>
       {/* posts */}
       <div className="col-span-3 relative flex flex-col mx-3 w-full h-[88vh] overflow-y-scroll flex-1  overflow-x-hidden scrollbar-hide">
         <CreatePostModal></CreatePostModal>
-        <PostCard></PostCard>
+        {postsData
+          .slice()
+          .reverse()
+          .map((post) => (
+            <PostCard key={post._id} post={post}></PostCard>
+          ))}
       </div>
       {/*  */}
       <div className="col-span-1 mx-3 p-3">
