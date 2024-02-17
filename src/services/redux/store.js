@@ -3,6 +3,7 @@ import authSlice from '../slices/authSlice'
 import { apiSlice } from '../slices/apiSlice'
 import themeSlice from '../slices/themeSlice'
 import postSlice from '../slices/postSlice'
+import friendSlice from '../slices/friendSlice'
 const store = configureStore({
     devTools: true,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware ),
@@ -11,6 +12,7 @@ const store = configureStore({
         'auth': authSlice,
         'post': postSlice,
         'theme': themeSlice,
+        'friend': friendSlice,
         [apiSlice.reducerPath] : apiSlice.reducer
     }
 

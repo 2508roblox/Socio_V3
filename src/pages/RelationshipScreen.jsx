@@ -1,14 +1,37 @@
  
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RelationshipSidebar from "../components/RelationshipSidebar";
 import {Tabs, Tab, Button, Switch, Image, Input, Badge} from "@nextui-org/react";
 import avatar from "../assets/imgs/avatar.avif";
 import { UilSearch } from "@iconscout/react-unicons";
+import { useDispatch, useSelector } from "react-redux";
+import { useGetAllUsersMutation } from "../services/slices/userApiSlice";
+import { setAllUsers } from "../services/slices/friendSlice";
 
 const RelationshipScreen = () => {
   const handleGoTop = () => {
     scrollTo({ top: 0, behavior: 'smooth' })
   }
+  const auth_id = useSelector((state) => state.auth.userInfo.user._id);
+  const users = useSelector((state) => state.friend.friendData?.allUser);
+  console.log(users)
+  const [getUsers, { isLoading , error }] = useGetAllUsersMutation();
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    const fetchAllUser = async () => {
+      await getUsers(auth_id)
+        .unwrap()
+        .then( async(response) => {
+          console.log("check dispatch: ", response.users);
+            let payload_data =  response.users
+          console.log('update', payload_data)
+         dispatch(setAllUsers(payload_data));
+        });
+    };
+    fetchAllUser();
+  }, []);
   return (
     
       
@@ -40,441 +63,43 @@ const RelationshipScreen = () => {
         </div>
         <div className="friends grid grid-cols-4 gap-4">
             {/* item */}
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
+            {
+              users && users.map(user => {
+                <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
+                <div className="ava flex flex-col items-center justify-center">
+                <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
+           
+                  <Image
+                    isZoomed
+                    className=" rounded-full  border-[2px] border-white shadow-md"
+                    width={100}
+                    src={avatar}
+                    />
+                    </Badge>
+                  <div className="flex flex-col items-center justify-center">
+                    <h1 className="font-semibold">Roxie Mills</h1>
+                    <p className="text-medium text-text-gray">@username_mills</p>
+                  </div>
+                </div>
+                <div className="flex gap-3 mt-9">
                 <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                      Follow
-                </Button>
-            </div>
-          </div>
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
+                      className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
+                      size="lg"
+                    >
+                      Add Friend
+                    </Button>
+                    <Button
+                      className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
+                      size="lg"
+                    >
+                          Follow
+                    </Button>
+                </div>
               </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
-                <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                      Follow
-                </Button>
-            </div>
-          </div>
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
-                <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                      Follow
-                </Button>
-            </div>
-          </div>
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
-                <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                      Follow
-                </Button>
-            </div>
-          </div>
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
-                <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                      Follow
-                </Button>
-            </div>
-          </div>
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
-                <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                      Follow
-                </Button>
-            </div>
-          </div>
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
-                <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                      Follow
-                </Button>
-            </div>
-          </div>
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
-                <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                      Follow
-                </Button>
-            </div>
-          </div>
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
-                <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                      Follow
-                </Button>
-            </div>
-          </div>
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
-                <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                      Follow
-                </Button>
-            </div>
-          </div>
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
-                <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                      Follow
-                </Button>
-            </div>
-          </div>
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
-                <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                      Follow
-                </Button>
-            </div>
-          </div>
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
-                <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                      Follow
-                </Button>
-            </div>
-          </div>
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
-                <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                      Follow
-                </Button>
-            </div>
-          </div>
-        </div>
+              })
+            }
+      
+           </div>
       </div>
 
        </div>

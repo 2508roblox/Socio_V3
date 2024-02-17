@@ -12,7 +12,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 
             })
         }),
+        getAllUsers: builder.mutation({
+            query: (data) => ({
+                url: `${USERS_URL}/all`,
+                method: 'GET',
+                
+                
+            })
+        }),
        
     })
 })
-export const {useGetByIdMutation } = usersApiSlice
+export const {useGetByIdMutation, useGetAllUsersMutation } = usersApiSlice
