@@ -6,7 +6,7 @@ import ReactCrop, {
 } from "react-image-crop";
 import setCanvasPreview from "./setCanvasPreview";
 
-const ASPECT_RATIO = 148 / 148;
+const ASPECT_RATIO = 1473 / 360;
 const MIN_DIMENSION = 148;
 const MIN_HEIGHT = 218;
 

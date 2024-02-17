@@ -21,6 +21,13 @@ const authSlice = createSlice({
 
 
         },
+        updateBannerRedux: (state, action) => {
+            state.userInfo.user.banner = action.payload
+            localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
+
+
+
+        },
         logout: (state, action) => {
             state.userInfo = null
             localStorage.removeItem('userInfo')
@@ -28,5 +35,5 @@ const authSlice = createSlice({
         }
     }
 })
-export const { setCredentiald, logout, updateAvatarRedux } = authSlice.actions
+export const { setCredentiald, logout, updateAvatarRedux, updateBannerRedux } = authSlice.actions
 export default authSlice.reducer

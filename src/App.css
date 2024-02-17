@@ -29,3 +29,7 @@
     /* Các thuộc tính khác */
     border-radius: 0;
 }
+
+.rounded-image {
+    border-radius: 50%;
+}

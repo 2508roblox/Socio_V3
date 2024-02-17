@@ -35,6 +35,8 @@ import { useGetAllPostsByUserIdMutation } from "../services/slices/postApiSlice"
 const HomeScreen = () => {
   const [isLiked, setIsLiked] = useState(false);
   const auth_id = useSelector((state) => state.auth.userInfo.user._id);
+  const userInfo = useSelector(state => state.auth.userInfo.user)
+
   const postsData = useSelector((state) => state.post.postData?.posts ?? []);
   console.log("ca", postsData);
   const [getPosts, { isLoading: getPostsLoading, error: getPostsError }] = useGetAllPostsByUserIdMutation();
@@ -92,11 +94,11 @@ const HomeScreen = () => {
     const scrollContainer = scrollContainerRef.current;
     const scrollDistance = 100; // Điều chỉnh giá trị 100 để thay đổi khoảng cách khi kéo qua
     const scrollStep = 5; // Điều chỉnh giá trị 10 để thay đổi tốc độ kéo qua
-  
+
     let scrollPosition = scrollContainer.scrollLeft;
     let scrollTarget = scrollPosition + scrollDistance;
     let scrollDirection = scrollTarget > scrollPosition ? 1 : -1;
-  
+
     const scroll = () => {
       scrollPosition += scrollStep * scrollDirection;
       if (
@@ -109,7 +111,7 @@ const HomeScreen = () => {
         scrollContainer.scrollLeft = scrollPosition;
       }
     };
-  
+
     scroll();
   };
   return (
@@ -124,7 +126,7 @@ const HomeScreen = () => {
               about=""
               className="w-full rounded-2xl h-[210px] z-1"
               alt="NextUI hero Image"
-              src="https://cdna.artstation.com/p/assets/images/images/024/538/828/original/pixel-jeff-clipc-s.gif?1582740521"
+              src={userInfo.banner}
             />
             <div className="relative h-[150px]">
               {/* avatar */}
@@ -137,7 +139,7 @@ const HomeScreen = () => {
                   <div className="   ">
                     <img
                       width={85}
-                      src={avatar}
+                      src={userInfo.avatar}
                       className="rounded-xl border-primary-dark border-[2px]"
                       alt=""
                     />
@@ -148,10 +150,10 @@ const HomeScreen = () => {
                   </div>
                 </div>
                 <div className="">
-                  <h1 className="text-center text-2xl mr-2">Charaleo</h1>
+                  <h1 className="text-center text-2xl mr-2">{userInfo.firstName} {userInfo.lastName}</h1>
 
                   <p className="text-center  mr-2 text-md text-text-gray ">
-                    @admin
+                    @{userInfo.username}
                   </p>
                 </div>
                 <div className="text-center">Hello</div>
@@ -246,24 +248,24 @@ const HomeScreen = () => {
           style={{ flexFlow: "row wrap", padding: "0 2rem", position: 'relative' }}
           className="scrollbar-hide  col-span-3 flex flex-col h-[90vh] overflow-y-scroll overflow-x-visible py-5"
         >
-       
-      <UilArrowCircleRight
-       style={{
-        position: 'absolute',
-        zIndex: '10',
-        right: '3rem',
-        top: '100px',
-        
-       }}
-       width="50px"
-       height="50px"
-       onClick={handleScrollButtonClick}
-       className=" bg-secondary-light text-btn-blue   dark:bg-secondary-dark dark:text-btn-yellow rounded-full " 
-      ></UilArrowCircleRight >
+
+          <UilArrowCircleRight
+            style={{
+              position: 'absolute',
+              zIndex: '10',
+              right: '3rem',
+              top: '100px',
+
+            }}
+            width="50px"
+            height="50px"
+            onClick={handleScrollButtonClick}
+            className=" bg-secondary-light text-btn-blue   dark:bg-secondary-dark dark:text-btn-yellow rounded-full "
+          ></UilArrowCircleRight >
           {/* story */}
-          <div   ref={scrollContainerRef} className=" h-[240px] mb-4   w-full px-3 flex gap-2   overflow-x-scroll  overflow-y-hidden scrollbar-hide mx-4 ">
+          <div ref={scrollContainerRef} className=" h-[240px] mb-4   w-full px-3 flex gap-2   overflow-x-scroll  overflow-y-hidden scrollbar-hide mx-4 ">
             {/*  */}
-         
+
             <div className=" story-card h-[100%]  w-[140px]   flex-shrink-0  relative shadow-md rounded-2xl  flex flex-col border-[2px] border-gray-400 border-dashed items-center justify-center gap-4">
               <Button
                 className="h-full p-3  dark:bg-transparent flex flex-col w-[100%]  bg-transparent"
@@ -278,7 +280,7 @@ const HomeScreen = () => {
                   </h1>
                 </div>
               </Button>
-    
+
             </div>
             <StoryCard
               storyImage={

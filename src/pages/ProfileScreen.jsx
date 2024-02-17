@@ -1,65 +1,63 @@
 
 import { Tabs, Tab, Button, Switch, Image, ModalFooter, ModalBody, ModalHeader, ModalContent, useDisclosure, Modal } from "@nextui-org/react";
-
 import { UilCameraPlus } from '@iconscout/react-unicons'
 import { UilEdit } from '@iconscout/react-unicons'
 import { UilImageUpload } from '@iconscout/react-unicons'
 import 'react-image-crop/dist/ReactCrop.css';
 import { useDispatch, useSelector } from 'react-redux';
-
 import ProfileSidebar from "../components/ProfileSidebar";
 import { useRef, useState } from "react";
 import ModalCrop from "../components/cropImage/ModalCrop";
-import { useUpdateAvatarMutation } from "../services/slices/userApiSlice";
-import { updateAvatarRedux } from "../services/slices/authSlice";
+import ModalBanner from "../components/banner/ModalBanner";
+import { useUpdateAvatarMutation, useUpdateBannerMutation } from "../services/slices/userApiSlice";
+import { updateAvatarRedux, updateBannerRedux } from "../services/slices/authSlice";
 const ProfileScreen = () => {
   const userInfo = useSelector(state => state.auth.userInfo.user)
   const userInfo_ = useSelector(state => state.auth.userInfo)
   const authInfo = useSelector(state => state.auth)
   const dispatch = useDispatch()
-  const [user, setUser] = useState(userInfo_);
-
-
   const [updateAvatar_, { isLoading: updateAvatarLoading, error: updateAvatarError }] = useUpdateAvatarMutation();
+  const [updateBanner_, { isLoading: updateBannerLoading, error: updateBannerError }] = useUpdateBannerMutation();
   console.log(authInfo)
   const { theme } = useSelector((state) => state.theme)
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
+  const { isOpen: bannerisOpen, onOpen: banneronOpen, onOpenChange: banneronOpenChange } = useDisclosure();
   const avatarUrl = useRef(
     userInfo.avatar
   );
   const updateAvatar = async (imgSrc) => {
     avatarUrl.current = imgSrc;
     dispatch(updateAvatarRedux(imgSrc));
-
     const avatar = await handleFile(imgSrc)
-
-    // setUser(prevData => {
-    //   const newData = { ...prevData }; // Tạo một bản sao nông của đối tượng user ban đầu
-    //   newData.user = { ...newData.user, avatar: 'avatar' }; // Cập nhật giá trị của thuộc tính "avatar"
-    //   console.log('newData', newData)
-    //   return newData; // Trả về đối tượng dữ liệu đã được cập nhật để set lại state
-    // });
     let postData = {
       userId: userInfo._id,
       updatedData: {
         avatar: avatar
       }
-
     };
     await updateAvatar_(postData)
       .unwrap()
       .then((response) => {
         console.log(response);
-
       });
-
-
   }
+  const updateBanner = async (imgSrc) => {
 
-
+    dispatch(updateBannerRedux(imgSrc));
+    const avatar = await handleFile(imgSrc)
+    let postData = {
+      userId: userInfo._id,
+      updatedData: {
+        banner: avatar
+      }
+    };
+    await updateBanner_(postData)
+      .unwrap()
+      .then((response) => {
+        console.log(response);
+      });
+  }
   const handleFile = async (avatar) => {
-
     const data = new FormData();
     data.append("file", avatar);
     data.append(
@@ -68,7 +66,6 @@ const ProfileScreen = () => {
     );
     data.append("cloud_name", 'derz9qdf3');
     data.append("folder", "Cloudinary-React");
-
     try {
       const response = await fetch(
         `https://api.cloudinary.com/v1_1/derz9qdf3/image/upload`,
@@ -79,21 +76,9 @@ const ProfileScreen = () => {
       );
       const res = await response.json();
       return res.url
-
     } catch (error) {
-
     }
-    //
-
-
   };
-  // 1. sử lí crop ảnh
-
-
-  //1. sử lí crop ảnh 
-
-
-
 
   return (
     <>
@@ -111,8 +96,8 @@ const ProfileScreen = () => {
                 alt=""
               />
               <div className="absolute flex gap-3 top-2 right-3">
-                <UilEdit className="cursor-pointer bg-primary-light dark:bg-primary-dark  rounded-sm " />
-                <UilImageUpload className="cursor-pointer bg-primary-light dark:bg-primary-dark  rounded-sm " />
+                <UilEdit onClick={banneronOpen} className="cursor-pointer bg-primary-light dark:bg-primary-dark  rounded-sm " />
+                <UilImageUpload onClick={banneronOpen} className="cursor-pointer bg-primary-light dark:bg-primary-dark  rounded-sm " />
               </div>
             </div>
             <div className="z-2  flex items-end -mt-32 flex-row gap-2 justify-between mx-32">
@@ -130,7 +115,7 @@ const ProfileScreen = () => {
                     {userInfo.firstName} {userInfo.lastName}
                     <div className="status w-3 h-3 rounded-full bg-green-400 mt-2"></div>
                   </h1>
-                  <p className="text-xl opacity-70">@Rachel_Derek</p>
+                  <p className="text-xl opacity-70">@{userInfo.username}</p>
                   <p className="text-lg font-semibold">MERN stack developer</p>
                 </div>
               </div>
@@ -213,6 +198,7 @@ const ProfileScreen = () => {
         </div>
       </main>
       <ModalCrop theme={theme} isOpen={isOpen} onOpenChange={onOpenChange} updateAvatar={updateAvatar} />
+      <ModalBanner theme={theme} isOpen={bannerisOpen} onOpenChange={banneronOpenChange} updateAvatar={updateBanner} />
     </>
 
 
