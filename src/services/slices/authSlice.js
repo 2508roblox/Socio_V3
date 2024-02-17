@@ -24,9 +24,13 @@ const authSlice = createSlice({
         updateBannerRedux: (state, action) => {
             state.userInfo.user.banner = action.payload
             localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
-
-
-
+        },
+        updateProfileRedux: (state, action) => {
+            state.userInfo.user.firstName = action.payload.firstName
+            state.userInfo.user.lastName = action.payload.lastName
+            state.userInfo.user.username = action.payload.username
+            state.userInfo.user.email = action.payload.email
+            localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
         },
         logout: (state, action) => {
             state.userInfo = null
@@ -35,5 +39,5 @@ const authSlice = createSlice({
         }
     }
 })
-export const { setCredentiald, logout, updateAvatarRedux, updateBannerRedux } = authSlice.actions
+export const { setCredentiald, logout, updateAvatarRedux, updateBannerRedux, updateProfileRedux } = authSlice.actions
 export default authSlice.reducer

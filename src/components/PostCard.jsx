@@ -4,7 +4,7 @@ import { UilSmile } from "@iconscout/react-unicons";
 import { UilCommentDots } from "@iconscout/react-unicons";
 import { UilShare } from "@iconscout/react-unicons";
 import { UilBookmark } from "@iconscout/react-unicons";
- 
+
 import Carousel, { Modal, ModalGateway } from "react-images";
 import { Image } from "@nextui-org/react";
 import Gallery from 'react-photo-gallery';
@@ -16,8 +16,8 @@ import { useGetByIdMutation } from "../services/slices/userApiSlice";
 import { useLikePostMutation, useUnLikePostMutation } from "../services/slices/postApiSlice";
 import { useSelector } from "react-redux";
 import formatTime from "../utils/formatTime";
-const PostCard = ({post}) => {
-  const auth_id = useSelector((state) => state.auth.userInfo.user._id )
+const PostCard = ({ post }) => {
+  const auth_id = useSelector((state) => state.auth.userInfo.user._id)
   const includesLikeId = post.likes.includes(auth_id)
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
@@ -35,21 +35,21 @@ const PostCard = ({post}) => {
     height: 4
   }));
   useEffect(() => {
-    const getUserData = async ( ) => {
+    const getUserData = async () => {
       await getUser(post.user).unwrap()
-      .then((response) => {
-        setUserData(response.user)
-      })
-    } 
+        .then((response) => {
+          setUserData(response.user)
+        })
+    }
     getUserData()
-     
+
   }, [])
-  
+
   const openLightbox = useCallback((event, { photo, index }) => {
     setCurrentImage(index);
     setViewerIsOpen(true);
   }, []);
- 
+
   const closeLightbox = () => {
     setCurrentImage(0);
     setViewerIsOpen(false);
@@ -57,10 +57,10 @@ const PostCard = ({post}) => {
   const handleLikePost = (e) => {
     e.preventDefault()
     if (!isLiked) {
-      setLikeCount(prev => prev +1)
-        likePost(post._id).unwrap()
-      
-    }else{
+      setLikeCount(prev => prev + 1)
+      likePost(post._id).unwrap()
+
+    } else {
       setLikeCount(prev => prev - 1)
       unLikePost(post._id).unwrap()
 
@@ -69,7 +69,7 @@ const PostCard = ({post}) => {
   }
   return (
     <>
-      <div  className=" w-full m-3 flex flex-col gap-4   bg-white dark:bg-secondary-dark shadow-lg rounded-3xl">
+      <div className=" w-full m-3 flex flex-col gap-4   bg-white dark:bg-secondary-dark shadow-lg rounded-3xl">
         <div className=" pt-6 px-6  items-start flex flex-row justify-between ">
           <div className=" flex gap-4 items-start">
             <Image
@@ -77,32 +77,32 @@ const PostCard = ({post}) => {
               className=" rounded-full border-[2px] border-white shadow-md h-[50px]"
               alt="NextUI hero Image"
               width={50}
-              src={userData?.avatar ?? 'https://i.stack.imgur.com/l60Hf.png' }
+              src={userData?.avatar ?? 'https://i.stack.imgur.com/l60Hf.png'}
             />
 
             <div className="">
-            
-             {
-              getUserLoading ?
-              <>
-              <div class="h-3 animate-pulse bg-gray-200 rounded-md dark:bg-gray-400 w-48 mb-4"></div>
-              <div class="h-3 animate-pulse bg-gray-200 rounded-md dark:bg-gray-400 w-48 mb-4"></div>
-              </>
-              :
-             <>
-              <h1 className="font-semibold">{userData?.firstName} {userData?.lastName}</h1>
-              <p className="text-medium text-text-gray">
-                {formatTime(post.createdAt)  }
-              </p>
-              </>
-             } 
+
+              {
+                getUserLoading ?
+                  <>
+                    <div class="h-3 animate-pulse bg-gray-200 rounded-md dark:bg-gray-400 w-48 mb-4"></div>
+                    <div class="h-3 animate-pulse bg-gray-200 rounded-md dark:bg-gray-400 w-48 mb-4"></div>
+                  </>
+                  :
+                  <>
+                    <h1 className="font-semibold">{userData?.firstName} {userData?.lastName}</h1>
+                    <p className="text-medium text-text-gray">
+                      {formatTime(post.createdAt)}
+                    </p>
+                  </>
+              }
             </div>
           </div>
           <div className="">
             {auth_id == userData?._id ? (<PostOption post_id={post._id}></PostOption>
-) : (
-  ''
-)}
+            ) : (
+              ''
+            )}
           </div>
         </div>
         {/* post content */}
@@ -135,7 +135,7 @@ const PostCard = ({post}) => {
                   viewBox="0 0 16 16"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
                   />
 
@@ -166,7 +166,7 @@ const PostCard = ({post}) => {
                   viewBox="0 0 16 16"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
                   />
                 </svg>

@@ -1,4 +1,6 @@
 
+import toast, { Toaster } from 'react-hot-toast';
+import { useFormik } from 'formik';
 import { Tabs, Tab, Button, Switch, Image, ModalFooter, ModalBody, ModalHeader, ModalContent, useDisclosure, Modal } from "@nextui-org/react";
 import { UilCameraPlus } from '@iconscout/react-unicons'
 import { UilEdit } from '@iconscout/react-unicons'
@@ -9,23 +11,29 @@ import ProfileSidebar from "../components/ProfileSidebar";
 import { useRef, useState } from "react";
 import ModalCrop from "../components/cropImage/ModalCrop";
 import ModalBanner from "../components/banner/ModalBanner";
-import { useUpdateAvatarMutation, useUpdateBannerMutation } from "../services/slices/userApiSlice";
-import { updateAvatarRedux, updateBannerRedux } from "../services/slices/authSlice";
+import { useUpdateAvatarMutation, useUpdateBannerMutation, useUpdateProfileMutation } from "../services/slices/userApiSlice";
+import { updateAvatarRedux, updateBannerRedux, updateProfileRedux } from "../services/slices/authSlice";
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 import ModalUpdateProfile from "../components/updateProfile/ModalUpdateProfile";
 const ProfileScreen = () => {
   const userInfo = useSelector(state => state.auth.userInfo.user)
   const userInfo_ = useSelector(state => state.auth.userInfo)
+
   const authInfo = useSelector(state => state.auth)
+  console.log('auth', authInfo)
   const dispatch = useDispatch()
   const [updateAvatar_, { isLoading: updateAvatarLoading, error: updateAvatarError }] = useUpdateAvatarMutation();
   const [updateBanner_, { isLoading: updateBannerLoading, error: updateBannerError }] = useUpdateBannerMutation();
-  console.log(authInfo)
+  const [updateProfile_, { isLoading: updateProfileLoading, error: updateProfilerError }] = useUpdateProfileMutation();
   const { theme } = useSelector((state) => state.theme)
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { isOpen: bannerisOpen, onOpen: banneronOpen, onOpenChange: banneronOpenChange } = useDisclosure();
   const { isOpen: profileisOpen, onOpen: profileonOpen, onOpenChange: profileonOpenChange } = useDisclosure();
+
+
+
+
   const avatarUrl = useRef(
     userInfo.avatar
   );
@@ -61,10 +69,7 @@ const ProfileScreen = () => {
         console.log(response);
       });
   }
-  const updateProfile = async (data) => {
-    console.log('data', data)
 
-  }
 
   const handleFile = async (avatar) => {
     const data = new FormData();
@@ -88,11 +93,38 @@ const ProfileScreen = () => {
     } catch (error) {
     }
   };
+  const formik = useFormik({
+    initialValues: {
+      email: userInfo.email,
+      firstName: userInfo.firstName,
+      lastName: userInfo.lastName,
+      username: userInfo.username,
 
+    },
+    validateOnBlur: false,
+    validateOnChange: false,
+    onSubmit: async values => {
+      values = await Object.assign(values)
+      console.log(values)
+      let updateProfile_Promise = updateProfile_({
+        userId: userInfo._id,
+        updatedData: values
+      })
+      toast.promise(updateProfile_Promise, {
+        loading: 'Updating...',
+        success: <b>Update Successfully...!</b>,
+        error: <b>Could not Update.</b>
+      });
+      dispatch(updateProfileRedux(values));
+      profileonOpenChange()
+
+
+    }
+  })
   return (
     <>
 
-
+      <Toaster position='top-center' reverseOrder={false}></Toaster>
       <main className="grid grid-cols-5 mt-3">
         <ProfileSidebar></ProfileSidebar>
         {/* profile  */}
@@ -221,7 +253,7 @@ const ProfileScreen = () => {
       </main>
       <ModalCrop theme={theme} isOpen={isOpen} onOpenChange={onOpenChange} updateAvatar={updateAvatar} />
       <ModalBanner theme={theme} isOpen={bannerisOpen} onOpenChange={banneronOpenChange} updateAvatar={updateBanner} />
-      <ModalUpdateProfile theme={theme} isOpen={profileisOpen} onOpenChange={profileonOpenChange} updateAvatar={updateProfile} />
+      <ModalUpdateProfile theme={theme} isOpen={profileisOpen} onOpenChange={profileonOpenChange} formik={formik} />
     </>
 
 
