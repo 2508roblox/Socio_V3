@@ -31,8 +31,8 @@ const PostCard = ({ post }) => {
 
   const photos = post.images.map(photo => ({
     src: photo,
-    width: 4,
-    height: 4
+    width: 2,
+    height: 2
   }));
   useEffect(() => {
     const getUserData = async () => {
