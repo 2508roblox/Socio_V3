@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react";
 import RelationshipSidebar from "../components/RelationshipSidebar";
 import {Tabs, Tab, Button, Switch, Image, Input, Badge} from "@nextui-org/react";
 import avatar from "../assets/imgs/avatar.avif";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 const UserCard = ({user, type}) => {
+  const navigate = useNavigate();
+  const handleButtonClick = (e) => {
+    
+    console.log('fawe')
+    navigate(`/profile/${user._id}`)
+ 
+  };
   return (
     <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
     <div className="ava flex flex-col items-center justify-center">
@@ -24,12 +32,15 @@ const UserCard = ({user, type}) => {
     <div className="flex gap-3 mt-9">
       
       {type === 'ALL_USERS' && (
+ 
     <Button
-    className="w-full   font-medium bg-btn-blue rounded-md text-xl  text-white px-5 "
-    size="lg"
-  >
-    View Profile
-  </Button>
+      onClick={(e) => handleButtonClick(e)}
+      className="w-full font-medium bg-btn-blue rounded-md text-xl text-white px-5"
+      size="lg"
+    >
+      View Profile
+    </Button>
+   
   )}
       {type === 'FRIEND' && (
     <Button

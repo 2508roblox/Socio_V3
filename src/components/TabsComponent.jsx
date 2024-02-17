@@ -13,7 +13,6 @@ const TabsComponent = () => {
     const navigate = useNavigate();
    
     const activeTab = ( ) => {
-      console.log(location)
       if (location == '/') {
         return 'home'
       }else if (location == '/chat') {

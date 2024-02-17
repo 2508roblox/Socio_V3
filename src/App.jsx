@@ -43,6 +43,9 @@ function App() {
          
             <Routes>
               <Route path="/" element={<PrivateRoute   element={HomeScreen} />} />
+              <Route path="/profile/:userId" element={<PrivateRoute   element={ProfileLayout} />  }> 
+              <Route index element={<ProfileScreen></ProfileScreen>}></Route>
+              </Route>
               <Route path="/profile" element={<PrivateRoute   element={ProfileLayout} />  }>
                 <Route index element={<ProfileScreen></ProfileScreen>}></Route>
                 <Route

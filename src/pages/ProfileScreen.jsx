@@ -8,31 +8,50 @@ import { UilImageUpload } from '@iconscout/react-unicons'
 import 'react-image-crop/dist/ReactCrop.css';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileSidebar from "../components/ProfileSidebar";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ModalCrop from "../components/cropImage/ModalCrop";
 import ModalBanner from "../components/banner/ModalBanner";
-import { useUpdateAvatarMutation, useUpdateBannerMutation, useUpdateProfileMutation } from "../services/slices/userApiSlice";
+import { useGetByIdMutation, useUpdateAvatarMutation, useUpdateBannerMutation, useUpdateProfileMutation } from "../services/slices/userApiSlice";
 import { updateAvatarRedux, updateBannerRedux, updateProfileRedux } from "../services/slices/authSlice";
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 import ModalUpdateProfile from "../components/updateProfile/ModalUpdateProfile";
+import { useParams } from 'react-router';
 const ProfileScreen = () => {
   const userInfo = useSelector(state => state.auth.userInfo.user)
   const userInfo_ = useSelector(state => state.auth.userInfo)
-
+  const { userId } = useParams();
+  //other user data
+  const [otherUser, setOtherUser] = useState(null)
   const authInfo = useSelector(state => state.auth)
-  console.log('auth', authInfo)
+  console.log(otherUser, 'fawefawef')
   const dispatch = useDispatch()
   const [updateAvatar_, { isLoading: updateAvatarLoading, error: updateAvatarError }] = useUpdateAvatarMutation();
   const [updateBanner_, { isLoading: updateBannerLoading, error: updateBannerError }] = useUpdateBannerMutation();
   const [updateProfile_, { isLoading: updateProfileLoading, error: updateProfilerError }] = useUpdateProfileMutation();
+  const [getUser, { isLoading: getUserLoading, error: getUserError }] = useGetByIdMutation();
+
   const { theme } = useSelector((state) => state.theme)
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { isOpen: bannerisOpen, onOpen: banneronOpen, onOpenChange: banneronOpenChange } = useDisclosure();
   const { isOpen: profileisOpen, onOpen: profileonOpen, onOpenChange: profileonOpenChange } = useDisclosure();
 
 
-
+  useEffect(() => {
+    const getUserInfo = async () => {
+      await getUser(userId).unwrap()
+      .then((response) => {
+        console.log(response)
+        setOtherUser(response.user)
+      })
+  }
+    
+    
+    userId && userId != userInfo._id && getUserInfo()
+  
+   
+  }, [ ])
+  
 
   const avatarUrl = useRef(
     userInfo.avatar
@@ -133,10 +152,10 @@ const ProfileScreen = () => {
             <div className="h-3/5 w-full relative z-1">
 
               <PhotoProvider maskOpacity={0.5}>
-                <PhotoView src={userInfo.banner}>
+                <PhotoView src={otherUser?.banner  || userInfo.banner}>
                   <img
                     className="rounded-xl h-full w-full object-cover cursor-pointer"
-                    src={userInfo.banner}
+                    src={otherUser?.banner || userInfo.banner}
                     alt=""
                   />
 
@@ -152,9 +171,9 @@ const ProfileScreen = () => {
                 <div className="relative">
 
                   <PhotoProvider maskOpacity={0.5}>
-                    <PhotoView src={avatarUrl.current || userInfo.avatar}>
+                    <PhotoView src={otherUser?.avatar || avatarUrl.current || userInfo.avatar}>
                       <img
-                        src={avatarUrl.current || userInfo.avatar}
+                        src={otherUser?.avatar  || avatarUrl.current || userInfo.avatar}
                         alt=""
                         className=" object-cover h-[230px] w-[160px] rounded-2xl border-[6px]  cursor-pointer border-white"
                       />
@@ -165,10 +184,10 @@ const ProfileScreen = () => {
                 </div>
                 <div className="">
                   <h1 className="text-3xl font-bold flex gap-2 items-center">
-                    {userInfo.firstName} {userInfo.lastName}
+                    {otherUser?.firstName ?? userInfo.firstName} {otherUser?.username ?? userInfo.username}
                     <div className="status w-3 h-3 rounded-full bg-green-400 mt-2"></div>
                   </h1>
-                  <p className="text-xl opacity-70">@{userInfo.username}</p>
+                  <p className="text-xl opacity-70">@{otherUser?.username ??  userInfo.username}</p>
                   <p className="text-lg font-semibold">MERN stack developer</p>
                 </div>
               </div>
