@@ -16,6 +16,7 @@ const FriendsScreen = () => {
   const auth_id = useSelector((state) => state.auth.userInfo.user._id);
   const [getFriends, { isLoading , error }] = useGetFriendsMutation();
   const dispatch = useDispatch();
+  const users = useSelector((state) => state.friend.friendData?.friend);
 
 
   useEffect(() => {
@@ -60,37 +61,12 @@ const FriendsScreen = () => {
         </div>
         <div className="friends grid grid-cols-4 gap-4">
             {/* item */}
-          <div className="item bg-secondary-light dark:bg-secondary-dark p-6 rounded-lg shadow-lg flex flex-col justify-end">
-            <div className="ava flex flex-col items-center justify-center">
-            <Badge content="" color="success" shape="circle" size="lg" className="right-5" placement="bottom-right">
-       
-              <Image
-                isZoomed
-                className=" rounded-full  border-[2px] border-white shadow-md"
-                width={100}
-                src={avatar}
-                />
-                </Badge>
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="font-semibold">Roxie Mills</h1>
-                <p className="text-medium text-text-gray">@username_mills</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-9">
-            <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Unfriend
-                </Button>
-                <Button
-                  className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
-                  size="lg"
-                >
-                  Chat
-                </Button>
-            </div>
-          </div>
+            {
+           users.length > 0  && users.map(user => { 
+         return   <UserCard user={user} type={"ALL_USERS"}></UserCard>
+          })
+         
+}
          
         </div>
       </div>

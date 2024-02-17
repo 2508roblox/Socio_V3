@@ -23,6 +23,7 @@ import 'react-photo-view/dist/react-photo-view.css';
 const RelationshipSidebar = () => {
   const dispatch = useDispatch()
   const { theme } = useSelector((state) => state.theme)
+  const users = useSelector((state) => state.friend.friendData.allUser)
   return (
     <div className="col-span-1 bg-secondary-light  shadow-lg p-3 dark:bg-secondary-dark rounded-xl w-full ">
       <div className=" flex justify-between items-center mb-4">

@@ -10,23 +10,28 @@ const UserCard = ({user, type}) => {
 
       <Image
         isZoomed
-        className=" rounded-full  border-[2px] border-white shadow-md"
+        className=" rounded-full  border-[2px] border-white shadow-md h-[100px]"
         width={100}
+        height={100}
         src={user.avatar ?? avatar}
         />
         </Badge>
       <div className="flex flex-col items-center justify-center">
-        <h1 className="font-semibold">Roxie Mills</h1>
-        <p className="text-medium text-text-gray">@username_mills</p>
+        <h1 className="font-semibold">{user?.firstName} {user?.lastName}</h1>
+        <p className="text-medium text-text-gray">@{user?.username}</p>
       </div>
     </div>
     <div className="flex gap-3 mt-9">
+      
+      {type === 'ALL_USERS' && (
     <Button
-          className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-          size="lg"
-        >
-          View Profile
-        </Button>
+    className="w-full   font-medium bg-btn-blue rounded-md text-xl  text-white px-5 "
+    size="lg"
+  >
+    View Profile
+  </Button>
+  )}
+   
         <Button
           className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "
           size="lg"

@@ -15,7 +15,7 @@ const RelationshipScreen = () => {
   }
   const auth_id = useSelector((state) => state.auth.userInfo.user._id);
   const users = useSelector((state) => state.friend.friendData?.allUser);
-  console.log(users)
+ 
   const [getUsers, { isLoading , error }] = useGetAllUsersMutation();
   const dispatch = useDispatch();
 
@@ -25,9 +25,8 @@ const RelationshipScreen = () => {
       await getUsers(auth_id)
         .unwrap()
         .then( async(response) => {
-          console.log("check dispatch: ", response.users);
+            console.log( 'faef',Array.isArray(response.users))
             let payload_data =  response.users
-          console.log('update', payload_data)
          dispatch(setAllUsers(payload_data));
         });
     };
@@ -64,15 +63,13 @@ const RelationshipScreen = () => {
         </div>
         <div className="friends grid grid-cols-4 gap-4">
             {/* item */}
+        
             {
-                console.log( 'check',users)
-            }
-            {
-            
-               users.map(user => { return 
-                <UserCard user={user} type={'ALL_USER'}></UserCard>
-              })
-            }
+           users.length > 0  && users.map(user => { 
+         return   <UserCard user={user} type={"ALL_USERS"}></UserCard>
+          })
+         
+}
       
            </div>
       </div>
