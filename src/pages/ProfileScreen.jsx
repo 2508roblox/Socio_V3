@@ -1,35 +1,39 @@
-import React, { useState } from "react";
-import Header from "../components/Header";
-import { UilSmile } from "@iconscout/react-unicons";
-import {Tabs, Tab, Button, Switch, Image} from "@nextui-org/react";
-import { UilUser } from '@iconscout/react-unicons'
-import { UilImageEdit } from '@iconscout/react-unicons'
-import { UilNotebooks } from '@iconscout/react-unicons'
-import { UilUsersAlt } from '@iconscout/react-unicons'
-import { UilImages } from '@iconscout/react-unicons'
-import { UilEnvelopeEdit } from '@iconscout/react-unicons'
-import { UilBookmarkFull } from '@iconscout/react-unicons'
-import { UilApps } from '@iconscout/react-unicons'
-import { UilLamp } from '@iconscout/react-unicons'
-import { UilWrench } from '@iconscout/react-unicons'
-import { UilSlidersVAlt } from '@iconscout/react-unicons'
-import { UilSignout } from '@iconscout/react-unicons'
-import {Listbox, ListboxItem, cn} from "@nextui-org/react";
-import { NavLink, Outlet } from "react-router-dom";
-import avatar from "../assets/imgs/avatar.avif";
+
+import { Tabs, Tab, Button, Switch, Image, ModalFooter, ModalBody, ModalHeader, ModalContent, useDisclosure, Modal } from "@nextui-org/react";
+
 import { UilCameraPlus } from '@iconscout/react-unicons'
 import { UilEdit } from '@iconscout/react-unicons'
 import { UilImageUpload } from '@iconscout/react-unicons'
-
+import 'react-image-crop/dist/ReactCrop.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleMode } from '../services/slices/themeSlice';
-import { UilDirection } from '@iconscout/react-unicons'
-import ProfileSidebar from "../components/ProfileSidebar";
 
+import ProfileSidebar from "../components/ProfileSidebar";
+import { useRef } from "react";
+import ModalCrop from "../components/cropImage/ModalCrop";
 const ProfileScreen = () => {
+  const userInfo = useSelector(state => state.auth.userInfo.user)
+  const { theme } = useSelector((state) => state.theme)
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const avatarUrl = useRef(
+    "https://avatarfiles.alphacoders.com/161/161002.jpg"
+  );
+  const updateAvatar = (imgSrc) => {
+    avatarUrl.current = imgSrc;
+  };
+
+  // 1. sử lí crop ảnh
+
+
+  //1. sử lí crop ảnh 
+
+
+
 
   return (
-    
+    <>
+
+
       <main className="grid grid-cols-5 mt-3">
         <ProfileSidebar></ProfileSidebar>
         {/* profile  */}
@@ -38,7 +42,7 @@ const ProfileScreen = () => {
             <div className="h-3/5 w-full relative z-1">
               <img
                 className="rounded-xl h-full w-full object-cover "
-                src="https://cdna.artstation.com/p/assets/images/images/024/538/828/original/pixel-jeff-clipc-s.gif?1582740521"
+                src={userInfo.banner}
                 alt=""
               />
               <div className="absolute flex gap-3 top-2 right-3">
@@ -50,15 +54,15 @@ const ProfileScreen = () => {
               <div className="flex relative gap-4 items-end">
                 <div className="relative">
                   <img
-                    src={avatar}
+                    src={avatarUrl.current || userInfo.avatar}
                     alt=""
                     className=" object-cover h-[230px] w-[160px] rounded-2xl border-[6px]  border-white"
                   />
-                  <UilCameraPlus className="rounded-sm bg-primary-light dark:bg-primary-dark absolute bottom-3 right-3"></UilCameraPlus>
+                  <UilCameraPlus onClick={onOpen} className="rounded-sm bg-primary-light dark:bg-primary-dark absolute bottom-3 right-3"></UilCameraPlus>
                 </div>
                 <div className="">
                   <h1 className="text-3xl font-bold flex gap-2 items-center">
-                    Rachel Derek
+                    {userInfo.firstName} {userInfo.lastName}
                     <div className="status w-3 h-3 rounded-full bg-green-400 mt-2"></div>
                   </h1>
                   <p className="text-xl opacity-70">@Rachel_Derek</p>
@@ -100,21 +104,21 @@ const ProfileScreen = () => {
                 <div className="mt-3  flex flex-col gap-1 overflow-y-scroll h-[17vh]  scrollbar-hide">
                   <div className="opacity-60 font-light bg-primary-light dark:bg-primary-dark px-3 py-1 rounded-md">
                     <h1 className="text-sm">Work at</h1>
-            <p className="font-bold">Viet Nam</p>
-                     </div>
+                    <p className="font-bold">Viet Nam</p>
+                  </div>
                   <div className="opacity-60 font-light bg-primary-light dark:bg-primary-dark px-3 py-1 rounded-md">
                     <h1 className="text-sm">Work at</h1>
-            <p className="font-bold">Viet Nam</p>
-                     </div>
+                    <p className="font-bold">Viet Nam</p>
+                  </div>
                   <div className="opacity-60 font-light bg-primary-light dark:bg-primary-dark px-3 py-1 rounded-md">
                     <h1 className="text-sm">Work at</h1>
-            <p className="font-bold">Viet Nam</p>
-                     </div>
+                    <p className="font-bold">Viet Nam</p>
+                  </div>
                   <div className="opacity-60 font-light bg-primary-light dark:bg-primary-dark px-3 py-1 rounded-md">
                     <h1 className="text-sm">Work at</h1>
-            <p className="font-bold">Viet Nam</p>
-                     </div>
-                 
+                    <p className="font-bold">Viet Nam</p>
+                  </div>
+
                 </div>
               </div>
               <div className="flex flex-row gap-2 mt-4">
@@ -122,7 +126,7 @@ const ProfileScreen = () => {
                   className="   bg-btn-blue rounded-md text-xl  text-white px-5 "
                   size="lg"
                 >
-                 Update
+                  Update
                 </Button>
                 <Button
                   className="   bg-btn-gray dark:bg-btn-gray dark:text-white rounded-md text-xl  text-white   !py-1 "
@@ -143,7 +147,10 @@ const ProfileScreen = () => {
           </div>
         </div>
       </main>
-   
+      <ModalCrop theme={theme} isOpen={isOpen} onOpenChange={onOpenChange} updateAvatar={updateAvatar} />
+    </>
+
+
   );
 }
 

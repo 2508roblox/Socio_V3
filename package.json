@@ -31,6 +31,7 @@
     "react-dom": "^18.2.0",
     "react-fb-image-grid": "^0.1.5",
     "react-filepond": "^7.1.2",
+    "react-image-crop": "^11.0.5",
     "react-images": "^1.2.0-beta.7",
     "react-photo-gallery": "^8.0.0",
     "react-redux": "^8.1.3",

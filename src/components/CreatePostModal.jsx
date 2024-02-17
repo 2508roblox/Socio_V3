@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { UilSmile } from '@iconscout/react-unicons'
 import avatar from "../assets/imgs/avatar.avif";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 import { UilVideo } from '@iconscout/react-unicons'
 import { UilImages } from '@iconscout/react-unicons'
 import { UilSmileBeam } from '@iconscout/react-unicons'
@@ -10,16 +10,16 @@ import { UilCalendarAlt } from '@iconscout/react-unicons'
 // emoji lib
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
-import {Popover, PopoverTrigger, PopoverContent} from "@nextui-org/react";
+import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 // file pond
 // card
-import {Card, CardBody, CardFooter, Image} from "@nextui-org/react";
+import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 
 // Register the plugins
 //animation
 import { motion } from "framer-motion"
 import { useDispatch, useSelector } from 'react-redux';
-import {  useCreatePostMutation, useGetAllPostsByUserIdMutation } from '../services/slices/postApiSlice';
+import { useCreatePostMutation, useGetAllPostsByUserIdMutation } from '../services/slices/postApiSlice';
 import { setPosts } from '../services/slices/postSlice';
 
 const CreatePostModal = () => {
@@ -98,11 +98,66 @@ const CreatePostModal = () => {
           setShowingFiles([]);
         });
     }
+    fetchUserPosts()
+  }, [])
+  const handleChangeContent = (e) => {
+    setPostContent(e.target.value)
+  }
+  const handleEmoji = (e) => {
+    setPostContent(prev => prev + e.native)
+  }
 
-     
+  const handleFile = async (event) => {
+    if (!event.target.files[0]) {
+      return
+    }
+    //
+    const data = new FormData();
+    data.append("file", event.target.files[0]);
+    data.append(
+      "upload_preset",
+      'nte7vuwr'
+    );
+    data.append("cloud_name", 'derz9qdf3');
+    data.append("folder", "Cloudinary-React");
+    setShowingFiles(prev => [...prev, URL.createObjectURL(event.target.files[0])])
+
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/derz9qdf3/image/upload`,
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      const res = await response.json();
+      setFiles(prev => [...prev, res.url]);
+      console.log(res)
+    } catch (error) {
+    }
+    //
+
+
+  };
+  const handleCreatePost = async () => {
+    let postData = {
+      content: postContent,
+      images: files,
+    };
+    await createPost(postData)
+      .unwrap()
+      .then((response) => {
+        console.log(response);
+        setPostContent("");
+        setFiles([]);
+        setShowingFiles([]);
+      });
+  }
+
+
   return (
     <>
-  
+
       <div
         className="px-3 m-3 w-[100%] rounded-xl py-2 bg-white dark:bg-secondary-dark shadow-md"
         onClick={onOpen}
@@ -110,15 +165,15 @@ const CreatePostModal = () => {
         <h1 className="font-bold mb-2">Post Something</h1>
         <hr />
         <div className="  p-3  flex gap-4  items-start">
-        <Image
-              isZoomed
-              className={`${theme}  rounded-full border-[2px] border-white shadow-md`}
-              alt="NextUI hero Image"
-              width={40}
+          <Image
+            isZoomed
+            className={`${theme}  rounded-full border-[2px] border-white shadow-md`}
+            alt="NextUI hero Image"
+            width={40}
 
-              src={avatar}
-            />
-          
+            src={avatar}
+          />
+
           <div className=" w-full flex flex-col gap-2 items-center ">
             <div className="px-4  rounded-xl border-none shadow-inner w-full flex justify-between items-center dark:bg-primary-dark bg-primary-light p-2">
               <input
@@ -134,15 +189,15 @@ const CreatePostModal = () => {
 
       {/* modal */}
       <Modal
-      className={ `${theme} dark:bg-secondary-dark `}
+        className={`${theme} dark:bg-secondary-dark `}
         size="5xl"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         backdrop={"blur"}
         closeButton={
-     
-           <svg  aria-hidden="true" fill="none" focusable="false" height="1.6em" role="presentation" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1.6em"><path d="M18 6L6 18M6 6l12 12"></path></svg>
-          
+
+          <svg aria-hidden="true" fill="none" focusable="false" height="1.6em" role="presentation" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1.6em"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+
         }
       >
         <ModalContent className=" dark:bg-secondary-dark">
@@ -177,9 +232,9 @@ const CreatePostModal = () => {
                   rows="3"
                 ></textarea>
                 <div className="flex justify-end">
-                 
+
                   <Popover
-                  className='p-0  '
+                    className='p-0  '
                     key={"bottom-start"}
                     placement={"bottom-start"}
                     color="primary"
@@ -190,7 +245,7 @@ const CreatePostModal = () => {
                         variant="flat"
                         className="capitalize dark:bg-transparent  "
                       >
-                     <UilSmile className="dark:text-white"></UilSmile>
+                        <UilSmile className="dark:text-white"></UilSmile>
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className='bg-transparent p-0'>
@@ -204,10 +259,10 @@ const CreatePostModal = () => {
                     <div className=" p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-primary-dark text-dark dark:text-white">
                       <UilVideo color="#3B82F6    " /> Video
                     </div>
-                    <label htmlFor='hehe'  className=" p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-primary-dark text-dark dark:text-white">
+                    <label htmlFor='hehe' className=" p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-primary-dark text-dark dark:text-white">
                       <UilImages color="green" /> Image
                     </label>
-                    <input onChange={(e) =>handleFile(event)} type="file" hidden name='hehe' id='hehe'/>
+                    <input onChange={(e) => handleFile(event)} type="file" hidden name='hehe' id='hehe' />
                     <div className=" p-2 rounded-lg flex items-center gap-2  bg-primary-light dark:border-primary-dark dark:bg-primary-dark  text-dark dark:text-white">
                       <UilSmileBeam color="orange" /> Emoji
                     </div>
@@ -216,35 +271,35 @@ const CreatePostModal = () => {
                     </div>
                   </div>
                 </div>
-              {/* image preview */}
-             <div className="grid grid-cols-4 gap-3">
-             {showingFiles && showingFiles.map((file, index) => {
-               
-             
-               return <motion.div
-               initial={{ opacity: 0, scale: 0.8 }}
-               animate={{ opacity: 1, scale: 1 }}
-               transition={{
-                 duration: 0.3,
-                 ease: [0, 0.71, 0.2, 1.01],
-                 scale: {
-                   type: "spring",
-                   damping: 5,
-                   stiffness: 100,
-                   restDelta: 0.001
-                 }
-               }}
-             >
-             <Image
-             isBlurred
+                {/* image preview */}
+                <div className="grid grid-cols-4 gap-3">
+                  {showingFiles && showingFiles.map((file, index) => {
 
-             src={file}
-             alt="NextUI Album Cover"
-             classNames="m-5"
-           />
-           </motion.div>
-              })}
-             </div>
+
+                    return <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        duration: 0.3,
+                        ease: [0, 0.71, 0.2, 1.01],
+                        scale: {
+                          type: "spring",
+                          damping: 5,
+                          stiffness: 100,
+                          restDelta: 0.001
+                        }
+                      }}
+                    >
+                      <Image
+                        isBlurred
+
+                        src={file}
+                        alt="NextUI Album Cover"
+                        classNames="m-5"
+                      />
+                    </motion.div>
+                  })}
+                </div>
               </ModalBody>
               <ModalFooter className='dark:bg-secondary-dark'>
                 <Button color="primary" onClick={handleCreatePost} onPress={onClose}>
