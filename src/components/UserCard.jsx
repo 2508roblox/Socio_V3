@@ -31,6 +31,30 @@ const UserCard = ({user, type}) => {
     View Profile
   </Button>
   )}
+      {type === 'FRIEND' && (
+    <Button
+    className="w-full   font-medium bg-btn-blue rounded-md text-xl  text-white px-5 "
+    size="lg"
+  >
+    UnFriend
+  </Button>
+  )}
+      {type === 'REQUEST' && (
+    <Button
+    className="w-full   font-medium bg-btn-blue rounded-md text-xl  text-white px-5 "
+    size="lg"
+  >
+    Accept
+  </Button>
+  )}
+      {type === 'REQUESTING' && (
+    <Button
+    className="w-full   font-medium bg-btn-blue rounded-md text-xl  text-white px-5 "
+    size="lg"
+  >
+   Pending
+  </Button>
+  )}
    
         <Button
           className="w-full  text-black   dark:bg-btn-gray dark:text-white rounded-md text-xl    px-3 !py-1 "

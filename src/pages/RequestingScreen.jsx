@@ -63,7 +63,7 @@ const RequestingScreen = () => {
          
             {
            users.length > 0  && users.map(user => { 
-         return   <UserCard user={user} type={"ALL_USERS"}></UserCard>
+         return   <UserCard user={user} type={"REQUESTING"}></UserCard>
           })
          
 }
