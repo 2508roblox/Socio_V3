@@ -98,61 +98,8 @@ const CreatePostModal = () => {
           setShowingFiles([]);
         });
     }
-    fetchUserPosts()
-  }, [])
-  const handleChangeContent = (e) => {
-    setPostContent(e.target.value)
-  }
-  const handleEmoji = (e) => {
-    setPostContent(prev => prev + e.native)
-  }
-
-  const handleFile = async (event) => {
-    if (!event.target.files[0]) {
-      return
-    }
-    //
-    const data = new FormData();
-    data.append("file", event.target.files[0]);
-    data.append(
-      "upload_preset",
-      'nte7vuwr'
-    );
-    data.append("cloud_name", 'derz9qdf3');
-    data.append("folder", "Cloudinary-React");
-    setShowingFiles(prev => [...prev, URL.createObjectURL(event.target.files[0])])
-
-    try {
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/derz9qdf3/image/upload`,
-        {
-          method: "POST",
-          body: data,
-        }
-      );
-      const res = await response.json();
-      setFiles(prev => [...prev, res.url]);
-      console.log(res)
-    } catch (error) {
-    }
-    //
-
-
-  };
-  const handleCreatePost = async () => {
-    let postData = {
-      content: postContent,
-      images: files,
-    };
-    await createPost(postData)
-      .unwrap()
-      .then((response) => {
-        console.log(response);
-        setPostContent("");
-        setFiles([]);
-        setShowingFiles([]);
-      });
-  }
+  
+ 
 
 
   return (
