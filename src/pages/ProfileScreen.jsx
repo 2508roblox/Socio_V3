@@ -17,18 +17,25 @@ import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 import ModalUpdateProfile from "../components/updateProfile/ModalUpdateProfile";
 import { useParams } from 'react-router';
+import { setRequest, setRequesting } from '../services/slices/friendSlice';
+import { useGetOtherUsersRequestMutation, useGetUserRequestMutation, useSendFriendRequestMutation } from '../services/slices/friendApiSlice';
 const ProfileScreen = () => {
   const userInfo = useSelector(state => state.auth.userInfo.user)
   const userInfo_ = useSelector(state => state.auth.userInfo)
   const { userId } = useParams();
   //other user data
   const [otherUser, setOtherUser] = useState(null)
+  const [pending, setPending] = useState(false)
   const authInfo = useSelector(state => state.auth)
-  console.log(otherUser, 'fawefawef')
   const dispatch = useDispatch()
   const [updateAvatar_, { isLoading: updateAvatarLoading, error: updateAvatarError }] = useUpdateAvatarMutation();
   const [updateBanner_, { isLoading: updateBannerLoading, error: updateBannerError }] = useUpdateBannerMutation();
   const [updateProfile_, { isLoading: updateProfileLoading, error: updateProfilerError }] = useUpdateProfileMutation();
+
+  const [getUserRequest] = useGetUserRequestMutation();
+  const [getOtherUsersRequest_] = useGetOtherUsersRequestMutation();
+
+  const [sendFriendRequest_] = useSendFriendRequestMutation();
   const [getUser, { isLoading: getUserLoading, error: getUserError }] = useGetByIdMutation();
 
   const { theme } = useSelector((state) => state.theme)
@@ -37,21 +44,38 @@ const ProfileScreen = () => {
   const { isOpen: profileisOpen, onOpen: profileonOpen, onOpenChange: profileonOpenChange } = useDisclosure();
 
 
-  useEffect(() => {
-    const getUserInfo = async () => {
-      await getUser(userId).unwrap()
+
+  const getUserRequest_ = async () => {
+    await getUserRequest().unwrap()
       .then((response) => {
-        console.log(response)
-        setOtherUser(response.user)
+        dispatch(setRequesting(response));
+
+
+      })
+    await getOtherUsersRequest_().unwrap()
+      .then((response) => {
+        // dispatch(setRequest(response));
+
       })
   }
-    
-    
+  useEffect(() => {
+
+
+    const getUserInfo = async () => {
+      await getUser(userId).unwrap()
+        .then((response) => {
+          console.log(response)
+          setOtherUser(response.user)
+        })
+    }
+
+
     userId && userId != userInfo._id && getUserInfo()
-  
-   
-  }, [ ])
-  
+    getUserRequest_()
+
+
+  }, [])
+
 
   const avatarUrl = useRef(
     userInfo.avatar
@@ -59,6 +83,7 @@ const ProfileScreen = () => {
   const updateAvatar = async (imgSrc) => {
     avatarUrl.current = imgSrc;
     dispatch(updateAvatarRedux(imgSrc));
+
     const avatar = await handleFile(imgSrc)
     let postData = {
       userId: userInfo._id,
@@ -90,6 +115,10 @@ const ProfileScreen = () => {
   }
 
 
+  const handleSendFriendRequest = async () => {
+    setPending(true)
+    dispatch(sendFriendRequest_({ senderId: userId, id: userInfo._id }));
+  }
   const handleFile = async (avatar) => {
     const data = new FormData();
     data.append("file", avatar);
@@ -152,7 +181,7 @@ const ProfileScreen = () => {
             <div className="h-3/5 w-full relative z-1">
 
               <PhotoProvider maskOpacity={0.5}>
-                <PhotoView src={otherUser?.banner  || userInfo.banner}>
+                <PhotoView src={otherUser?.banner || userInfo.banner}>
                   <img
                     className="rounded-xl h-full w-full object-cover cursor-pointer"
                     src={otherUser?.banner || userInfo.banner}
@@ -173,7 +202,7 @@ const ProfileScreen = () => {
                   <PhotoProvider maskOpacity={0.5}>
                     <PhotoView src={otherUser?.avatar || avatarUrl.current || userInfo.avatar}>
                       <img
-                        src={otherUser?.avatar  || avatarUrl.current || userInfo.avatar}
+                        src={otherUser?.avatar || avatarUrl.current || userInfo.avatar}
                         alt=""
                         className=" object-cover h-[230px] w-[160px] rounded-2xl border-[6px]  cursor-pointer border-white"
                       />
@@ -187,24 +216,46 @@ const ProfileScreen = () => {
                     {otherUser?.firstName ?? userInfo.firstName} {otherUser?.username ?? userInfo.username}
                     <div className="status w-3 h-3 rounded-full bg-green-400 mt-2"></div>
                   </h1>
-                  <p className="text-xl opacity-70">@{otherUser?.username ??  userInfo.username}</p>
+                  <p className="text-xl opacity-70">@{otherUser?.username ?? userInfo.username}</p>
                   <p className="text-lg font-semibold">MERN stack developer</p>
                 </div>
               </div>
-              <div className="flex gap-4">
-                <Button
-                  className="w-full   bg-btn-blue rounded-md text-xl  text-white px-5 "
-                  size="lg"
-                >
-                  Add Friend
-                </Button>
-                <Button
-                  className="w-full   bg-btn-gray dark:bg-btn-gray dark:text-white rounded-md text-xl  text-white px-3 !py-1 "
-                  size="lg"
-                >
-                  Chat
-                </Button>
-              </div>
+              {userId && userId !== userInfo._id && !pending && (
+                <div className="flex gap-4">
+                  <Button
+                    className="w-full bg-btn-blue rounded-md text-xl text-white px-5"
+                    size="lg"
+                    onClick={handleSendFriendRequest}
+                  >
+
+                    Add Friend
+                  </Button>
+                  <Button
+                    className="w-full bg-btn-gray dark:bg-btn-gray dark:text-white rounded-md text-xl text-white px-3 !py-1"
+                    size="lg"
+                  >
+                    Chat
+                  </Button>
+                </div>
+              )}
+              {userId && pending && (
+                <div className="flex gap-4">
+                  <Button
+                    className="w-full bg-btn-blue rounded-md text-xl text-white px-5"
+                    size="lg"
+
+                  >
+
+                    Pending
+                  </Button>
+                  <Button
+                    className="w-full bg-btn-gray dark:bg-btn-gray dark:text-white rounded-md text-xl text-white px-3 !py-1"
+                    size="lg"
+                  >
+                    Chat
+                  </Button>
+                </div>
+              )}
             </div>
             <div className="mx-32 my-3 flex gap-4">
               <p className="text-xl font-bold opacity-60 cursor-pointer hover:opacity-90">

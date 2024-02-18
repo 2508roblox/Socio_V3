@@ -19,7 +19,7 @@ const UserDropdown = () => {
   const dispatch = useDispatch()
   const handleLogout = async () => {
     dispatch(logout())
-    navigate('register')
+    navigate('/')
 
   }
   return (
@@ -46,7 +46,7 @@ const UserDropdown = () => {
         color={"primary"}
         variant={"shadow"}
       >
-        <DropdownItem key="new">Profile</DropdownItem>
+        <DropdownItem key="new" onClick={() => { navigate('/profile') }}>Profile</DropdownItem>
         <DropdownItem
           className="flex flex-row items-center justify-between"
           key="copy"

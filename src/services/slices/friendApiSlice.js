@@ -1,35 +1,46 @@
 import { apiSlice } from "./apiSlice";
-const FRIEND_URL = 'http://localhost:3000/api/v1/friends'
+const FRIEND_URL = '/api/v1/friends'
 // api
 export const friendApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        
+
         getFriends: builder.mutation({
             query: (data) => ({
                 url: `${FRIEND_URL}/friends`,
                 method: 'GET',
-                
-                
+
+
             })
         }),
         getOtherUsersRequest: builder.mutation({
             query: (data) => ({
                 url: `${FRIEND_URL}/friend-requests`,
                 method: 'GET',
-                
-                
+
+
             })
         }),
         getUserRequest: builder.mutation({
             query: (data) => ({
                 url: `${FRIEND_URL}/friend-requests/sent`,
                 method: 'GET',
-                
-                
             })
         }),
-      
-       
+
+        sendFriendRequest: builder.mutation({
+            query: (data) => ({
+                url: `${FRIEND_URL}/friend-requests`,
+                method: 'POST',
+                body: data
+            })
+        }),
+        confirmFriendRequest: builder.mutation({
+            query: (data) => ({
+                url: `${FRIEND_URL}/friend-requests/confirm`,
+                method: 'PUT',
+                body: data
+            })
+        }),
     })
 })
-export const {useGetFriendsMutation ,useGetOtherUsersRequestMutation, useGetUserRequestMutation } = friendApiSlice
+export const { useGetFriendsMutation, useGetOtherUsersRequestMutation, useGetUserRequestMutation, useSendFriendRequestMutation, useConfirmFriendRequestMutation } = friendApiSlice
