@@ -29,7 +29,6 @@ import ProfileGallery from './pages/ProfileGallery'
 function App() {
   const redux = useSelector((state) => state);
   const postData = useSelector((state) => state.post.postData);
-  console.log('redux ==>', redux)
 
   const [count, setCount] = useState(0);
   const { theme } = useSelector((state) => state.theme)

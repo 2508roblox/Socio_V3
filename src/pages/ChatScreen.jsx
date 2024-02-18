@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import avatar from "../assets/imgs/avatar.avif";
 import story from "../assets/imgs/story.jpg";
@@ -32,11 +32,58 @@ import { motion } from "framer-motion";
 import {Input} from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import ChatRoom from "../components/ChatRoom";
+import { useDispatch, useSelector } from "react-redux";
+import { useGetAllRoomByAuthIdMutation, useGetRoomBySearchParamsMutation } from "../services/slices/chatApiSlice";
+import { setChatRoomList } from "../services/slices/chatSlice";
 const ChatScreen = () => {
-  const [isExpand, setIsExpand] = useState(true)
+  const [isExpand, setIsExpand] = useState(false)
   const handleExpandRoomInfo = (e) => {
     setIsExpand(prev => !prev)
   }
+
+  //chat logic
+
+  const auth_id = useSelector((state) => state.auth.userInfo.user._id);
+  const roomData = useSelector(state => state.chat.chat)
+
+  const [getRoom, { isLoading: getRoomLoading, error: getRoomError }] = useGetAllRoomByAuthIdMutation();
+  const [searchRoom, { isLoading: searchRoomLoading, error: searchRoomError }] = useGetRoomBySearchParamsMutation();
+  const dispatch = useDispatch();
+  
+  const fetchRoom = async () => {
+    await getRoom( )
+      .unwrap()
+      .then((response) => {
+        dispatch(setChatRoomList(response.result ));
+      });
+  };
+
+  useEffect(() => {
+  
+    fetchRoom();
+  }, []);
+  let searchRequest;
+
+  const handleSearch = async (e) => {
+    let searchParams = e.target.value;
+    
+    if (searchParams === '') {
+      return fetchRoom();
+    }
+    
+    if (searchRequest) {
+      searchRequest.abort(); // Abort the previous search request if it exists
+    }
+    
+    searchRequest = searchRoom(searchParams);
+    
+    try {
+      const response = await searchRequest.unwrap();
+      dispatch(setChatRoomList(response.result.conversations));
+    } catch (error) {
+      // Handle error
+    }
+  };
   return (
     <div className="bg-primary-light  transition-all duration-1000 dark:bg-primary-dark w-full min-h-screen px-6 pt-3">
       <Header></Header>
@@ -131,7 +178,8 @@ const ChatScreen = () => {
                 <UilBookMedical className="text-sm" size="16px" />
               </div>
             </div>
-            <Input
+            <Input 
+              onChange={(e) => handleSearch(e)}
               type="text"
               placeholder="Search..."
               labelPlacement="outside"
@@ -144,11 +192,13 @@ const ChatScreen = () => {
 
           <div className="flex  flex-col items-start gap-4 h-[55vh]">
             {/* item */}
-            <ChatRoom></ChatRoom>
-            <ChatRoom></ChatRoom>
-            <ChatRoom></ChatRoom>
-            <ChatRoom></ChatRoom>
-            <ChatRoom></ChatRoom>
+            {
+              console.log('data',roomData)
+            }
+            {
+             roomData && roomData.length > 0 && roomData.map(room =>   <ChatRoom room={room}></ChatRoom> )
+            }
+         
           </div>
         </div>
         {/* message */}
