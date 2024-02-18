@@ -39,16 +39,17 @@ const ChatRoom = ({room}) => {
                 >
                   <Image
                     isZoomed
-                    className=" rounded-full border-[2px] border-white shadow-md"
+                    className=" rounded-full border-[2px] border-white shadow-md h-[50px]"
                     alt="NextUI hero Image"
                     width={50}
+                    height={50}
                     src={room?.cover_image || userData?.avatar || avatar}
                   />
                 </Badge>
                 <div className="">
                   <h1 className="font-semibold">{room?.title || userData?.username }</h1>
                   <p className="text-medium text-text-gray">
-                    Suma is typing . . .
+                   {room?.user_id ? 'Start new conversation!' : 'Typing...'}
                   </p>
                 </div>
               </div>
