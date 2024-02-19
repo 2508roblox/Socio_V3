@@ -19,8 +19,8 @@ const RequestingScreen = () => {
   const users = useSelector((state) => state.friend.friendData?.requesting)
   const allusers = useSelector((state) => state.friend.friendData.allUser)
   console.log('users', users)
-  const filteredUsers = allusers.filter(user => !users.some(u => u.receiver !== user._id));
-  // console.log('Filtered users', filteredUsers);
+  const filteredUsers = allusers.filter(user => users.some(u => u.sender !== user._id));
+  console.log('filteredUsers', filteredUsers);
 
   useEffect(() => {
     const fetchRequesting = async () => {
@@ -64,7 +64,6 @@ const RequestingScreen = () => {
           </div>
           <div className="friends grid grid-cols-4 gap-4">
             {/* item */}
-
             {
               users.length > 0 && filteredUsers.map(user => {
                 return <UserCard user={user} type={"REQUESTING"}></UserCard>

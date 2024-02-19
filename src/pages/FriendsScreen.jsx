@@ -24,14 +24,26 @@ const FriendsScreen = () => {
     const mappedUsers = [];
 
     allusers.forEach((user_) => {
-      if (user.receiver === user_._id) {
-        mappedUsers.push({
-          ...user,
-          avatar: user_.avatar,
-          firstName: user_.firstName,
-          lastName: user_.lastName,
-          username: user_.username,
-        });
+      if (user.receiver !== auth_id) {
+        if (user.receiver === user_._id) {
+          mappedUsers.push({
+            ...user,
+            avatar: user_.avatar,
+            firstName: user_.firstName,
+            lastName: user_.lastName,
+            username: user_.username,
+          });
+        }
+      } else {
+        if (user.sender === user_._id) {
+          mappedUsers.push({
+            ...user,
+            avatar: user_.avatar,
+            firstName: user_.firstName,
+            lastName: user_.lastName,
+            username: user_.username,
+          });
+        }
       }
     });
 
