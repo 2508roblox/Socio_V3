@@ -4,8 +4,13 @@ import { Listbox, ListboxItem, Chip, ScrollShadow } from "@nextui-org/react";
 import { ListboxWrapper } from "./ListboxWrapper";
 import { users } from "./data";
 import { useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const ModalListUser = ({ theme, isOpen, onOpenChange, name }) => {
+const ModalListUser = ({ theme, isOpen, onOpenChange, name, users }) => {
+    const user_id_ = useSelector(state => state.auth.userInfo.user._id)
+    const { userId } = useParams();
+    console.log('userId', userId)
+    const user_id = userId ?? user_id_
     const userInfo = useSelector(state => state.auth.userInfo.user)
     const [values, setValues] = useState(new Set(["1"]));
 
@@ -22,9 +27,7 @@ const ModalListUser = ({ theme, isOpen, onOpenChange, name }) => {
                 className="w-full flex py-0.5 px-2 gap-1"
                 orientation="horizontal"
             >
-                {arrayValues.map((value) => (
-                    <Chip key={value}>{users.find((user) => `${user.id}` === `${value}`).name}</Chip>
-                ))}
+
             </ScrollShadow>
         );
     }, [arrayValues.length]);
@@ -65,12 +68,12 @@ const ModalListUser = ({ theme, isOpen, onOpenChange, name }) => {
                                     variant="flat"
                                 >
                                     {(item) => (
-                                        <ListboxItem key={item.id} textValue={item.name}>
+                                        <ListboxItem key={user_id === item.sender_info._id ? item.receiver_info._id : item.sender_info._id} textValue={user_id === item.sender_info._id ? item.receiver_info.username : item.sender_info.username}>
                                             <div className="flex gap-2 items-center">
-                                                <Avatar alt={item.name} className="flex-shrink-0" size="sm" src={item.avatar} />
+                                                <Avatar alt={item.sender_info.username} className="flex-shrink-0" size="sm" src={user_id === item.sender_info._id ? item.receiver_info.avatar : item.sender_info.avatar} />
                                                 <div className="flex flex-col">
-                                                    <span className="text-small">{item.name}</span>
-                                                    <span className="text-tiny text-default-400">{item.email}</span>
+                                                    <span className="text-small">{user_id === item.sender_info._id ? item.receiver_info.username : item.sender_info.username}</span>
+                                                    <span className="text-tiny text-default-400">{user_id === item.sender_info._id ? item.receiver_info.email : item.sender_info.email}</span>
                                                 </div>
                                             </div>
                                         </ListboxItem>

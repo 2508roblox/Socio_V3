@@ -134,7 +134,7 @@ const UserCard = ({ user, type }) => {
             </div>
           </div>
           <div className="flex gap-3 mt-9">
-            <Button className="w-full font-medium bg-btn-blue rounded-md text-xl text-white px-5" size="lg" onClick={() => { handleAccept(user?.sender_info._id) }}>
+            <Button className="w-full font-medium bg-btn-blue rounded-md text-xl text-white px-5" size="lg" onClick={() => { handleAccept(user._id) }}>
               Accept
             </Button>
 

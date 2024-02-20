@@ -24,9 +24,10 @@ const ProfileScreen = () => {
   const userInfo = useSelector(state => state.auth.userInfo.user)
   const userInfo_ = useSelector(state => state.auth.userInfo)
   const { userId } = useParams();
+
   //other user data
   const [otherUser, setOtherUser] = useState(null)
-  const [infoUserid, setinfoUserid] = useState({ friend: [], request: [], requesting: [] })
+  const [infoUserid, setinfoUserid] = useState()
   const [pending, setPending] = useState(false)
   const authInfo = useSelector(state => state.auth)
   const dispatch = useDispatch()
@@ -70,14 +71,14 @@ const ProfileScreen = () => {
       await getUserInfoById_(userId ?? userInfo._id).unwrap()
         .then((response) => {
           console.log(response)
-          setOtherUser(response.user)
+          setinfoUserid(response)
         })
     }
     getUserInfoById()
     const getUserInfo = async () => {
       await getUser(userId).unwrap()
         .then((response) => {
-          console.log(response)
+          console.log('response', response)
           setOtherUser(response.user)
         })
     }
@@ -275,17 +276,17 @@ const ProfileScreen = () => {
               <p className="text-xl font-bold opacity-60 cursor-pointer hover:opacity-90"
                 onClick={onOpenFollowers}
               >
-                8000 Followers
+                {infoUserid?.incomingRequests.length} Followers
               </p>
               <p className="text-xl font-bold opacity-60 cursor-pointer hover:opacity-90"
                 onClick={onOpenFollowings}
               >
-                10 Followings
+                {infoUserid?.sentRequests.length} Followings
               </p>
               <p className="text-xl font-bold opacity-60 cursor-pointer hover:opacity-90"
                 onClick={onOpenFriends}
               >
-                100 Friends
+                {infoUserid?.friends.length} Friends
               </p>
             </div>
           </div>
@@ -344,9 +345,9 @@ const ProfileScreen = () => {
       <ModalCrop theme={theme} isOpen={isOpen} onOpenChange={onOpenChange} updateAvatar={updateAvatar} />
       <ModalBanner theme={theme} isOpen={bannerisOpen} onOpenChange={banneronOpenChange} updateAvatar={updateBanner} />
       <ModalUpdateProfile theme={theme} isOpen={profileisOpen} onOpenChange={profileonOpenChange} formik={formik} />
-      <ModalListUser theme={theme} name={'Followers'} isOpen={isOpenFollowers} onOpenChange={onOpenChangeFollowers} />
-      <ModalListUser theme={theme} name={'Followings'} isOpen={isOpenFollowings} onOpenChange={onOpenChangeFollowings} />
-      <ModalListUser theme={theme} name={'Friends'} isOpen={isOpenFriends} onOpenChange={onOpenChangeFriends} />
+      <ModalListUser theme={theme} name="Followers" isOpen={isOpenFollowers} onOpenChange={onOpenChangeFollowers} users={infoUserid?.incomingRequests ?? []} />
+      <ModalListUser theme={theme} name="Followings" isOpen={isOpenFollowings} onOpenChange={onOpenChangeFollowings} users={infoUserid?.sentRequests ?? []} />
+      <ModalListUser theme={theme} name="Friends" isOpen={isOpenFriends} onOpenChange={onOpenChangeFriends} users={infoUserid?.friends ?? []} />
     </>
 
 
