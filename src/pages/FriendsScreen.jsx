@@ -19,36 +19,7 @@ const FriendsScreen = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.friend.friendData?.friend);
   const allusers = useSelector((state) => state.friend.friendData.allUser)
-  console.log('users', users)
-  const filteredUsers = users.map((user) => {
-    const mappedUsers = [];
 
-    allusers.forEach((user_) => {
-      if (user.receiver !== auth_id) {
-        if (user.receiver === user_._id) {
-          mappedUsers.push({
-            ...user,
-            avatar: user_.avatar,
-            firstName: user_.firstName,
-            lastName: user_.lastName,
-            username: user_.username,
-          });
-        }
-      } else {
-        if (user.sender === user_._id) {
-          mappedUsers.push({
-            ...user,
-            avatar: user_.avatar,
-            firstName: user_.firstName,
-            lastName: user_.lastName,
-            username: user_.username,
-          });
-        }
-      }
-    });
-
-    return mappedUsers;
-  });
   useEffect(() => {
     const fetchFriend = async () => {
       await getFriends(auth_id)
@@ -92,8 +63,8 @@ const FriendsScreen = () => {
           <div className="friends grid grid-cols-4 gap-4">
             {/* item */}
             {
-              users.length > 0 && filteredUsers.map(user => {
-                return <UserCard user={user} type={"FRIEND"}></UserCard>
+              users.length > 0 && users.map(user => {
+                return <UserCard user={user[0] ?? user} type={"FRIEND"}></UserCard>
               })
 
             }

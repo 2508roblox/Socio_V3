@@ -17,40 +17,9 @@ const RequestScreen = () => {
   const [getRequest, { isLoading, error }] = useGetOtherUsersRequestMutation();
   const dispatch = useDispatch();
   const users = useSelector((state) => state.friend.friendData?.request);
-  const allusers = useSelector((state) => state.friend.friendData.allUser)
-  const filteredUsers = users.map((user) => {
-    const mappedUsers = [];
 
-    allusers.forEach((user_) => {
-      if (user.receiver !== auth_id) {
-        if (user.receiver === user_._id) {
-          mappedUsers.push({
-            ...user,
-            avatar: user_.avatar,
-            firstName: user_.firstName,
-            lastName: user_.lastName,
-            username: user_.username,
-          });
-        }
-      } else {
-        if (user.sender === user_._id) {
-          mappedUsers.push({
-            ...user,
-            avatar: user_.avatar,
-            firstName: user_.firstName,
-            lastName: user_.lastName,
-            username: user_.username,
-          });
-        }
-      }
-    });
 
-    return mappedUsers;
-  });
 
-  console.log(filteredUsers);
-
-  console.log('filteredUsers', filteredUsers)
 
   useEffect(() => {
     const fetchRequest = async () => {
@@ -95,7 +64,7 @@ const RequestScreen = () => {
           <div className="friends grid grid-cols-4 gap-4">
             {/* item */}
             {
-              users.length > 0 && filteredUsers.map(user => {
+              users.length > 0 && users.map(user => {
                 return <UserCard user={user} type={"REQUEST"} ></UserCard>
               })
 
