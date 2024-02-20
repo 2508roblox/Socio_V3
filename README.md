@@ -1,3 +1,9 @@
+# Socio - Social Media Website (Screen shot)
+![Mô tả ảnh](https://i.ibb.co/Zfy44F9/10.png)
+![Mô tả ảnh](https://i.ibb.co/PNtTj7Q/32.png)
+![Mô tả ảnh](https://i.ibb.co/YNqk05B/38.png)
+![Mô tả ảnh](https://i.ibb.co/w4Byxrr/13.png)
+
 # Socio - Social Media Website
  > - Developed Socio, an online platform using React.js and Node.js, with MongoDB as the database system and Socket.IO for real-time communication.
  > - Implemented features such as user registration, profile management, social networking, and real-time messaging.
@@ -38,3 +44,4 @@
 - __Like, Unlike, and Edit Posts:__ Users can like or unlike posts, as well as edit the content of their own posts.
 
 - __Following and Followers Menu:__ The profile page displays the number of followers and accounts that the user is following, allowing users to navigate to the respective lists.
+
