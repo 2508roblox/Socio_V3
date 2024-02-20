@@ -52,7 +52,7 @@
         @apply dark:bg-btn-yellow 
     }
     Button {
-        @apply dark:text-black 
+        @apply dark:text-black  
     }
     img {
         @apply dark:border-black

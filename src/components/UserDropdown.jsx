@@ -12,14 +12,14 @@ import { logout } from '../services/slices/authSlice';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 const UserDropdown = () => {
-  const userInfo = useSelector(state => state.auth.userInfo.user)
+  const userInfo = useSelector(state => state.auth.userInfo?.user)
 
   const { theme } = useSelector((state) => state.theme)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const handleLogout = async () => {
     dispatch(logout())
-    navigate('register')
+    navigate('register' )
 
   }
   return (
@@ -30,12 +30,12 @@ const UserDropdown = () => {
         <Button color={"gray"} variant={"shadow"} className="dark:bg-transparent dark:text-white capitalize p-0 ">
           <div className=" flex items-center gap-2 p-2">
             <PhotoProvider maskOpacity={0.5}>
-              <PhotoView src={userInfo.avatar}>
-                <img src={userInfo.avatar} className="rounded-full" width={40} alt="" />
+              <PhotoView src={userInfo?.avatar}>
+                <img src={userInfo?.avatar} className="rounded-full" width={40} alt="" />
 
               </PhotoView>
             </PhotoProvider>
-            <span className="text-medium font-medium">{userInfo.firstName} {userInfo.lastName}</span>
+            <span className="text-medium font-medium">{userInfo?.firstName} {userInfo?.lastName}</span>
             <UilAngleDown />
           </div>
         </Button>

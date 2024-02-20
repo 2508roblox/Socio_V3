@@ -5,6 +5,7 @@ import themeSlice from '../slices/themeSlice'
 import postSlice from '../slices/postSlice'
 import friendSlice from '../slices/friendSlice'
 import chatSlice from '../slices/chatSlice'
+import messageSlice from '../slices/messageSlice'
 const store = configureStore({
     devTools: true,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware ),
@@ -15,6 +16,7 @@ const store = configureStore({
         'theme': themeSlice,
         'chat': chatSlice,
         'friend': friendSlice,
+        'message': messageSlice,
         [apiSlice.reducerPath] : apiSlice.reducer
     }
 

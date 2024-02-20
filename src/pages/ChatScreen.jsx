@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
 import avatar from "../assets/imgs/avatar.avif";
 import story from "../assets/imgs/story.jpg";
@@ -35,6 +35,9 @@ import ChatRoom from "../components/ChatRoom";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetAllRoomByAuthIdMutation, useGetRoomBySearchParamsMutation } from "../services/slices/chatApiSlice";
 import { setChatRoomList } from "../services/slices/chatSlice";
+import Message from "../components/Message";
+import ChatInput from "../components/ChatInput";
+import { useGetMessageMutation } from "../services/slices/messageApiSlice";
 const ChatScreen = () => {
   const [isExpand, setIsExpand] = useState(false)
   const handleExpandRoomInfo = (e) => {
@@ -42,12 +45,15 @@ const ChatScreen = () => {
   }
 
   //chat logic
+  const chatContainerRef = useRef(null);
 
-  const auth_id = useSelector((state) => state.auth.userInfo.user._id);
-  const roomData = useSelector(state => state.chat.chat)
-
+  const auth_id = useSelector((state) => state.auth.userInfo?.user?._id);
+  const roomData = useSelector(state => state.chat.chatData?.chat)
+  const messageData = useSelector(state => state.message.messageData)
   const [getRoom, { isLoading: getRoomLoading, error: getRoomError }] = useGetAllRoomByAuthIdMutation();
   const [searchRoom, { isLoading: searchRoomLoading, error: searchRoomError }] = useGetRoomBySearchParamsMutation();
+  const [getMessage, { isLoading: getMessageLoading, error: getMessageError }] = useGetMessageMutation();
+
   const dispatch = useDispatch();
   
   const fetchRoom = async () => {
@@ -70,16 +76,17 @@ const ChatScreen = () => {
     if (searchParams === '') {
       return fetchRoom();
     }
-    
     if (searchRequest) {
       searchRequest.abort(); // Abort the previous search request if it exists
     }
     
-    searchRequest = searchRoom(searchParams);
+    
     
     try {
-      const response = await searchRequest.unwrap();
-      dispatch(setChatRoomList(response.result.conversations));
+     await searchRoom(searchParams).unwrap().then((response) => 
+      
+      dispatch(setChatRoomList(response.result.conversations))
+      );
     } catch (error) {
       // Handle error
     }
@@ -219,7 +226,7 @@ const ChatScreen = () => {
 </div>
 }
             {
-           !searchRoomLoading && !getRoomLoading&& roomData && roomData.length > 0 && roomData.map(room =>   <ChatRoom key={room._id || room.user_id} room={room}></ChatRoom> )
+           !searchRoomLoading && !getRoomLoading&& roomData && roomData.length > 0 && roomData.map(room =>   <ChatRoom key={room._id || room.user_id} room={room} getMessage={getMessage}></ChatRoom> )
             }
          
           </div>
@@ -253,111 +260,70 @@ const ChatScreen = () => {
               }}
             ></UilFolderOpen>
           </div>
-          <div className="message p-5 flex flex-col gap-5 h-4/5 overflow-y-scroll scrollbar-hide">
-            <div className="left  flex gap-2 items-center">
-              <Avatar radius="full" src={avatar} size="lg" />
-              <div className="flex flex-col gap-2 ">
-                <p className="  ">Roxie mills</p>
-                <p className="bg-primary-light dark:bg-primary-dark p-3 rounded-2xl rounded-tl-none ">
-                  Hi Giang, What's going on ?
-                </p>
-                <p className=" text-btn-blue dark:text-btn-yellow text-sm opacity-60 ">
-                  just now
-                </p>
-              </div>
-            </div>
-            <div className="right justify-end flex gap-2 items-center">
-              <div className="flex items-end flex-col gap-2 ">
-                <p className=" dark:bg-btn-gray bg-btn-blue text-white p-3 rounded-2xl rounded-br-none ">
-                  Hi Giang, What's going on ?
-                </p>
-                <p className=" text-btn-blue dark:text-btn-yellow text-sm opacity-60 ">
-                  just now
-                </p>
-              </div>
-              <Avatar radius="full" src={avatar} size="lg" />
-            </div>
-            <div className="left  flex gap-2 items-center">
-              <Avatar radius="full" src={avatar} size="lg" />
-              <div className="flex flex-col gap-2 ">
-                <p className="  ">Roxie mills</p>
-                <p className="bg-primary-light dark:bg-primary-dark p-3 rounded-2xl rounded-tl-none ">
-                  Hi Giang, What's going on ?
-                </p>
-                <p className=" text-btn-blue dark:text-btn-yellow text-sm opacity-60 ">
-                  just now
-                </p>
-              </div>
-            </div>
-            <div className="right justify-end flex gap-2 items-center">
-              <div className="flex items-end flex-col gap-2 ">
-                <p className=" dark:bg-btn-gray bg-btn-blue text-white p-3 rounded-2xl rounded-br-none ">
-                  Hi Giang, What's going on ?
-                </p>
-                <p className=" text-btn-blue dark:text-btn-yellow text-sm opacity-60 ">
-                  just now
-                </p>
-              </div>
-              <Avatar radius="full" src={avatar} size="lg" />
-            </div>
-            <div className="left  flex gap-2 items-center">
-              <Avatar radius="full" src={avatar} size="lg" />
-              <div className="flex flex-col gap-2 ">
-                <p className="  ">Roxie mills</p>
-                <p className="bg-primary-light dark:bg-primary-dark p-3 rounded-2xl rounded-tl-none ">
-                  Hi Giang, What's going on ?
-                </p>
-                <p className=" text-btn-blue dark:text-btn-yellow text-sm opacity-60 ">
-                  just now
-                </p>
-              </div>
-            </div>
-            <div className="right justify-end flex gap-2 items-center">
-              <div className="flex items-end flex-col gap-2 ">
-                <p className=" dark:bg-btn-gray bg-btn-blue text-white p-3 rounded-2xl rounded-br-none ">
-                  Hi Giang, What's going on ?
-                </p>
-                <p className=" text-btn-blue dark:text-btn-yellow text-sm opacity-60 ">
-                  just now
-                </p>
-              </div>
-              <Avatar radius="full" src={avatar} size="lg" />
-            </div>
-            <div className="left  flex gap-2 items-center">
-              <Avatar radius="full" src={avatar} size="lg" />
-              <div className="flex flex-col gap-2 ">
-                <p className="  ">Roxie mills</p>
-                <p className="bg-primary-light dark:bg-primary-dark p-3 rounded-2xl rounded-tl-none ">
-                  Hi Giang, What's going on ?
-                </p>
-                <p className=" text-btn-blue dark:text-btn-yellow text-sm opacity-60 ">
-                  just now
-                </p>
-              </div>
-            </div>
-            <div className="right justify-end flex gap-2 items-center">
-              <div className="flex items-end flex-col gap-2 ">
-                <p className=" dark:bg-btn-gray bg-btn-blue text-white p-3 rounded-2xl rounded-br-none ">
-                  Hi Giang, What's going on ?
-                </p>
-                <p className=" text-btn-blue dark:text-btn-yellow text-sm opacity-60 ">
-                  just now
-                </p>
-              </div>
-              <Avatar radius="full" src={avatar} size="lg" />
-            </div>
+          <div ref={chatContainerRef} className="message p-5 flex flex-col gap-5 h-4/5 overflow-y-scroll scrollbar-hide">
+            {/* messages */}
+   {
+    getMessageLoading &&
+  <>
+   <div className="max-w-[300px] w-full flex items-center gap-3">
+    <div>
+      <Skeleton className="flex rounded-full w-12 h-12"/>
+    </div>  
+    <div className="w-full flex flex-col gap-2">
+      <Skeleton className="h-3 w-3/5 rounded-lg"/>
+      <Skeleton className="h-3 w-4/5 rounded-lg"/>
+    </div>
+  </div>
+    <div className="max-w-[300px] w-full flex items-center gap-3">
+    <div>
+      <Skeleton className="flex rounded-full w-12 h-12"/>
+    </div>  
+    <div className="w-full flex flex-col gap-2">
+      <Skeleton className="h-3 w-3/5 rounded-lg"/>
+      <Skeleton className="h-3 w-4/5 rounded-lg"/>
+    </div>
+  </div>
+    <div className="max-w-[300px] w-full flex items-center gap-3">
+    <div>
+      <Skeleton className="flex rounded-full w-12 h-12"/>
+    </div>  
+    <div className="w-full flex flex-col gap-2">
+      <Skeleton className="h-3 w-3/5 rounded-lg"/>
+      <Skeleton className="h-3 w-4/5 rounded-lg"/>
+    </div>
+  </div>
+    <div className="max-w-[300px] w-full float-right flex items-center gap-3">
+    <div>
+      <Skeleton className="flex rounded-full w-12 h-12"/>
+    </div>  
+    <div className="w-full flex flex-col gap-2">
+      <Skeleton className="h-3 w-3/5 rounded-lg"/>
+      <Skeleton className="h-3 w-4/5 rounded-lg"/>
+    </div>
+  </div>
+    <div className="max-w-[300px] w-full flex items-center gap-3">
+    <div>
+      <Skeleton className="flex rounded-full w-12 h-12"/>
+    </div>  
+    <div className="w-full flex flex-col gap-2">
+      <Skeleton className="h-3 w-3/5 rounded-lg"/>
+      <Skeleton className="h-3 w-4/5 rounded-lg"/>
+    </div>
+  </div>
+  </>
+    
+   }
+            {
+             !getMessageLoading && messageData && messageData.map(mess => {
+               return <Message key={mess._id} mess={mess}></Message>
+              })
+            }
+        
+          
+          
           </div>
           {/* chat input */}
-          <div className="px-4 m-5  rounded-xl border-none shadow-inner  flex justify-start gap-2   items-center bg-primary-light dark:bg-primary-dark p-1">
-            <UilSmile className="text-2xl text-default-400 pointer-events-none flex-shrink-0"></UilSmile>
-            <input
-              type="text"
-              placeholder="what's new with you?"
-              className="dark:bg-primary-dark text-black   flex items-center mb-1 w-full outline-none  dark:text-white"
-              color="default"
-            />
-            <UilMessage></UilMessage>
-          </div>
+        <ChatInput scroll={chatContainerRef}></ChatInput>
         </div>
 {/* collasap */}
       {isExpand && 

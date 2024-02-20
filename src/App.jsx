@@ -26,6 +26,7 @@ import RelationShipLayout from './components/layout/RelationshipLayout'
 import RegisterScreen from './pages/RegisterScreen'
 import LoginScreen from './pages/LoginScreen'
 import ProfileGallery from './pages/ProfileGallery'
+import WelcomeScreen from './pages/WelcomeScreen'
 function App() {
   const redux = useSelector((state) => state);
   const postData = useSelector((state) => state.post.postData);
@@ -47,6 +48,7 @@ function App() {
 
             <Routes>
               <Route path="/" element={<PrivateRoute   element={HomeScreen} />} />
+              <Route path="/welcome" element={ <WelcomeScreen></WelcomeScreen>} />
               <Route path="/profile/:userId" element={<PrivateRoute   element={ProfileLayout} />  }> 
               <Route index element={<ProfileScreen></ProfileScreen>}></Route>
               </Route>

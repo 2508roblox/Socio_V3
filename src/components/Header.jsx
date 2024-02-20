@@ -14,7 +14,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure
 import { Card, CardBody } from "@nextui-org/react";
 import { useLocation } from 'react-router-dom';
 
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Badge, Button } from "@nextui-org/react";
 import { Link, useNavigate } from "react-router-dom";
 import TabsComponent from './TabsComponent'
@@ -31,7 +31,6 @@ const Header = () => {
         <Link to={'/'}>
         <img width={50} src={theme == 'light' ? lightLogo : darkLogo} alt="" />
         </Link>
-        
         <SearchModal></SearchModal>
       </div>
       <nav className="col-span-3 px-2">

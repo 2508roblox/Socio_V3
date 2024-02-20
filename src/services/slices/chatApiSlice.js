@@ -20,9 +20,25 @@ export const chatApiSlice = apiSlice.injectEndpoints({
 
             })
         }),
+        createRoom: builder.mutation({
+            query: (data) => ({
+                url: `${USERS_URL}/`,
+                method: 'POST',
+                body: data
+
+            })
+        }),
+        inviteMembers: builder.mutation({
+            query: (data) => ({
+                url: `${USERS_URL}/${data.room_id}/invite`,
+                method: 'PUT',
+                body: data
+
+            })
+        }),
        
 
     })
 })
-export const { useGetAllRoomByAuthIdMutation , useGetRoomBySearchParamsMutation} = chatApiSlice
+export const { useGetAllRoomByAuthIdMutation , useGetRoomBySearchParamsMutation, useCreateRoomMutation, useInviteMembersMutation} = chatApiSlice
  
