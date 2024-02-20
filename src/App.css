@@ -21,9 +21,7 @@
     object-fit: cover;
 }
 
-.react-photo-gallery--gallery img:nth-child(n+5) {
-    display: none !important;
-}
+.react-photo-gallery--gallery img:nth-child(n+5) {}
 
 .crop {
     /* Các thuộc tính khác */

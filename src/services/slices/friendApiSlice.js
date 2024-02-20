@@ -35,6 +35,12 @@ export const friendApiSlice = apiSlice.injectEndpoints({
                 method: 'GET',
             })
         }),
+        getUserInfoById: builder.mutation({
+            query: (data) => ({
+                url: `${FRIEND_URL}/friend-requests/info/${data}`,
+                method: 'GET',
+            })
+        }),
 
         sendFriendRequest: builder.mutation({
             query: (data) => ({
@@ -52,4 +58,4 @@ export const friendApiSlice = apiSlice.injectEndpoints({
         }),
     })
 })
-export const { useGetFriendsMutation, useGetOtherUsersRequestMutation, useGetUserRequestMutation, useSendFriendRequestMutation, useConfirmFriendRequestMutation, useDeleteFriendMutation } = friendApiSlice
+export const { useGetFriendsMutation, useGetOtherUsersRequestMutation, useGetUserRequestMutation, useSendFriendRequestMutation, useConfirmFriendRequestMutation, useDeleteFriendMutation, useGetUserInfoByIdMutation } = friendApiSlice

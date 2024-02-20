@@ -18,23 +18,25 @@ import 'react-photo-view/dist/react-photo-view.css';
 import ModalUpdateProfile from "../components/updateProfile/ModalUpdateProfile";
 import { useParams } from 'react-router';
 import { setRequest, setRequesting } from '../services/slices/friendSlice';
-import { useGetOtherUsersRequestMutation, useGetUserRequestMutation, useSendFriendRequestMutation } from '../services/slices/friendApiSlice';
+import { useGetOtherUsersRequestMutation, useGetUserInfoByIdMutation, useGetUserRequestMutation, useSendFriendRequestMutation } from '../services/slices/friendApiSlice';
+import ModalListUser from '../components/ModalListUser';
 const ProfileScreen = () => {
   const userInfo = useSelector(state => state.auth.userInfo.user)
   const userInfo_ = useSelector(state => state.auth.userInfo)
   const { userId } = useParams();
   //other user data
   const [otherUser, setOtherUser] = useState(null)
+  const [infoUserid, setinfoUserid] = useState({ friend: [], request: [], requesting: [] })
   const [pending, setPending] = useState(false)
   const authInfo = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const [updateAvatar_, { isLoading: updateAvatarLoading, error: updateAvatarError }] = useUpdateAvatarMutation();
   const [updateBanner_, { isLoading: updateBannerLoading, error: updateBannerError }] = useUpdateBannerMutation();
   const [updateProfile_, { isLoading: updateProfileLoading, error: updateProfilerError }] = useUpdateProfileMutation();
+  const [getUserInfoById_] = useGetUserInfoByIdMutation();
 
   const [getUserRequest] = useGetUserRequestMutation();
   const [getOtherUsersRequest_] = useGetOtherUsersRequestMutation();
-
   const [sendFriendRequest_] = useSendFriendRequestMutation();
   const [getUser, { isLoading: getUserLoading, error: getUserError }] = useGetByIdMutation();
 
@@ -42,6 +44,9 @@ const ProfileScreen = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { isOpen: bannerisOpen, onOpen: banneronOpen, onOpenChange: banneronOpenChange } = useDisclosure();
   const { isOpen: profileisOpen, onOpen: profileonOpen, onOpenChange: profileonOpenChange } = useDisclosure();
+  const { isOpen: isOpenFollowers, onOpen: onOpenFollowers, onOpenChange: onOpenChangeFollowers } = useDisclosure();
+  const { isOpen: isOpenFollowings, onOpen: onOpenFollowings, onOpenChange: onOpenChangeFollowings } = useDisclosure();
+  const { isOpen: isOpenFriends, onOpen: onOpenFriends, onOpenChange: onOpenChangeFriends } = useDisclosure();
 
 
 
@@ -61,6 +66,14 @@ const ProfileScreen = () => {
   useEffect(() => {
 
 
+    const getUserInfoById = async () => {
+      await getUserInfoById_(userId ?? userInfo._id).unwrap()
+        .then((response) => {
+          console.log(response)
+          setOtherUser(response.user)
+        })
+    }
+    getUserInfoById()
     const getUserInfo = async () => {
       await getUser(userId).unwrap()
         .then((response) => {
@@ -226,6 +239,7 @@ const ProfileScreen = () => {
                     className="w-full bg-btn-blue rounded-md text-xl text-white px-5"
                     size="lg"
                     onClick={handleSendFriendRequest}
+
                   >
 
                     Add Friend
@@ -258,13 +272,19 @@ const ProfileScreen = () => {
               )}
             </div>
             <div className="mx-32 my-3 flex gap-4">
-              <p className="text-xl font-bold opacity-60 cursor-pointer hover:opacity-90">
+              <p className="text-xl font-bold opacity-60 cursor-pointer hover:opacity-90"
+                onClick={onOpenFollowers}
+              >
                 8000 Followers
               </p>
-              <p className="text-xl font-bold opacity-60 cursor-pointer hover:opacity-90">
+              <p className="text-xl font-bold opacity-60 cursor-pointer hover:opacity-90"
+                onClick={onOpenFollowings}
+              >
                 10 Followings
               </p>
-              <p className="text-xl font-bold opacity-60 cursor-pointer hover:opacity-90">
+              <p className="text-xl font-bold opacity-60 cursor-pointer hover:opacity-90"
+                onClick={onOpenFriends}
+              >
                 100 Friends
               </p>
             </div>
@@ -324,6 +344,9 @@ const ProfileScreen = () => {
       <ModalCrop theme={theme} isOpen={isOpen} onOpenChange={onOpenChange} updateAvatar={updateAvatar} />
       <ModalBanner theme={theme} isOpen={bannerisOpen} onOpenChange={banneronOpenChange} updateAvatar={updateBanner} />
       <ModalUpdateProfile theme={theme} isOpen={profileisOpen} onOpenChange={profileonOpenChange} formik={formik} />
+      <ModalListUser theme={theme} name={'Followers'} isOpen={isOpenFollowers} onOpenChange={onOpenChangeFollowers} />
+      <ModalListUser theme={theme} name={'Followings'} isOpen={isOpenFollowings} onOpenChange={onOpenChangeFollowings} />
+      <ModalListUser theme={theme} name={'Friends'} isOpen={isOpenFriends} onOpenChange={onOpenChangeFriends} />
     </>
 
 
